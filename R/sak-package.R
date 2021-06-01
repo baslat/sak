@@ -5,5 +5,13 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom tibble tibble
+#' @importFrom plyr .
+#' @importFrom rlang .data
+#' @importFrom rlang .env
+#' @importFrom rlang :=
+#' @importFrom rlang %||%
+#' @importFrom utils browseURL
+#' @importFrom utils getFromNamespace
+#' @importFrom utils URLencode
 ## usethis namespace: end
 NULL

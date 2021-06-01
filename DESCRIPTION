@@ -13,10 +13,12 @@ Imports:
     assertthat,
     dplyr,
     magrittr,
+    plyr,
     purrr,
     rlang (>= 0.1.2),
     tibble,
-    tidyselect
+    tidyselect,
+    utils
 Suggests: 
     roxygen2,
     spelling,
