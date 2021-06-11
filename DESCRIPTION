@@ -12,12 +12,15 @@ License: MIT + file LICENSE
 Imports: 
     assertthat,
     dplyr,
+    fs,
+    httr,
     magrittr,
     plyr,
     purrr,
     rlang (>= 0.1.2),
     tibble,
     tidyselect,
+    tools,
     utils
 Suggests: 
     roxygen2,

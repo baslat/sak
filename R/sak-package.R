@@ -10,6 +10,7 @@
 #' @importFrom rlang .env
 #' @importFrom rlang :=
 #' @importFrom rlang %||%
+#' @importFrom tools file_ext
 #' @importFrom utils browseURL
 #' @importFrom utils getFromNamespace
 #' @importFrom utils URLencode

@@ -11,8 +11,8 @@ sg(.data)
 }
 \value{
 a \code{list} where each element is a single column \code{tibble},
-referring to a character column o f\code{.data}, and contains the unique
-values
+referring to a character/factor column of \code{.data}, and contains the
+unique values
 }
 \description{
 Ever get a new dataset and you just want to know all the unique values for
@@ -22,11 +22,7 @@ that for you.
 }
 \examples{
 \dontrun{
-new_url <- paste0("https://api.data.abs.gov.au/data/ALC/",
-  "all?startPeriod=2010&endPeriod=2016&format=jsondata",
-  "&dimensionAtObservation=AllDimensions")
-
-tidy_data <- abs_api(new_url)
-sg(tidy_data)
+sg(dplyr::storms) # Returns a three element list
+sg(mtcars) # Returns a message and nothing else
 }
 }
