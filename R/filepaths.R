@@ -54,23 +54,23 @@ op <- open_path
 #' Load all custom functions in a project
 #'
 #' This helper function loads all the project-specific custom functions from the
-#' specified directory. Specifically it calls \code{source} on all files in the
-#' designated folder.
+#' specified directory. Specifically it calls \code{\link{source}} on all files
+#' in the designated folder.
 #'
-#' @param my_dir (character; default = "R/") the directory that contains scripts
+#' @param path (character; default = "R/") the directory that contains scripts
 #'   that only contain functions.
 #' @param recursive (logical; default = "TRUE") should subfolders be included?
 #'
 #' @export
 #'
-load_custom_functions <- function(my_dir = "R/",
+load_custom_functions <- function(path = "R/",
                                   recursive = TRUE) {
 
 
-  assertthat::assert_that(dir.exists(my_dir),
+  assertthat::assert_that(dir.exists(path),
                           msg = "Double check that your directory exists")
 
-  funcs <- dir(my_dir,
+  funcs <- dir(path,
                recursive = recursive,
                full.names = TRUE)
 
@@ -86,13 +86,14 @@ load_custom_functions <- function(my_dir = "R/",
 #' temporary file. This is a reusable and generalisable wrapper to do just that.
 #'
 #' @param url (character) the URL to the destination file
-#' @param file_ext (character; default = \code{file_ext(url)}) the file
+#' @param fileext (character; default = \code{file_ext(url)}) the file
 #'   extension of the file to download.
 #'
 #' @return a file path string to the downloaded file
 #' @export
 #' @examples
 #' \dontrun{
+#' # Large file
 #' download_file(url = "http://www2.census.gov/acs2011_5yr/pums/csv_pus.zip")
 #' readxl::read_excel(tf)
 #' }
@@ -114,22 +115,26 @@ download_file <- function(url,
 #' does not exist, the function creates that directory. The function does
 #' nothing if the directory exits.
 #'
-#' @param file_path (string) file path (or directory path)
+#' @param path (string) file path (or directory path)
 #'
 #' @export
 #'
-#' @examples \dontrun{
-#' covidpmc::fileshare("outputs/new_directory")
+#' @examples
+#' \dontrun{
+#' path <- "outputs/new_directory/stuff_for_today"
 #' make_dir_if_needed(path)
 #' }
-make_dir_if_needed <- function(file_path) {
+add_dir <- function(path) {
 
-  assertthat::is.string(file_path)
+  assertthat::assert_that(is.character(path),
+                          msg = "`path` must be a character")
 
-  directory <- file_path %>%
-    dirname()
+  directory <- path %>%
+    fs::path_sanitize() %>%
+    normalizePath(winslash = "/",
+                  mustWork = FALSE)
 
-  if(!dir.exists(directory)){
+  if(!dir.exists(directory)) {
     dir.create(directory)
   }
 }

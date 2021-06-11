@@ -13,14 +13,17 @@ Imports:
     assertthat,
     dplyr,
     fs,
+    glue,
     httr,
     magrittr,
     plyr,
     purrr,
     rlang (>= 0.1.2),
+    stringr,
     tibble,
     tidyselect,
     tools,
+    usethis,
     utils
 Suggests: 
     roxygen2,

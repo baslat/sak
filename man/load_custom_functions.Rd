@@ -4,16 +4,16 @@
 \alias{load_custom_functions}
 \title{Load all custom functions in a project}
 \usage{
-load_custom_functions(my_dir = "R/", recursive = TRUE)
+load_custom_functions(path = "R/", recursive = TRUE)
 }
 \arguments{
-\item{my_dir}{(character; default = "R/") the directory that contains scripts
+\item{path}{(character; default = "R/") the directory that contains scripts
 that only contain functions.}
 
 \item{recursive}{(logical; default = "TRUE") should subfolders be included?}
 }
 \description{
 This helper function loads all the project-specific custom functions from the
-specified directory. Specifically it calls \code{source} on all files in the
-designated folder.
+specified directory. Specifically it calls \code{\link{source}} on all files
+in the designated folder.
 }

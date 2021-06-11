@@ -9,7 +9,7 @@ download_file(url, fileext = file_ext(url))
 \arguments{
 \item{url}{(character) the URL to the destination file}
 
-\item{file_ext}{(character; default = \code{file_ext(url)}) the file
+\item{fileext}{(character; default = \code{file_ext(url)}) the file
 extension of the file to download.}
 }
 \value{
@@ -21,6 +21,7 @@ temporary file. This is a reusable and generalisable wrapper to do just that.
 }
 \examples{
 \dontrun{
+# Large file
 download_file(url = "http://www2.census.gov/acs2011_5yr/pums/csv_pus.zip")
 readxl::read_excel(tf)
 }
