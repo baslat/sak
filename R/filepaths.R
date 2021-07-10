@@ -23,27 +23,30 @@
 open_path <- function(path = NULL,
                       execute = FALSE) {
 
-  # Check if a subfolder in the wd
-  sub <- file.access(file.path(getwd(), path), mode = 0) == 0
-
-  if (sub) {
+  # If path is null, set to the working directory
+  if (is.null(path)) {
+    path <- getwd()
+  } else if (dir.exists(file.path(getwd(), path))) {
+    # Check if it's an internal folder
     path <- file.path(getwd(), path)
   }
 
-  # If path is null, set to the working directory
-  path <- path %||% getwd()
-
+  # Check it exists
   exists <- file.access(path, mode = 0)
-
   assertthat::assert_that(exists == 0,
                           msg = "Not a valid filepath")
 
-  if (!execute) {
+  # Check if it's a file or dir
+  file <- tools::file_ext(path) != ""
+
+
+  if (file && !execute) {
     path <- dirname(path)
   }
 
-  shell.exec(path)
-  invisible(path)
+    shell.exec(path)
+    invisible(path)
+
 }
 
 #' @rdname open_path
