@@ -9,7 +9,7 @@ normalise_geo_names(.data, remove_year = TRUE, make_lower = TRUE)
 \arguments{
 \item{.data}{(\code{data.frame}) A data.frame with columns you want renamed}
 
-\item{remove_year}{(logical; default = FALSE) Do you want to remove year
+\item{remove_year}{(logical; default = TRUE) Do you want to remove year
 identifies in the column names?}
 
 \item{make_lower}{(logical; default = TRUE) Do you want to set all column
