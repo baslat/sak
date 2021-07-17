@@ -8,7 +8,7 @@
 #' case.
 #'
 #' @param .data (\code{data.frame}) A data.frame with columns you want renamed
-#' @param remove_year (logical; default = FALSE) Do you want to remove year
+#' @param remove_year (logical; default = TRUE) Do you want to remove year
 #'   identifies in the column names?
 #' @param make_lower (logical; default = TRUE) Do you want to set all column
 #'   names to lower case?
