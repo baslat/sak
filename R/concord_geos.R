@@ -51,16 +51,19 @@
 #'   available columns are returned.
 #'
 #' @return a \code{tibble} with as the columns you asked for the as many rows as
-#'   needed to fulfil that request (i.e. up to 358,122 rows).
-#'   \code{dplyr::distinct} is called before returning (to minimise redundant
-#'   results).
+#'   needed to fulfil that request (i.e. up to 358,122 rows). Note that
+#'   \code{dplyr::distinct()} is called before returning the results (to
+#'   minimise redundant results).
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #'
-#'  get_geos(cols = c(mb_category_name_2016, area_albers_sqkm, ced_name_2018, persons))
+#'  get_geos(cols = c(mb_category_name_2016,
+#'                    area_albers_sqkm,
+#'                    ced_name_2018,
+#'                    persons))
 #'
 #'
 #'
@@ -68,28 +71,95 @@
 #'
 get_geos <- function(cols = NULL) {
 
-  # needs caching
-  geos_url <- "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true"
-  # geos_url <- "outputs/geos.csv"
+  # Basically need something that checks if there is a cached file in a env var path, and if so get it from there.
+  dir <- Sys.getenv("R_SAK_PATH",
+                    unset = tempdir())
+
+
+  if (!geos_available()) {
+    msg <- paste0("Downloading and caching the ~120MB geos.csv file (to `",
+                  normalizePath(dir, winslash = "/"),
+                  "`). You can control where it it cached by setting the 'R_SAK_PATH' system variable.")
+    message(msg)
+    cache_geos()
+  }
+
+  geos_path <- file.path(dir, "geos.csv")
+
 
   col_expr <- rlang::enexpr(cols)
 
   if (is.null(col_expr)) {
-    geos <- vroom::vroom(geos_url,
+    geos <- vroom::vroom(geos_path,
                          show_col_types = FALSE) %>%
       dplyr::distinct() %>%
-      sak::normalise_geo_names(remove_year = FALSE)
+      normalise_geo_names(remove_year = FALSE)
     return(geos)
   }
 
-  vroom::vroom(geos_url,
+  vroom::vroom(geos_path,
                show_col_types = FALSE,
                col_select = {{ col_expr }}) %>%
     dplyr::distinct() %>%
-    sak::normalise_geo_names(remove_year = FALSE)
+    normalise_geo_names(remove_year = FALSE)
 
 
 }
+
+
+
+#' Download and store the results of \code{get_geos}
+#'
+#'
+#'
+#' @param path where to store it, (should be inherited)
+#'
+#' @export
+#'
+cache_geos <- function(path = Sys.getenv("R_SAK_PATH",
+                                         unset = tempdir())) {
+
+  assertthat::assert_that(dir.exists(path),
+                          msg = "`path` doesn't exist.")
+
+
+  exists <- file.exists(file.path(path, "geos.csv"))
+  if (exists) {
+    resp <- utils::menu(c("Yes", "No"),
+                        title = "A file already exists, but for some reason I want to replace it. Can I overwrite it?")
+
+    if (resp == 2) {
+      stop("Ok, bye.",
+           call. = FALSE)
+    }
+  }
+
+  download_file(url = "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true",
+                fileext = "csv",
+                dir = path,
+                name = "geos.csv")
+
+  # invisible(NULL)
+
+}
+
+
+
+#' Check if there geos file is available
+#'
+#' A coarse check to see if the geos file is available
+#'
+#' @param path (character) the directory where the geos file should be
+#'
+geos_available <- function(path = Sys.getenv("R_SAK_PATH",
+                                             unset = tempdir())) {
+  file <- file.path(path, "geos.csv")
+
+  file.exists(file) && (file.size(file) >= 125402818)
+
+}
+
+
 
 
 #' All geographies concordance
@@ -149,7 +219,7 @@ concord_geos <- function(.data,
                          ...,
                          from_geo,
                          to_geo,
-                         concord_wt = persons,
+                         concord_wt,
                          value,
                          func = "sum") {
 
@@ -204,7 +274,7 @@ concord_geos <- function(.data,
       dplyr::mutate(in_share = .data$from_geo_ratio * {{ value }}) %>%
       dplyr::count({{ to_geo }},
                    wt = .data$in_share) %>%
-      dplyr::rename({{ value }} := n) %>%
+      dplyr::rename({{ value }} := .data$n) %>%
       dplyr::ungroup()
   } # The weighted mean function
   else if (func == "mean") {

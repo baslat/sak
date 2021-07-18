@@ -14,9 +14,9 @@ available columns are returned.}
 }
 \value{
 a \code{tibble} with as the columns you asked for the as many rows as
-needed to fulfil that request (i.e. up to 358,122 rows).
-\code{dplyr::distinct} is called before returning (to minimise redundant
-results).
+needed to fulfil that request (i.e. up to 358,122 rows). Note that
+\code{dplyr::distinct()} is called before returning the results (to
+minimise redundant results).
 }
 \description{
 This function queries my personal GitHub and returns concorded geographic
@@ -67,7 +67,10 @@ more:
 \examples{
 \dontrun{
 
- get_geos(cols = c(mb_category_name_2016, area_albers_sqkm, ced_name_2018, persons))
+ get_geos(cols = c(mb_category_name_2016,
+                   area_albers_sqkm,
+                   ced_name_2018,
+                   persons))
 
 
 

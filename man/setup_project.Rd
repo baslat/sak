@@ -95,6 +95,6 @@ Temporary files exempted from syncing are:
 }
 \examples{
 \dontrun{
-cah::setup_project() # This will make all your folders
+sak::setup_project() # This will make all your folders
 }
 }

@@ -4,15 +4,7 @@
 \alias{concord_geos}
 \title{All geographies concordance}
 \usage{
-concord_geos(
-  .data,
-  ...,
-  from_geo,
-  to_geo,
-  concord_wt = persons,
-  value,
-  func = "sum"
-)
+concord_geos(.data, ..., from_geo, to_geo, concord_wt, value, func = "sum")
 }
 \arguments{
 \item{.data}{(\code{tibble}) with suitably named geo columns}
@@ -62,15 +54,15 @@ against what's available, yet.
 sa4 <- absmapsdata::sa42016 \%>\%
     sf::st_set_geometry(NULL) \%>\% # Remove the geometry column
     select(starts_with("sa4")) \%>\% # Just keep the identifiers
-    mutate(value = 1) \%>\% # i.e. 100\% of a SA4
+    mutate(pct = 1) \%>\% # i.e. 100\% of a SA4
     sak::normalise_geo_names(remove_year = FALSE) # deals with column classes
 
-sa4_lga_conord <- sa4 \%>\%
-    concord_geos2(sa4_name_2016, sa4_code_2016, # add the identifiers so they
-                                                # are returned as columns
-                  from_geo = sa4_code_2016,
-                  to_geo = lga_name_2020,
-                  value = value) # i.e. the 100\% from above
+sa4_lga_concord <- sa4 \%>\%
+    concord_geos(sa4_name_2016, sa4_code_2016, # add the identifiers so they
+                                               # are returned as columns
+                 from_geo = sa4_code_2016,
+                 to_geo = lga_name_2020,
+                 value = pct) # i.e. the 100\% from above
 
 
 }
