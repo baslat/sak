@@ -91,21 +91,38 @@ load_custom_functions <- function(path = "R/",
 #' @param url (character) the URL to the destination file
 #' @param fileext (character; default = \code{file_ext(url)}) the file
 #'   extension of the file to download.
+#' @param dir (character; default = \code{tempdir()}) the folder into which to
+#'   download the file. Use dot notation to download into the working directory.
+#' @param name (character; default = \code{NULL}) specify a name if you feel
+#'   like it
 #'
 #' @return a file path string to the downloaded file
 #' @export
 #' @examples
 #' \dontrun{
-#' # Large file
-#' download_file(url = "http://www2.census.gov/acs2011_5yr/pums/csv_pus.zip")
-#' readxl::read_excel(tf)
+#' download_file(url = "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true",
+#'               fileext = "csv",
+#'               dir = "./outputs",
+#'               name = "geos.csv")
 #' }
 #'
 download_file <- function(url,
-                          fileext = file_ext(url)) {
+                          fileext = file_ext(url),
+                          dir = tempdir(),
+                          name = NULL) {
+
+  name <- name %||% (basename(url) %>%
+    fs::path_sanitize() %>%
+    stringr::str_remove(fileext) %>%
+    paste0(".", fileext))
+
+
+  dir <- normalizePath(dir)
+  path <- file.path(dir, name)
 
   httr::GET(url,
-            httr::write_disk(path <- tempfile(fileext = paste0(".", fileext))))
+            httr::write_disk(path = path,
+                             overwrite = TRUE))
 
   return(path)
 }

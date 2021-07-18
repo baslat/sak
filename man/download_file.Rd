@@ -4,13 +4,19 @@
 \alias{download_file}
 \title{Download a file to a temporary location}
 \usage{
-download_file(url, fileext = file_ext(url))
+download_file(url, fileext = file_ext(url), dir = tempdir(), name = NULL)
 }
 \arguments{
 \item{url}{(character) the URL to the destination file}
 
 \item{fileext}{(character; default = \code{file_ext(url)}) the file
 extension of the file to download.}
+
+\item{dir}{(character; default = \code{tempdir()}) the folder into which to
+download the file. Use dot notation to download into the working directory.}
+
+\item{name}{(character; default = \code{NULL}) specify a name if you feel
+like it}
 }
 \value{
 a file path string to the downloaded file
@@ -21,9 +27,10 @@ temporary file. This is a reusable and generalisable wrapper to do just that.
 }
 \examples{
 \dontrun{
-# Large file
-download_file(url = "http://www2.census.gov/acs2011_5yr/pums/csv_pus.zip")
-readxl::read_excel(tf)
+download_file(url = "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true",
+              fileext = "csv",
+              dir = "./outputs",
+              name = "geos.csv")
 }
 
 }

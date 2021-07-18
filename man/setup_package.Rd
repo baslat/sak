@@ -33,7 +33,7 @@ then develop as normal.
 \dontrun{
 usethis::create_package(".")
 
-cah::setup_package()
+sak::setup_package()
 
 }
 }

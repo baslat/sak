@@ -22,9 +22,11 @@ Imports:
     stringr,
     tibble,
     tidyselect,
+    tidyr,
     tools,
     usethis,
-    utils
+    utils,
+    vroom
 Suggests: 
     roxygen2,
     spelling,

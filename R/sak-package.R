@@ -6,6 +6,7 @@
 ## usethis namespace: start
 #' @importFrom tibble tibble
 #' @importFrom plyr .
+#' @importFrom stats weighted.mean
 #' @importFrom rlang .data
 #' @importFrom rlang .env
 #' @importFrom rlang :=

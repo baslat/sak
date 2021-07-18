@@ -89,7 +89,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' cah::setup_project() # This will make all your folders
+#' sak::setup_project() # This will make all your folders
 #' }
 setup_project <- function() {
   # Create folders
@@ -197,7 +197,7 @@ setup_project <- function() {
 #' \dontrun{
 #' usethis::create_package(".")
 #'
-#' cah::setup_package()
+#' sak::setup_package()
 #'
 #' }
 setup_package <- function() {
