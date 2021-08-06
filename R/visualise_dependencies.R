@@ -43,9 +43,9 @@ visualise_dependencies <- function(.f = NULL,
   tidy_fw <- tidygraph::as_tbl_graph(fw)
 
   # Styling the network
-  main_col <- unname(get_cah_hex("morning glory"))
-  hover_col <- unname(get_cah_hex("astronaut blue"))
-  highlight_col <- unname(get_cah_hex("astronaut blue"))
+  main_col <- "lightblue"
+  hover_col <- "darkblue"
+  highlight_col <- "darkblue"
 
   # Displaying the network
   visNetwork::visIgraph(tidy_fw) %>%
@@ -64,6 +64,5 @@ visualise_dependencies <- function(.f = NULL,
       color = list(background = main_col,
                    border = hover_col,
                    hover = hover_col,
-                   highlight = highlight_col),
-      font = list(face = "Calibri"))
+                   highlight = highlight_col))
 }
