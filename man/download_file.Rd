@@ -27,10 +27,12 @@ temporary file. This is a reusable and generalisable wrapper to do just that.
 }
 \examples{
 \dontrun{
-download_file(url = "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true",
-              fileext = "csv",
-              dir = "./outputs",
-              name = "geos.csv")
+download_file(
+  url = "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true",
+  fileext = "csv",
+  dir = "./outputs",
+  name = "geos.csv"
+)
 }
 
 }

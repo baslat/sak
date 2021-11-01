@@ -34,6 +34,5 @@ then develop as normal.
 usethis::create_package(".")
 
 sak::setup_package()
-
 }
 }
