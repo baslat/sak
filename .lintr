@@ -1,0 +1,5 @@
+linters: with_defaults(
+    trailing_whitespace_linter = NULL,
+    line_length_linter = NULL,
+    object_name_linter = lintr::object_name_linter(styles = c("snake_case", "symbols")),
+    dummy_linter = NULL)
