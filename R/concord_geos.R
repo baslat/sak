@@ -146,7 +146,7 @@ cache_geos <- function(path = Sys.getenv("R_SAK_PATH",
     name = "geos.csv"
   )
 
-  # invisible(NULL)
+  # invisible(NULL) # nolint
 }
 
 
@@ -229,9 +229,9 @@ concord_geos <- function(.data,
                          func = "sum") {
 
   # # Check column names are valid
-  test_wt <- as_label(rlang::enquo(concord_wt))
-  test_from_geo <- as_label(rlang::enquo(from_geo))
-  test_value <- as_label(rlang::enquo(value))
+  test_wt <- rlang::as_label(rlang::enquo(concord_wt))
+  test_from_geo <- rlang::as_label(rlang::enquo(from_geo))
+  test_value <- rlang::as_label(rlang::enquo(value))
 
   assertthat::assert_that(any(test_wt %in% c("persons", "dwellings")),
     msg = "Check your `value for `concord_wt` argument, it must be one of `persons` or `dwellings` (unquoted)."
