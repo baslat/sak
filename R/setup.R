@@ -94,58 +94,62 @@
 setup_project <- function() {
   # Create folders
 
-  c("code",
+  c(
+    "code",
     "data",
     "outputs",
-    "R") %>%
+    "R"
+  ) %>%
     purrr::walk(usethis::use_directory)
 
   # Create .gitignore
-  lines <- c("# History files",
-             ".Rhistory",
-             ".Rapp.history",
-             "# Session Data files",
-             ".RData",
-             "# User-specific files",
-             ".Ruserdata",
-             "# Example code in package build process",
-             "*-Ex.R",
-             "# Output files from R CMD build",
-             "/*.tar.gz",
-             "# Output files from R CMD check",
-             "/*.Rcheck/",
-             "# RStudio files",
-             ".Rproj.user/",
-             "# produced vignettes",
-             "vignettes/*.html",
-             "vignettes/*.pdf",
-             "# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3",
-             ".httr-oauth",
-             "# knitr and R markdown default cache directories",
-             "*_cache/",
-             "/cache/",
-             "# Temporary files created by R markdown",
-             "*.utf8.md",
-             "*.knit.md",
-             "# R Environment Variables",
-             ".Renviron",
-             "# pkgdown site",
-             "docs/",
-             "# Output folder",
-             "outputs/",
-             "# translation temp files",
-             "po/*~",
-             "# Leaflet folders",
-             "*_files/",
-             "# Office and web documents",
-             "*.docx",
-             "*.html",
-             "*.pdf",
-             "*.csv",
-             "*.xls",
-             "*.xlsx",
-             "*.ppt",
-             "*.pptx")
+  lines <- c(
+    "# History files",
+    ".Rhistory",
+    ".Rapp.history",
+    "# Session Data files",
+    ".RData",
+    "# User-specific files",
+    ".Ruserdata",
+    "# Example code in package build process",
+    "*-Ex.R",
+    "# Output files from R CMD build",
+    "/*.tar.gz",
+    "# Output files from R CMD check",
+    "/*.Rcheck/",
+    "# RStudio files",
+    ".Rproj.user/",
+    "# produced vignettes",
+    "vignettes/*.html",
+    "vignettes/*.pdf",
+    "# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3",
+    ".httr-oauth",
+    "# knitr and R markdown default cache directories",
+    "*_cache/",
+    "/cache/",
+    "# Temporary files created by R markdown",
+    "*.utf8.md",
+    "*.knit.md",
+    "# R Environment Variables",
+    ".Renviron",
+    "# pkgdown site",
+    "docs/",
+    "# Output folder",
+    "outputs/",
+    "# translation temp files",
+    "po/*~",
+    "# Leaflet folders",
+    "*_files/",
+    "# Office and web documents",
+    "*.docx",
+    "*.html",
+    "*.pdf",
+    "*.csv",
+    "*.xls",
+    "*.xlsx",
+    "*.ppt",
+    "*.pptx"
+  )
   # Does a gitignore file exist?
   if (file.exists(".gitignore")) {
     # Read current
@@ -154,7 +158,8 @@ setup_project <- function() {
       "# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html",
       "rsconnect/",
       "",
-      "=======")
+      "======="
+    )
 
     lines <- setdiff(current_contents, lines) %>%
       setdiff(discard_lines) %>%
@@ -163,9 +168,10 @@ setup_project <- function() {
 
 
   # Write gitignore
-  usethis::write_over(".gitignore",
-                      lines)
-
+  usethis::write_over(
+    ".gitignore",
+    lines
+  )
 }
 
 
@@ -198,7 +204,6 @@ setup_project <- function() {
 #' usethis::create_package(".")
 #'
 #' sak::setup_package()
-#'
 #' }
 setup_package <- function() {
   usethis::use_package_doc()

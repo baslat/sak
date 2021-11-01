@@ -19,11 +19,14 @@
 #' }
 sg <- function(.data) {
   assertthat::assert_that(is.data.frame(.data),
-                          msg = "`.data` must be a `data.frame`")
+    msg = "`.data` must be a `data.frame`"
+  )
 
   .data <- .data %>%
-    dplyr::select(tidyselect::vars_select_helpers$where(is.character),
-                  tidyselect::vars_select_helpers$where(is.factor))
+    dplyr::select(
+      tidyselect::vars_select_helpers$where(is.character),
+      tidyselect::vars_select_helpers$where(is.factor)
+    )
 
   if (ncol(.data) == 0) {
     message("`.data` has no factor or character columns.")
@@ -32,5 +35,5 @@ sg <- function(.data) {
 
   .data %>%
     names() %>%
-    purrr::map(~unique(.data[.]))
+    purrr::map(~ unique(.data[.]))
 }

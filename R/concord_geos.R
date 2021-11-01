@@ -60,26 +60,28 @@
 #' @examples
 #' \dontrun{
 #'
-#'  get_geos(cols = c(mb_category_name_2016,
-#'                    area_albers_sqkm,
-#'                    ced_name_2018,
-#'                    persons))
-#'
-#'
-#'
+#' get_geos(cols = c(
+#'   mb_category_name_2016,
+#'   area_albers_sqkm,
+#'   ced_name_2018,
+#'   persons
+#' ))
 #' }
 #'
 get_geos <- function(cols = NULL) {
 
   # Basically need something that checks if there is a cached file in a env var path, and if so get it from there.
   dir <- Sys.getenv("R_SAK_PATH",
-                    unset = tempdir())
+    unset = tempdir()
+  )
 
 
   if (!geos_available()) {
-    msg <- paste0("Downloading and caching the ~120MB geos.csv file (to `",
-                  normalizePath(dir, winslash = "/"),
-                  "`). You can control where it it cached by setting the 'R_SAK_PATH' system variable.")
+    msg <- paste0(
+      "Downloading and caching the ~120MB geos.csv file (to `",
+      normalizePath(dir, winslash = "/"),
+      "`). You can control where it it cached by setting the 'R_SAK_PATH' system variable."
+    )
     message(msg)
     cache_geos()
   }
@@ -91,19 +93,19 @@ get_geos <- function(cols = NULL) {
 
   if (is.null(col_expr)) {
     geos <- vroom::vroom(geos_path,
-                         show_col_types = FALSE) %>%
+      show_col_types = FALSE
+    ) %>%
       dplyr::distinct() %>%
       normalise_geo_names(remove_year = FALSE)
     return(geos)
   }
 
   vroom::vroom(geos_path,
-               show_col_types = FALSE,
-               col_select = {{ col_expr }}) %>%
+    show_col_types = FALSE,
+    col_select = {{ col_expr }}
+  ) %>%
     dplyr::distinct() %>%
     normalise_geo_names(remove_year = FALSE)
-
-
 }
 
 
@@ -117,30 +119,34 @@ get_geos <- function(cols = NULL) {
 #' @export
 #'
 cache_geos <- function(path = Sys.getenv("R_SAK_PATH",
-                                         unset = tempdir())) {
-
+                         unset = tempdir()
+                       )) {
   assertthat::assert_that(dir.exists(path),
-                          msg = "`path` doesn't exist.")
+    msg = "`path` doesn't exist."
+  )
 
 
   exists <- file.exists(file.path(path, "geos.csv"))
   if (exists) {
     resp <- utils::menu(c("Yes", "No"),
-                        title = "A file already exists, but for some reason I want to replace it. Can I overwrite it?")
+      title = "A file already exists, but for some reason I want to replace it. Can I overwrite it?"
+    )
 
     if (resp == 2) {
       stop("Ok, bye.",
-           call. = FALSE)
+        call. = FALSE
+      )
     }
   }
 
-  download_file(url = "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true",
-                fileext = "csv",
-                dir = path,
-                name = "geos.csv")
+  download_file(
+    url = "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true",
+    fileext = "csv",
+    dir = path,
+    name = "geos.csv"
+  )
 
   # invisible(NULL)
-
 }
 
 
@@ -152,11 +158,11 @@ cache_geos <- function(path = Sys.getenv("R_SAK_PATH",
 #' @param path (character) the directory where the geos file should be
 #'
 geos_available <- function(path = Sys.getenv("R_SAK_PATH",
-                                             unset = tempdir())) {
+                             unset = tempdir()
+                           )) {
   file <- file.path(path, "geos.csv")
 
   file.exists(file) && (file.size(file) >= 125402818)
-
 }
 
 
@@ -201,19 +207,18 @@ geos_available <- function(path = Sys.getenv("R_SAK_PATH",
 #' # Build your own concordance, for example between SA4 and LGA:
 #'
 #' sa4 <- absmapsdata::sa42016 %>%
-#'     sf::st_set_geometry(NULL) %>% # Remove the geometry column
-#'     select(starts_with("sa4")) %>% # Just keep the identifiers
-#'     mutate(pct = 1) %>% # i.e. 100% of a SA4
-#'     sak::normalise_geo_names(remove_year = FALSE) # deals with column classes
+#'   sf::st_set_geometry(NULL) %>% # Remove the geometry column
+#'   select(starts_with("sa4")) %>% # Just keep the identifiers
+#'   mutate(pct = 1) %>% # i.e. 100% of a SA4
+#'   sak::normalise_geo_names(remove_year = FALSE) # deals with column classes
 #'
 #' sa4_lga_concord <- sa4 %>%
-#'     concord_geos(sa4_name_2016, sa4_code_2016, # add the identifiers so they
-#'                                                # are returned as columns
-#'                  from_geo = sa4_code_2016,
-#'                  to_geo = lga_name_2020,
-#'                  value = pct) # i.e. the 100% from above
-#'
-#'
+#'   concord_geos(sa4_name_2016, sa4_code_2016, # add the identifiers so they
+#'     # are returned as columns
+#'     from_geo = sa4_code_2016,
+#'     to_geo = lga_name_2020,
+#'     value = pct
+#'   ) # i.e. the 100% from above
 #' }
 concord_geos <- function(.data,
                          ...,
@@ -229,32 +234,41 @@ concord_geos <- function(.data,
   test_value <- as_label(rlang::enquo(value))
 
   assertthat::assert_that(any(test_wt %in% c("persons", "dwellings")),
-                          msg = "Check your `value for `concord_wt` argument, it must be one of `persons` or `dwellings` (unquoted).")
+    msg = "Check your `value for `concord_wt` argument, it must be one of `persons` or `dwellings` (unquoted)."
+  )
   assertthat::assert_that(any(test_from_geo %in% names(.data)),
-                          msg = "Check your `from_geo` column is in your data.")
+    msg = "Check your `from_geo` column is in your data."
+  )
   assertthat::assert_that(any(test_value %in% names(.data)),
-                          msg = "Check your `value` column is in your data.")
+    msg = "Check your `value` column is in your data."
+  )
   assertthat::assert_that(length(func) == 1,
-                          any(func == c("sum", "mean")),
-                          msg = "`func` must be one of `'sum'` or `'mean'`")
+    any(func == c("sum", "mean")),
+    msg = "`func` must be one of `'sum'` or `'mean'`"
+  )
 
   # Modify the all_goes data to just the geos that are needed, and calculate
   # weights
-  geos <- get_geos(cols = c({{ from_geo }},
-                            {{ to_geo }},
-                            {{ concord_wt }})) %>%
+  geos <- get_geos(cols = c(
+    {{ from_geo }},
+    {{ to_geo }},
+    {{ concord_wt }}
+  )) %>%
     dplyr::add_count({{ from_geo }},
-                     wt = {{ concord_wt }},
-                     name = "from_geo_wt") %>%
+      wt = {{ concord_wt }},
+      name = "from_geo_wt"
+    ) %>%
     dplyr::count({{ from_geo }},
-                 {{ to_geo }},
-                 .data$from_geo_wt,
-                 wt = {{ concord_wt }},
-                 name = "shared_wts") %>%
+      {{ to_geo }},
+      .data$from_geo_wt,
+      wt = {{ concord_wt }},
+      name = "shared_wts"
+    ) %>%
     dplyr::transmute({{ from_geo }},
-                     {{ to_geo }},
-                     .data$from_geo_wt,
-                     from_geo_ratio = .data$shared_wts / .data$from_geo_wt)
+      {{ to_geo }},
+      .data$from_geo_wt,
+      from_geo_ratio = .data$shared_wts / .data$from_geo_wt
+    )
 
 
   # Check if groups are required
@@ -264,7 +278,8 @@ concord_geos <- function(.data,
 
   out <- .data %>%
     dplyr::left_join(geos,
-                     by = test_from_geo) %>%
+      by = test_from_geo
+    ) %>%
     tidyr::drop_na(.data$from_geo_ratio)
 
   # The simple, aggregation function
@@ -273,7 +288,8 @@ concord_geos <- function(.data,
       # Calculate the in-share based on the additive value (ie the thing concorded)
       dplyr::mutate(in_share = .data$from_geo_ratio * {{ value }}) %>%
       dplyr::count({{ to_geo }},
-                   wt = .data$in_share) %>%
+        wt = .data$in_share
+      ) %>%
       dplyr::rename({{ value }} := .data$n) %>%
       dplyr::ungroup()
   } # The weighted mean function
@@ -282,14 +298,16 @@ concord_geos <- function(.data,
       # Calculate the in-share based on the base weight
       dplyr::mutate(in_share = .data$from_geo_ratio * .data$from_geo_wt) %>%
       dplyr::group_by({{ to_geo }}, .add = TRUE) %>%
-      dplyr::summarise({{ value }} := weighted.mean(x = {{ value }},
-                                                    w = .data$in_share,
-                                                    na.rm = TRUE),
-                       groups = "drop")
+      dplyr::summarise({{ value }} := weighted.mean(
+        x = {{ value }},
+        w = .data$in_share,
+        na.rm = TRUE
+      ),
+      groups = "drop"
+      )
   }
 
 
 
   return(concorded)
-
 }
