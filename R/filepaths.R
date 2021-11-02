@@ -10,7 +10,7 @@
 #'
 #' @param path (character; default = \code{NULL} which returns the working
 #'   directory) the directory to open.
-#' @param execute (logical, dfault = \code{FALSE}) if \code{TRUE} and you pass a
+#' @param execute (logical, default = \code{FALSE}) if \code{TRUE} and you pass a
 #'   filepath the file itself will be executed
 #'
 #' @export
@@ -38,8 +38,7 @@ open_path <- function(path = NULL,
   )
 
   # Check if it's a file or dir
-  file <- tools::file_ext(path) != ""
-
+  file <- fs::is_file(path)
 
   if (file && !execute) {
     path <- dirname(path)
