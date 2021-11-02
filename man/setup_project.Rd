@@ -100,6 +100,6 @@ Temporary files exempted from syncing are:
 }
 \examples{
 \dontrun{
-cah::setup_project(default_branch = "main") # This will make all your folders
+sak::setup_project(default_branch = "main") # This will make all your folders
 }
 }

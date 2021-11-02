@@ -28,7 +28,7 @@ conjunction with \code{osm_bind_features}.
 \dontrun{
 bs <- sf::st_read(covidpmc::onedrive("data/fires_storage/burnscar/lga_bs/lga_burnscar.shp")) \%>\%
     sf::st_transform(crs = 7844) \%>\%
-    cah::normalise_geo_names() \%>\%
+    sak::normalise_geo_names() \%>\%
     dplyr::filter(stringr::str_detect(lga_name, "Kangaroo Island"))
 
 # KI BS bounding box
@@ -52,7 +52,7 @@ mapview::mapview(features,
 
 # Intersect with the burnscar
 burnscar_features <- features \%>\%
-    cah::st_intersection_quicker(bs)
+    sak::st_intersection_quicker(bs)
 
 # Summarise the potential effect
 osm_summarise_features(burnscar_features,

@@ -13,6 +13,6 @@ tests to be executed when you run check on your package.
 }
 \examples{
 \dontrun{
-cah::setup_lintr_testthat()
+sak::setup_lintr_testthat()
 }
 }

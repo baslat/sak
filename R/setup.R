@@ -12,7 +12,7 @@
 #'   you don't need to select the \code{Package} option.
 #'   \item Run \code{usethis::create_package(".")}, which will set up
 #'   boilerplate folders and change the RStudio project file.
-#'   \item Run \code{cah::setup_package()} which will adds things like package
+#'   \item Run \code{sak::setup_package()} which will adds things like package
 #'   documentation, an MIT license, tidy styling, a news file, spell check, and
 #'   support for tidy eval, pipes and tibbles.
 #'   \item Fill in the standard details in the description and readme files,
@@ -27,7 +27,7 @@
 #' \dontrun{
 #' usethis::create_package(".")
 #'
-#' cah::setup_package()
+#' sak::setup_package()
 #' }
 setup_package <- function() {
   usethis::use_package_doc()
@@ -143,7 +143,7 @@ setup_package <- function() {
 #'
 #' @examples
 #' \dontrun{
-#' cah::setup_project(default_branch = "main") # This will make all your folders
+#' sak::setup_project(default_branch = "main") # This will make all your folders
 #' }
 setup_project <- function(default_branch = NULL) {
 
@@ -253,7 +253,7 @@ setup_project <- function(default_branch = NULL) {
 #'
 #' This function also sets the timezone to \code{Australia/Sydney} to silence a
 #' warning that can occur when calling \code{library(tidyverse)}, so the
-#' suggested use is to call \code{cah::setup_rsc()} before any library calls.
+#' suggested use is to call \code{sak::setup_rsc()} before any library calls.
 #'
 #' @return \code{NULL}, but changes some proxy, timezone and keyring settings on
 #'   RStudio Connect.
@@ -263,15 +263,15 @@ setup_project <- function(default_branch = NULL) {
 #' \dontrun{
 #' # At the start of an RMD file, before library calls:
 #' ```{r setup, include=FALSE}
-#' cah::setup_rsc()
+#' sak::setup_rsc()
 #' ```
 #'
 #' }
 setup_rsc <- function() {
   lifecycle::deprecate_warn("2.0.0",
                             "setup_rsc()",
-                            details = "setup_rsc has been replaced with setup_env which is called on loading cah, so setup_rsc is no longer needed.")
-  if (get_cah_env() == "rsc") {
+                            details = "setup_rsc has been replaced with setup_env which is called on loading sak, so setup_rsc is no longer needed.")
+  if (get_sak_env() == "rsc") {
     # Timezone settings
     Sys.setenv(TZ = "Australia/Sydney")
     # proxy settings
@@ -279,90 +279,6 @@ setup_rsc <- function() {
     Sys.setenv(https_proxy = "http://uint-proxy.internal.niaa.gov.au:8080/")
 
   }
-}
-
-#' Setup needed proxy, environment variables and keyring options for various environments
-#'
-#' RStudio Connect needs to connect to the internet via a proxy, but our dev
-#' machines won't work if they try to use the same proxy. Run this script at the
-#' start of any RMD or Shiny app that requires internet connectivity that you
-#' want to publish on RStudio Connect. It also changes the keyring backend to
-#' be environment
-#'
-#' This function also sets the timezone to \code{Australia/Sydney} to silence a
-#' warning that can occur when calling \code{library(tidyerse)}, so the
-#' suggested use is to call \code{cah::setup_rsc()} before any library calls.
-#'
-#' When running on the pipeline, secrets need to be passed using special variable names
-#' as azure has a habit of randomly changing special characters. This script
-#' renames the environment variables so they can be used by keyring on the pipeline.
-#'
-#' This script is called upon loading cah, so should not need to be called explicitly.
-#'
-#' @param current_env {character; default = \code{get_cah_env()}} the current environment.
-#' Makes changes if current_env is rsc (RSConnect) or azdo (pipelines). Any other environment
-#' it does nothing
-#'
-#' @return \code{NULL}, but changes some proxy, timezone, environment and keyring
-#' settings on RStudio Connect or Azure DevOps.
-#'
-setup_env <- function(current_env = get_cah_env()) {
-  if (current_env == "rsc") {
-    # Timezone settings
-    Sys.setenv(TZ = "Australia/Sydney")
-    # proxy settings
-    Sys.setenv(http_proxy = "http://uint-proxy.internal.niaa.gov.au:8080/")
-    Sys.setenv(https_proxy = "http://uint-proxy.internal.niaa.gov.au:8080/")
-
-    options(keyring_backend = "env")
-    keyring::key_set_with_value(
-      service = "azure",
-      username = "appid",
-      password = Sys.getenv("appid")
-    )
-
-    keyring::key_set_with_value(
-      service = "azure",
-      username = "secret",
-      password = Sys.getenv("secret")
-    )
-  } else if (current_env == "azdo") {
-    convert_env_vars_to_secrets()
-    options(repos = c(CRAN = "https://cran.rstudio.org"))
-  } else if (current_env == "container_build") {
-    Sys.setenv(KEYRING_BACKEND = "env")
-    Sys.setenv(R_KEYRING_BACKEND = "env")
-  }
-}
-
-
-#' Register one of CAH's \code{pins} boards
-#'
-#' A wrapper function to register the \code{pins} board on Azure Storage.
-#'
-#' @return nothing, used for side effects (registering and setting the default
-#'   board)
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' setup_pins()
-#' }
-setup_pins <- function() {
-
-  # Get the details from azure keyring
-  access_key <- kv_secret("azure-filesecret")
-
-  # Register the board
-  pins::board_register_azure(
-    container = "pinscontainer",
-    account = "centralanalyticshub",
-    key = access_key,
-    versions = TRUE
-  )
-
-  # Set the default pins board
-  options(pins.board = "azure")
 }
 
 #' Create Lintr test that file
@@ -375,12 +291,12 @@ setup_pins <- function() {
 #'
 #' @examples
 #' \dontrun{
-#' cah::setup_lintr_testthat()
+#' sak::setup_lintr_testthat()
 #' }
 setup_lintr_testthat <- function() {
 
   # Look at the system file and read the lines of the test-linted.R file
-  lintr_file <- system.file("lintr/test-linted.R", package = "cah")
+  lintr_file <- system.file("lintr/test-linted.R", package = "sak")
 
   # Get the name of the Package we are working in from Description File
   package_name <- desc_get(keys = c("Package")) %>%
@@ -409,7 +325,7 @@ setup_lintr_testthat <- function() {
 #' @return Nothing, called for side effects.
 #' @export
 setup_lintr_config <- function() {
-  lintr_config <- readLines(system.file("lintr/lintr_config.txt", package = "cah"))
+  lintr_config <- readLines(system.file("lintr/lintr_config.txt", package = "sak"))
   usethis::write_over(
     path = ".lintr",
     lines = lintr_config
@@ -441,10 +357,10 @@ setup_yaml_megalinter <- function(default_branch = NULL) {
   msg = "`default_branch` should be 'main' or 'master'"
   )
 
-  # Get the guts of the mega-linter file from inside `cah`
+  # Get the guts of the mega-linter file from inside `sak`
   # and replace the default_repo
   # and write the file
-  ml_yaml <- system.file("yaml_files/mega-linter.yml", package = "cah") %>%
+  ml_yaml <- system.file("yaml_files/mega-linter.yml", package = "sak") %>%
     readLines() %>%
     stringr::str_replace(
       pattern = "MAIN_REPO",
@@ -460,7 +376,7 @@ setup_yaml_megalinter <- function(default_branch = NULL) {
 #' Create yaml file for AZDO pipeline
 #'
 #' The function creates the appropriate \code{yaml} file to run scripts (such as
-#' package checks or megalinter) inside the \code{cahntainer} on an AZDO
+#' package checks or megalinter) inside the \code{sakntainer} on an AZDO
 #' pipeline. It does not create the pipeline in AZDO though:you can do this via
 #' the AZDO GUI or read the CLI instructions here:
 #' \url{https://dev.azure.com/dpmc/PMC/_wiki/wikis/PMC.wiki/60/Setting-up-a-pipeline}
@@ -477,10 +393,10 @@ setup_yaml_megalinter <- function(default_branch = NULL) {
 #' # wont trigger anything
 #'
 #' # For package checks
-#' cah::setup_yaml_azdo("package")
+#' sak::setup_yaml_azdo("package")
 #'
 #' # For project checks
-#' cah::setup_yaml_azdo("project")
+#' sak::setup_yaml_azdo("project")
 #' }
 setup_yaml_azdo <- function(repo_type) {
 
@@ -496,7 +412,7 @@ setup_yaml_azdo <- function(repo_type) {
 
 
   #Look at the system file and read the lines of the yaml file
-  yaml_file <- system.file("yaml_files", yaml_root, package = "cah")
+  yaml_file <- system.file("yaml_files", yaml_root, package = "sak")
   pipeline_file_lines <- readLines(yaml_file)
 
   written <- usethis::write_over(path = "azure-pipelines.yml",
@@ -528,7 +444,7 @@ setup_azdo_pipeline <- function() {
 
   # Use ifs and invisible NULLS instead of asserts so that the meta setup_ func can continue
   if (!file.exists("azure-pipelines.yml")) {
-    message("There is no azure-pipelines.yml file in this repo. Run cah::setup_yaml_azdo() to create one, then try this again. Exiting!")
+    message("There is no azure-pipelines.yml file in this repo. Run sak::setup_yaml_azdo() to create one, then try this again. Exiting!")
     return(invisible(NULL))
   }
 
@@ -730,7 +646,7 @@ setup_git_hooks <- function(repo_type) {
   message("Creating a pre-commit hook to treat whitespace...")
   pre_commit_hook <- readLines(
     system.file("git_hooks", "pre-commit_wtf",
-                package = "cah")
+                package = "sak")
     )
 
   usethis::use_git_hook(hook = "pre-commit",
@@ -780,7 +696,7 @@ setup_git_hooks <- function(repo_type) {
 
   pre_push_hook <- readLines(
     system.file("git_hooks", pre_push_root,
-                package = "cah")
+                package = "sak")
     )
 
   message(pre_push_msg)

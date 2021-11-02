@@ -29,13 +29,13 @@ a read-only environment. Unlocking a keyring requires read-write privileges.
 
 This function also sets the timezone to \code{Australia/Sydney} to silence a
 warning that can occur when calling \code{library(tidyverse)}, so the
-suggested use is to call \code{cah::setup_rsc()} before any library calls.
+suggested use is to call \code{sak::setup_rsc()} before any library calls.
 }
 \examples{
 \dontrun{
 # At the start of an RMD file, before library calls:
 ```{r setup, include=FALSE}
-cah::setup_rsc()
+sak::setup_rsc()
 ```
 
 }

@@ -20,7 +20,7 @@
 #' \dontrun{
 #'
 #' # To visualise the dependencies of your global environment:
-#' cah::load_custom_functions() # You need the functions in the env
+#' sak::load_custom_functions() # You need the functions in the env
 #' visualise_dependencies()
 #'
 #' # To visualise the dependencies of a package

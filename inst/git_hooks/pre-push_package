@@ -1,0 +1,32 @@
+#!/usr/bin/env Rscript
+
+# This hook runs before git push. It's tailored for package development.
+
+# Run the Rprofile to get the libpaths
+# But, friggin `~` refers to different places depending on guis vs cli vs R
+cli_champions <- path.expand(file.path("~", "documents", ".Rprofile"))
+gui_luddites <- path.expand(file.path("~", ".Rprofile"))
+
+r_prof <- ifelse(file.exists(cli_champions),
+                 cli_champions, gui_luddites)
+source(r_prof)
+
+# Set some locale settings because calling Rscript in a CLI sorts alphabetically
+# differently to the RStudio git GUI
+invisible(
+  Sys.setlocale(category = "LC_ALL",
+                locale = "English_Australia.1252")
+  )
+
+if (require(usethis)) {
+  message("\nTidying DESCRIPTION...")
+  usethis::use_tidy_description()
+  message("Done!")
+}
+if (require(devtools)) {
+  message("\nBuilding roxygen documentation...")
+  suppressPackageStartupMessages(devtools::document(quiet = TRUE))
+  message("Done!\n")
+}
+
+message("***** Remember to update news and run check locally! *****\n")

@@ -13,7 +13,7 @@ types of git hooks and the pipeline yaml template.}
 }
 \description{
 The function creates the appropriate \code{yaml} file to run scripts (such as
-package checks or megalinter) inside the \code{cahntainer} on an AZDO
+package checks or megalinter) inside the \code{sakntainer} on an AZDO
 pipeline. It does not create the pipeline in AZDO though:you can do this via
 the AZDO GUI or read the CLI instructions here:
 \url{https://dev.azure.com/dpmc/PMC/_wiki/wikis/PMC.wiki/60/Setting-up-a-pipeline}
@@ -24,9 +24,9 @@ the AZDO GUI or read the CLI instructions here:
 # wont trigger anything
 
 # For package checks
-cah::setup_yaml_azdo("package")
+sak::setup_yaml_azdo("package")
 
 # For project checks
-cah::setup_yaml_azdo("project")
+sak::setup_yaml_azdo("project")
 }
 }

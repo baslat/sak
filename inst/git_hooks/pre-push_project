@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# This hook runs before git push. It's tailored for projects published on RSC.
+# It calls R from the shell, loads the .Rprofile, then runs writeManifest
+# After that, it calls git, adds and commits the new manifest.json file, and goes on to the push
+
+echo "Calling R..."
+Rscript -e "cli_champions <- path.expand(file.path('~', 'documents', '.Rprofile'))
+gui_luddites <- path.expand(file.path('~', '.Rprofile'))
+
+r_prof <- ifelse(file.exists(cli_champions),
+                 cli_champions, gui_luddites)
+source(r_prof)
+
+# Set some locale settings because calling Rscript in a CLI sorts alphabetically
+# differently to the RStudio git GUI
+invisible(
+  Sys.setlocale(category = 'LC_ALL',
+                locale = 'English_Australia.1252')
+)
+
+if (require(rsconnect)) {
+  message('Writing manifest for RSC...')
+  rsconnect::writeManifest()
+  message('Done!')
+}
+" # closing quote
+
+echo "Re-adding and commiting manifest.json"
+git add manifest.json
+git commit -m "Pre-push hook: writes RSC manifest"
+
+echo "Done!"
