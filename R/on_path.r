@@ -17,7 +17,7 @@
 #' }
 on_path <- function(what, verbose = TRUE) {
     # only runs on windows
-    if (!is.windows()) { # nolint
+    if (.Platform$OS.type != "windows") {
         message("This only runs on Windows")
         invisible(FALSE)
     }
