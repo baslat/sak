@@ -4,7 +4,12 @@
 \alias{setup_project}
 \title{Setup folders and .gitignore for projects and repos}
 \usage{
-setup_project()
+setup_project(default_branch = NULL)
+}
+\arguments{
+\item{default_branch}{(str, default = \code{NULL}) the default branch of the
+repo, one of 'main' or 'master'. If \code{NULL} it will try to figure it
+out.}
 }
 \description{
 This function creates standard folders for analytical projects, and exempts
@@ -95,6 +100,6 @@ Temporary files exempted from syncing are:
 }
 \examples{
 \dontrun{
-sak::setup_project() # This will make all your folders
+cah::setup_project(default_branch = "main") # This will make all your folders
 }
 }

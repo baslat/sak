@@ -13,7 +13,7 @@ op(path = NULL, execute = FALSE)
 \item{path}{(character; default = \code{NULL} which returns the working
 directory) the directory to open.}
 
-\item{execute}{(logical, dfault = \code{FALSE}) if \code{TRUE} and you pass a
+\item{execute}{(logical, default = \code{FALSE}) if \code{TRUE} and you pass a
 filepath the file itself will be executed}
 }
 \description{
