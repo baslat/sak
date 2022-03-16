@@ -4,4 +4,4 @@
 ^README\.Rmd$
 ^debug.log
 ^.github
-^.code-workspace
+.code-workspace$
