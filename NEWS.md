@@ -1,6 +1,5 @@
 # sak (development version)
-* copies many of my functions from `cah`
-* adds `ask_to_proceed()`
+* copies many of my functions from word done elsewhere
 * many minor style changes
 
 
