@@ -192,7 +192,7 @@ append_time <- function(path,
   file <- basename(path)
 
   ext <- paste0(".", tools::file_ext(file))
-  file_prefix <- stringr::str_remove(file, ext)
+  file_prefix <- stringr::str_remove(file, ext) # nolint
 
   fullname <- glue::glue("{file_prefix}_{format(time, format)}{ext}") %>%
     fs::path_sanitize()
