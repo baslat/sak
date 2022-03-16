@@ -1,15 +1,16 @@
 Package: sak
 Title: The Swiss Army Knife of R
 Version: 0.0.0.9003
-Authors@R: 
-    person(given = "Abasi",
-           family = "Latcham",
-           role = c("aut", "cre"),
-           email = "abasi.latcham@gmail.com",
+Authors@R:
+    person("Abasi", "Latcham", , "abasi.latcham@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-1733-7350"))
-Description: This is my personal package of helper functions. Like a Swiss Army knife, it's not great at any one particular thing, but it can be useful.
+Description: This is my personal package of helper functions. Like a Swiss
+    Army knife, it's not great at any one particular thing, but it can be
+    useful.
 License: MIT + file LICENSE
-Imports: 
+URL: https://github.com/baslat/sak
+BugReports: https://github.com/baslat/sak/issues
+Imports:
     assertthat,
     dplyr,
     fs,
@@ -21,20 +22,23 @@ Imports:
     rlang (>= 0.1.2),
     stringr,
     tibble,
-    tidyselect,
     tidyr,
+    tidyselect,
     tools,
     usethis,
     utils,
     vroom
-Suggests: 
+Suggests:
     foodwebr,
+    ggmap,
+    renv,
     roxygen2,
     spelling,
     testthat (>= 3.0.0),
     tidygraph,
     visNetwork
 Remotes:
+    github::dkahle/ggmap,
     github::lewinfox/foodwebr
 Config/testthat/edition: 3
 Encoding: UTF-8
@@ -42,5 +46,3 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-URL: https://github.com/baslat/sak
-BugReports: https://github.com/baslat/sak/issues
