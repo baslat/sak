@@ -73,9 +73,11 @@ load_custom_functions <- function(path = "R/",
   assertthat::assert_that(dir.exists(path),
                           msg = "Double check that your directory exists")
 
-  funcs <- dir(path,
-               recursive = recursive,
-               full.names = TRUE)
+  funcs <- dir(
+    path,
+    recursive = recursive,
+    full.names = TRUE
+  )
 
   funcs %>%
     purrr::discard(dir.exists) %>%
@@ -199,5 +201,3 @@ append_time <- function(path,
     normalizePath(mustWork = FALSE,
                   winslash = "/")
 }
-
-
