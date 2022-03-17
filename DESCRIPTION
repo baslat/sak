@@ -32,6 +32,8 @@ Imports:
 Suggests:
     foodwebr,
     ggmap,
+    processx,
+    readr,
     renv,
     roxygen2,
     spelling,
