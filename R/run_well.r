@@ -30,7 +30,7 @@ run_well <- function(command,
 
     # processx requires the args to be split into vectors, but that is a lot of
     # extra punctuation, so this can do it automatically.
-
+    function_needs("processx")
     # https://stackoverflow.com/questions/9577930/regular-expression-to-select-all-whitespace-that-isnt-in-quotes
     spaces_not_in_quotes <- "\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)"
 
