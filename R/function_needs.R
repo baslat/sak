@@ -31,9 +31,12 @@
 #'
 function_needs <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
-    stop(glue::glue("package {pkg} needed to use this function. Please install
+    stop(
+      glue::glue("package {pkg} needed to use this function. Please install
                     with `install.packages('pkg')`, `remotes::install_git()`
-                    or `remotes::install_github('username/repo')"))
+                    or `remotes::install_github('username/repo')`"),
+      call. = FALSE
+    )
   }
   return(TRUE)
 }
