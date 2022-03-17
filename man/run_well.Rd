@@ -37,7 +37,7 @@ about timeouts and \code{stderr} otherwise.
 }
 \examples{
 \dontrun{
-# Where is R (hopefully on your path?
+# Where is R (hopefully on your path)?
 run_well("where.exe", "R")
 
 # Where is are (hopefully nowhere)?
