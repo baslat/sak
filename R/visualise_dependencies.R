@@ -30,8 +30,7 @@
 #' visualise_dependencies(.f = sak::open_path)
 #'
 #' }
-visualise_dependencies <- function(.f = NULL,
-                                   ...) {
+visualise_dependencies <- function(.f = NULL, ...) {
   function_needs("foodwebr")
   function_needs("tidygraph")
   function_needs("visNetwork")
@@ -55,14 +54,23 @@ visualise_dependencies <- function(.f = NULL,
       nodesIdSelection = list(enabled = TRUE,
                               main = "Select function")) %>%
     visNetwork::visEdges(
-      color = list(color = main_col,
-                   hover = hover_col,
-                   highlight = highlight_col),
-      arrows = list(to = list(enabled = TRUE,
-                              scaleFactor = 1))) %>%
-    visNetwork::visNodes(
-      color = list(background = main_col,
-                   border = hover_col,
-                   hover = hover_col,
-                   highlight = highlight_col))
+      color = list(
+        color = main_col,
+        hover = hover_col,
+        highlight = highlight_col
+      ),
+      arrows = list(
+        to = list(
+          enabled = TRUE,
+          scaleFactor = 1
+      ))
+    ) %>%
+      visNetwork::visNodes(
+        color = list(
+          background = main_col,
+          border = hover_col,
+          hover = hover_col,
+          highlight = highlight_col
+        )
+      )
 }
