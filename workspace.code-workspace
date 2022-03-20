@@ -5,5 +5,8 @@
 		}
 	],
 	"settings": {
+		"conventionalCommits.scopes": [
+			"GitHub Actions"
+		]
 	}
 }
