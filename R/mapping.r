@@ -530,11 +530,10 @@ suggest_zoom <- function(bbox) {
 #' /dontrun{
 #' sf %>% swap_coords()
 #' }
-swap_coords <- function(.data,
-                           geometry = geometry) {
+swap_coords <- function(.data, geometry = geometry) {
     .data %>%
-        dplyr::mutate(geometry = purrr::modify(
-            geometry,
+        dplyr::mutate({{ geometry }} := purrr::modify(
+            {{ geometry }},
             purrr::modify,
             ~ list(.[[1]][, c(2, 1)])
         ))
