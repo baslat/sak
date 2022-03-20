@@ -16,6 +16,6 @@ Sometimes people put coordinates in back to front. This function swaps them.
 }
 \examples{
 /dontrun{
-sf \%>\% swap_coords()
+my_sf \%>\% swap_coords()
 }
 }
