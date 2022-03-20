@@ -6,3 +6,4 @@
 ^.github
 .code-workspace$
 ^data-raw$
+^\.github$
