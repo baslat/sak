@@ -516,3 +516,27 @@ suggest_zoom <- function(bbox) {
 
     return(zoom)
 }
+
+#' Swap the coordinates in an `sf`
+#'
+#' Sometimes people put coordinates in back to front. This function swaps them.
+#'
+#' @param .data (`sf`) an `sf` object
+#' @param geometry (unquoted character; default = geometry) the geometry column
+#'
+#' @export
+#'
+#' @examples
+#' /dontrun{
+#' sf %>% swap_coords()
+#'
+#' }
+swap_coords <- function(.data,
+                           geometry = geometry) {
+    .data %>%
+        dplyr::mutate(geometry = purrr::modify(
+            geometry,
+            purrr::modify,
+            ~ list(.[[1]][, c(2, 1)])
+        ))
+}
