@@ -527,7 +527,7 @@ suggest_zoom <- function(bbox) {
 #' @export
 #'
 #' @examples
-#' /dontrun{
+#' \dontrun{
 #' my_sf %>% swap_coords()
 #' }
 swap_coords <- function(.data, geometry = geometry) {

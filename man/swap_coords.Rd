@@ -15,7 +15,7 @@ swap_coords(.data, geometry = geometry)
 Sometimes people put coordinates in back to front. This function swaps them.
 }
 \examples{
-/dontrun{
+\dontrun{
 my_sf \%>\% swap_coords()
 }
 }
