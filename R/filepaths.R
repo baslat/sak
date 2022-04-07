@@ -1,58 +1,13 @@
 #' Open a filepath
 #'
-#' This will either open the folder if you pass it a directory or execute the
-#' file if you pass it a filepath.
-#'
-#' You can provide nothing, which opens the current working directory, a folder
-#' in the working directory, or a full directory path.
-#'
-#' \code{op()} is a shortcut function.
-#'
-#' @param path (character; default = \code{NULL} which returns the working
-#'   directory) the directory to open.
-#' @param execute (logical, dfault = \code{FALSE}) if \code{TRUE} and you pass a
-#'   filepath the file itself will be executed
+#' @inherit fs::file_show
 #'
 #' @export
-#' @examples
-#' \dontrun{
-#' op() # Opens the working directory
-#' open_path("R") # Opens the `R` folder in working directory
-#' open_path("news.md") # Opens the `news.md` file in the working directory
-#' }
-open_path <- function(path = NULL,
-                      execute = FALSE) {
+op <- function(path = ".", browser = getOption("browser")) {
 
-  # If path is null, set to the working directory
-  if (is.null(path)) {
-    path <- getwd()
-  } else if (dir.exists(file.path(getwd(), path))) {
-    # Check if it's an internal folder
-    path <- file.path(getwd(), path)
-  }
-
-  # Check it exists
-  exists <- file.access(path, mode = 0)
-  assertthat::assert_that(exists == 0,
-                          msg = "Not a valid filepath")
-
-  # Check if it's a file or dir
-  file <- tools::file_ext(path) != ""
-
-
-  if (file && !execute) {
-    path <- dirname(path)
-  }
-
-    shell.exec(path)
-    invisible(path)
+  fs::file_show(path = path, browser = browser)
 
 }
-
-#' @rdname open_path
-#' @export
-op <- open_path
-
 
 #' Load all custom functions in a project
 #'
