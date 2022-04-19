@@ -1,10 +1,10 @@
-#' Time an expression in minutes
+#' Time an expression
 #'
-#' This is a wrapper for `system.time`, but returns only the total elapsed time in minutes.
+#' This is a wrapper for `system.time`, but returns only the total elapsed time.
 #'
 #' @inheritParams base::system.time
 #'
-#' @return total elapsed time in minutes
+#' @return (`lubridate::period`) total elapsed time
 #'
 #' @export
 #'
@@ -19,6 +19,6 @@
 stopwatch <- function(expr) {
     # Time the expression
     time <- system.time(expr)
-    time <- time[3] / 60
-    unname(time)
+    time <- time[3]
+    lubridate::seconds_to_period(time)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/stopwatch.r
 \name{stopwatch}
 \alias{stopwatch}
-\title{Time an expression in minutes}
+\title{Time an expression}
 \usage{
 stopwatch(expr)
 }
@@ -10,10 +10,10 @@ stopwatch(expr)
 \item{expr}{Valid \R expression to be timed.}
 }
 \value{
-total elapsed time in minutes
+(\code{lubridate::period}) total elapsed time
 }
 \description{
-This is a wrapper for \code{system.time}, but returns only the total elapsed time in minutes.
+This is a wrapper for \code{system.time}, but returns only the total elapsed time.
 }
 \examples{
 \dontrun{
