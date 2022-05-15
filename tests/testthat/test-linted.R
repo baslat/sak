@@ -1,4 +1,4 @@
-test_that("testing package is styled correctly", {
+test_that("testing package is linted correctly", {
   # Whole bunch of preliminary stuff copied off github to deal with `check`
   # making a copy of package into a nested folder and specifying file paths:
   # https://github.com/jimhester/lintr/issues/421

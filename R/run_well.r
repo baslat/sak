@@ -34,7 +34,7 @@ run_well <- function(command,
   # https://stackoverflow.com/questions/9577930/regular-expression-to-select-all-whitespace-that-isnt-in-quotes
   spaces_not_in_quotes <- "\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)"
 
-  if (split_args & !rlang::is_empty(args)) {
+  if (split_args && !rlang::is_empty(args)) {
     args <- args %>%
       stringr::str_split(pattern = spaces_not_in_quotes) %>% # one or more spaces
       unlist()

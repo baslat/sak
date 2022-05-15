@@ -12,5 +12,4 @@ linters: with_defaults(
     sprintf_linter = lintr::sprintf_linter(),
     todo_comment_linter = lintr::todo_comment_linter(),
     undesirable_operator_linter = lintr::undesirable_operator_linter(),
-    unneeded_concatenation_linter = lintr::unneeded_concatenation_linter(),
-    dummy_linter = NULL)
+    unneeded_concatenation_linter = lintr::unneeded_concatenation_linter())

@@ -7,6 +7,9 @@
         "geoms",
         "horiz",
         "nolint",
-        "nonportable"
+        "nonportable",
+        "pkgname",
+        "Rbuildignore",
+        "winslash"
     ]
 }

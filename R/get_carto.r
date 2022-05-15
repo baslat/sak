@@ -1,3 +1,4 @@
+# nolint start
 #' Get a Carto basemap
 #'
 #' \code{get_carto} accesses a tile server for Carto basemaps and
@@ -338,30 +339,17 @@ get_carto_tile <- function(maptype, zoom, x, y, color, force = FALSE, messaging 
 
     # parse tile
     tile <- httr::content(response)
-    # tile <- aperm(tile, c(2, 1, 3))
 
     # convert to hex color
-    # if (maptype %in% c("toner-hybrid", "toner-labels", "toner-lines", "terrain-labels", "terrain-lines")) {
-    #
-    #   if(color == "color") {
-    #     tile <- apply(tile, 1:2, function(x) rgb(x[1], x[2], x[3], x[4]))
-    #   } else {  # color == "bw" (all these are black and white naturally)
-    #     tile <- apply(tile, 1:2, function(x) rgb(x[1], x[2], x[3], x[4]))
-    #   }
-    #
-    # } else {
-
     if (color == "color") {
-      # tile <- apply(tile, 2, rgb)
       tile <- tile %>% grDevices::as.raster()
-    } else { # color == "bw"
+    } else {
       tile <- aperm(tile, c(2, 1, 3))
       tiled <- dim(tile)
       tile <- grDevices::gray(.30 * tile[, , 1] + .59 * tile[, , 2] + .11 * tile[, , 3])
       dim(tile) <- tiled[1:2]
     }
 
-    # }
   }
 
 
@@ -521,3 +509,5 @@ stitch <- function(tiles) {
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
   abs(x - round(x)) < tol
 }
+
+# nolint end

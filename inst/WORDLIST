@@ -43,6 +43,7 @@ datetime
 dbplyr
 digitcode
 docx
+dplyr
 dtplyr
 eval
 filepath
@@ -94,6 +95,7 @@ readme
 repo
 repos
 respecified
+rlang
 rowwise
 sa
 sed
@@ -108,6 +110,8 @@ summarise
 testthat
 tibble
 tibbles
+tunnelled
+tunnelling
 ucl
 untracked
 upperrightlat
