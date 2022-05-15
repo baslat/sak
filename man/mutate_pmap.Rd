@@ -51,14 +51,21 @@ arguments expected by \code{.f}.
 \examples{
 \dontrun{
 
-# Create a column of charts
-tibble::tibble(citymapper = list(
-    covidpmc::get_citymapper(),
-    covidpmc::get_citymapper()
+# Create a column of charts:
+
+# Create a custom plotting function
+plot_starwars <- function(data) {
+  ggplot2::qplot(x = mass, y = height, data = data)
+}
+
+# Make a tibble with the starwars data in twice
+tibble::tibble(data = list(
+  dplyr::starwars,
+  dplyr::starwars
 )) \%>\%
-    mutate_pmap(
-        col_name = plot,
-        .f = covidpmc::chart_citymapper
-    )
+  mutate_pmap(
+    col_name = plot,
+    .f = plot_starwars
+  )
 }
 }
