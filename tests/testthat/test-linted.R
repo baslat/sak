@@ -2,7 +2,7 @@ test_that("testing package is styled correctly", {
   # Whole bunch of preliminary stuff copied off github to deal with `check`
   # making a copy of package into a nested folder and specifying file paths:
   # https://github.com/jimhester/lintr/issues/421
-  pkgname <- "place_package_name_here_please"
+  pkgname <- "sak"
   lint_path <- path.expand(normalizePath(getwd(), winslash = "/"))
 
   find_root <- function(path, pkgname) {

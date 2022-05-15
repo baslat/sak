@@ -220,10 +220,10 @@ setup_package <- function() {
   usethis::use_pipe()
   usethis::use_tibble()
   usethis::use_tidy_description()
-  usethis::use_tidy_style()
   usethis::use_roxygen_md()
   usethis::use_lifecycle()
   usethis::use_readme_md()
   setup_lintr_config()
   setup_lintr_testthat()
+  usethis::use_tidy_style()
 }

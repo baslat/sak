@@ -1,5 +1,8 @@
 {
     "conventionalCommits.scopes": [
         "news"
+    ],
+    "cSpell.words": [
+        "nonportable"
     ]
 }
