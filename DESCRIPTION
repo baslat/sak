@@ -43,6 +43,7 @@ Suggests:
     renv,
     roxygen2,
     spelling,
+    targets,
     testthat (>= 3.0.0),
     tidygraph,
     visNetwork

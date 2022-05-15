@@ -1,7 +1,13 @@
 #' Setup folders and .gitignore for projects and repos
 #'
-#' This function creates standard folders for analytical projects, and exempts
-#' \code{/outputs/.} and temporary files from syncing with \code{git}.
+#' This function:
+#' \itemize{
+#'    \item{creates standard folders for analytical projects}
+#'    \item{exempts \code{/outputs/.}, and data & temp files from syncing with git}
+#'    \item{adds a markdown readme}
+#'    \item{asks if you want to use `{renv}`}
+#'    \item{asks if you want to use `{targets}`}
+#' }
 #'
 #' The folders created are:
 #'
@@ -178,6 +184,13 @@ setup_project <- function() {
   if (use_renv) {
     setup_renv()
   }
+
+use_targets <- ask_to_proceed("Do you want to use `{targets}`?")
+if (use_targets) {
+  function_needs("targets")
+  targets::use_targets()
+}
+
 }
 
 

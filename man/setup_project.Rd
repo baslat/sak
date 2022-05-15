@@ -7,8 +7,14 @@
 setup_project()
 }
 \description{
-This function creates standard folders for analytical projects, and exempts
-\code{/outputs/.} and temporary files from syncing with \code{git}.
+This function:
+\itemize{
+\item{creates standard folders for analytical projects}
+\item{exempts \code{/outputs/.}, and data & temp files from syncing with git}
+\item{adds a markdown readme}
+\item{asks if you want to use \code{{renv}}}
+\item{asks if you want to use \code{{targets}}}
+}
 }
 \details{
 The folders created are:
