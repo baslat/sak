@@ -472,7 +472,7 @@ extract_gmaps <- function(.data,
 #' @format A \code{lm} object that requires vertical and horizontal distance
 #'   (and their squares) in meters.
 #'
-#' @source CAH calculations based on \code{base_map_params}
+#' @source Calculations based on \code{base_map_params}
 "suggest_zoom_model"
 
 

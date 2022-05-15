@@ -9,7 +9,7 @@ A \code{lm} object that requires vertical and horizontal distance
 (and their squares) in meters.
 }
 \source{
-CAH calculations based on \code{base_map_params}
+Calculations based on \code{base_map_params}
 }
 \usage{
 suggest_zoom_model

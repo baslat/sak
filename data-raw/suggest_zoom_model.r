@@ -6,7 +6,7 @@ usethis::use_data(suggest_zoom_model, internal = TRUE, overwrite = TRUE)
 
 # `geom_defaults` data ----
 
-# Go to zzz.R and comment out set_plot_colours(type = "cah")
+# Go to zzz.R and comment out anything from this package
 
 devtools::load_all()
 check_subclass <- utils::getFromNamespace("check_subclass", "ggplot2")
@@ -56,4 +56,3 @@ bp <- base_map_params %>%
     )
 
 suggest_zoom_model <- lm(met ~ 0 + vert + horz + I(vert^2) + I(horz^2), bp)
-

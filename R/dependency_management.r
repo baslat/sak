@@ -204,5 +204,5 @@ setup_renv <- function(starter_packs = c("sak", "renv"),
     renv::install(packs)
     message("Snapshotting...")
     renv::snapshot(prompt = FALSE)
-    message("Next steps:\n-- Restart your session\n-- Run cah::renv_restore_rspm()\n-- Restart again\n-- Run renv::status()! And ignore any yellow error bars at the top of the screen about packages not being installed!")
+    message("Next steps:\n-- Restart your session\n-- Run sak::renv_restore_rspm()\n-- Restart again\n-- Run renv::status()! And ignore any yellow error bars at the top of the screen about packages not being installed!")
 }

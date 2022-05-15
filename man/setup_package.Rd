@@ -22,7 +22,7 @@ already exists (you don't want conflicts) or if it's a swear.
 you don't need to select the \code{Package} option.
 \item Run \code{usethis::create_package(".")}, which will set up
 boilerplate folders and change the RStudio project file.
-\item Run \code{cah::setup_package()} which will adds things like package
+\item Run \code{sak::setup_package()} which will adds things like package
 documentation, an MIT license, tidy styling, a news file, spell check, and
 support for tidy eval, pipes and tibbles.
 \item Fill in the standard details in the description and readme files,
