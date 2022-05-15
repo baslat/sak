@@ -101,51 +101,53 @@ setup_project <- function() {
     purrr::walk(usethis::use_directory)
 
   # Create .gitignore
-  lines <- c("# History files",
-             ".Rhistory",
-             ".Rapp.history",
-             "# Session Data files",
-             ".RData",
-             "# User-specific files",
-             ".Ruserdata",
-             "# Example code in package build process",
-             "*-Ex.R",
-             "# Output files from R CMD build",
-             "/*.tar.gz",
-             "# Output files from R CMD check",
-             "/*.Rcheck/",
-             "# RStudio files",
-             ".Rproj.user/",
-             "# produced vignettes",
-             "vignettes/*.html",
-             "vignettes/*.pdf",
-             "# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3",
-             ".httr-oauth",
-             "# knitr and R markdown default cache directories",
-             "*_cache/",
-             "/cache/",
-             "# Temporary files created by R markdown",
-             "*.utf8.md",
-             "*.knit.md",
-             "# R Environment Variables",
-             ".Renviron",
-             "# pkgdown site",
-             "docs/",
-             "# Output folder",
-             "outputs/",
-             "# translation temp files",
-             "po/*~",
-             "# Leaflet folders",
-             "*_files/",
-             "# Office and web documents",
-             "*.docx",
-             "*.html",
-             "*.pdf",
-             "*.csv",
-             "*.xls",
-             "*.xlsx",
-             "*.ppt",
-             "*.pptx")
+  lines <- c(
+    "# History files",
+    ".Rhistory",
+    ".Rapp.history",
+    "# Session Data files",
+    ".RData",
+    "# User-specific files",
+    ".Ruserdata",
+    "# Example code in package build process",
+    "*-Ex.R",
+    "# Output files from R CMD build",
+    "/*.tar.gz",
+    "# Output files from R CMD check",
+    "/*.Rcheck/",
+    "# RStudio files",
+    ".Rproj.user/",
+    "# produced vignettes",
+    "vignettes/*.html",
+    "vignettes/*.pdf",
+    "# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3",
+    ".httr-oauth",
+    "# knitr and R markdown default cache directories",
+    "*_cache/",
+    "/cache/",
+    "# Temporary files created by R markdown",
+    "*.utf8.md",
+    "*.knit.md",
+    "# R Environment Variables",
+    ".Renviron",
+    "# pkgdown site",
+    "docs/",
+    "# Output folder",
+    "outputs/",
+    "# translation temp files",
+    "po/*~",
+    "# Leaflet folders",
+    "*_files/",
+    "# Office and web documents",
+    "*.docx",
+    "*.html",
+    "*.pdf",
+    "*.csv",
+    "*.xls",
+    "*.xlsx",
+    "*.ppt",
+    "*.pptx"
+  )
   # Does a gitignore file exist?
   if (file.exists(".gitignore")) {
     # Read current
@@ -163,8 +165,16 @@ setup_project <- function() {
 
 
   # Write gitignore
-  usethis::write_over(".gitignore",
-                      lines)
+  usethis::write_over(".gitignore", lines)
+  # Use a markdown readme
+  usethis::use_readme_md()
+  # setup lintr config
+  setup_lintr_config()
+
+  use_renv <- ask_to_proceed("Do you want to track this project with renv?")
+  if (use_renv) {
+    setup_renv()
+  }
 
 }
 
@@ -182,7 +192,7 @@ setup_project <- function() {
 #'   you don't need to select the \code{Package} option.
 #'   \item Run \code{usethis::create_package(".")}, which will set up
 #'   boilerplate folders and change the RStudio project file.
-#'   \item Run \code{cah::setup_package()} which will adds things like package
+#'   \item Run \code{sak::setup_package()} which will adds things like package
 #'   documentation, an MIT license, tidy styling, a news file, spell check, and
 #'   support for tidy eval, pipes and tibbles.
 #'   \item Fill in the standard details in the description and readme files,
