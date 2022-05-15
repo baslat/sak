@@ -10,6 +10,8 @@ Description: This is my personal package of helper functions. Like a Swiss
 License: MIT + file LICENSE
 URL: https://github.com/baslat/sak
 BugReports: https://github.com/baslat/sak/issues
+Depends:
+    R (>= 4.10)
 Imports:
     assertthat,
     desc,
@@ -22,7 +24,7 @@ Imports:
     magrittr,
     plyr,
     purrr,
-    rlang (>= 0.1.2),
+    rlang (>= 0.4.11),
     sf,
     stringr,
     tibble,
@@ -52,5 +54,3 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Depends:
-    R (>= 4.10)
