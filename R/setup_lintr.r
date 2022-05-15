@@ -16,18 +16,18 @@ setup_lintr_config <- function() {
     lines = lintr_config
   )
 
-# If it's a package, edit the build ignore and add .lintr as a dep
-is_package <- desc::desc_has_fields("Package")
+  # If it's a package, edit the build ignore and add .lintr as a dep
+  is_package <- desc::desc_has_fields("Package")
 
-if (is_package) {
-  # modify .Rbuildignore to suppress warnings
-  usethis::write_union(
-    path = ".Rbuildignore",
-    lines = "^.lintr"
-  )
+  if (is_package) {
+    # modify .Rbuildignore to suppress warnings
+    usethis::write_union(
+      path = ".Rbuildignore",
+      lines = "^.lintr"
+    )
 
-  usethis::use_package("lintr", type = "Suggests")
-}
+    usethis::use_package("lintr", type = "Suggests")
+  }
 
 
 

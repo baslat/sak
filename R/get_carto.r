@@ -349,7 +349,6 @@ get_carto_tile <- function(maptype, zoom, x, y, color, force = FALSE, messaging 
       tile <- grDevices::gray(.30 * tile[, , 1] + .59 * tile[, , 2] + .11 * tile[, , 3])
       dim(tile) <- tiled[1:2]
     }
-
   }
 
 

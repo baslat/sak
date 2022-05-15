@@ -20,15 +20,15 @@ geom_defaults <- all_geoms %>% ## look at this is does what I want
     "Geom",
     env = parent.frame()
   ) %>%
-    purrr::map(
-      purrr::pluck,
-      "result"
-    ) %>%
-    purrr::map(
-      purrr::pluck,
-      "default_aes"
-    ) %>%
-    purrr::set_names(all_geoms)
+  purrr::map(
+    purrr::pluck,
+    "result"
+  ) %>%
+  purrr::map(
+    purrr::pluck,
+    "default_aes"
+  ) %>%
+  purrr::set_names(all_geoms)
 
 
 
