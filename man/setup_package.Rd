@@ -20,19 +20,16 @@ the package, so you might like to run
 already exists (you don't want conflicts) or if it's a swear.
 \item Open a new R project in the cloned folder. A normal project is fine,
 you don't need to select the \code{Package} option.
-\item Run \code{usethis::create_package(".")}, which will set up
-boilerplate folders and change the RStudio project file.
-\item Run \code{sak::setup_package()} which will adds things like package
-documentation, an MIT license, tidy styling, a news file, spell check, and
-support for tidy eval, pipes and tibbles.
+\item Run \code{sak::setup_package()} which will  which will set up
+boilerplate folders and change the RStudio project file, and then adds
+things like package   documentation, an MIT license, tidy styling, a news
+file, spell check, and support for tidy eval, pipes and tibbles.
 \item Fill in the standard details in the description and readme files,
 then develop as normal.
 }
 }
 \examples{
 \dontrun{
-usethis::create_package(".")
-
 sak::setup_package()
 }
 }
