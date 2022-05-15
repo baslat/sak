@@ -1,5 +1,15 @@
 {
     "conventionalCommits.scopes": [
         "news"
+    ],
+    "cSpell.words": [
+        "bbox",
+        "geoms",
+        "horiz",
+        "nolint",
+        "nonportable",
+        "pkgname",
+        "Rbuildignore",
+        "winslash"
     ]
 }

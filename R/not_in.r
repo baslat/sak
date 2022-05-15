@@ -7,5 +7,5 @@
 #' @export
 #'
 `%not_in%` <- function(x, table) {
-    !(`%in%`(x, table))
+  !(`%in%`(x, table))
 }

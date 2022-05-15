@@ -1,15 +1,16 @@
 Package: sak
 Title: The Swiss Army Knife of R
-Version: 0.0.0.9004
+Version: 0.0.0.9005
 Authors@R:
-    person("Abasi", "Latcham", , "abasi.latcham@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-1733-7350"))
+    person("Bas", "Latcham", , "bas@latcham.com.au", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1733-7350"))
 Description: This is my personal package of helper functions. Like a Swiss
     Army knife, it's not great at any one particular thing, but it can be
     useful.
 License: MIT + file LICENSE
 URL: https://github.com/baslat/sak
 BugReports: https://github.com/baslat/sak/issues
+Depends:
+    R (>= 4.1.0)
 Imports:
     assertthat,
     desc,
@@ -18,11 +19,12 @@ Imports:
     ggplot2,
     glue,
     httr,
+    lifecycle,
     lubridate,
     magrittr,
     plyr,
     purrr,
-    rlang (>= 0.1.2),
+    rlang (>= 0.4.11),
     sf,
     stringr,
     tibble,
@@ -35,6 +37,7 @@ Imports:
 Suggests:
     foodwebr,
     ggmap,
+    lintr,
     processx,
     readr,
     renv,
@@ -52,5 +55,3 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Depends: 
-    R (>= 2.10)

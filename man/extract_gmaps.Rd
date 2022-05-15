@@ -20,9 +20,9 @@ Extract the \code{ggmap}s from a \code{tibble} column
 \examples{
 \dontrun{
 embedded_maps <- base_map_params \%>\%
-    filter(geo_level == "state") \%>\%
-    mutate(gmap = embed_gmap(left, bottom, right, top, zoom, maptype)) \%>\%
-    ungroup()
+  filter(geo_level == "state") \%>\%
+  mutate(gmap = embed_gmap(left, bottom, right, top, zoom, maptype)) \%>\%
+  ungroup()
 
 list_of_basemaps <- extract_gmaps(embedded_maps) \%>\% map(fix_ggmap_bbox)
 }

@@ -1,3 +1,4 @@
+# nolint start
 #' Get a Carto basemap
 #'
 #' \code{get_carto} accesses a tile server for Carto basemaps and
@@ -26,8 +27,8 @@
 #' @seealso \url{https://github.com/CartoDB/basemap-styles}, \[ggmap()\]
 #' @name get_carto
 #' @examples
-#'
-#' \dontrun{ some requires Google API key, see ?register_google; heavy network/time load
+#' \dontrun{
+#' # some requires Google API key, see ?register_google; heavy network/time load
 #'
 #'
 #' ## basic usage
@@ -57,19 +58,19 @@
 #'
 #' bbox <- bb2bbox(attr(google, "bb"))
 #'
-#' get_carto(bbox, maptype = "terrain")            %>% ggmap()
+#' get_carto(bbox, maptype = "terrain") %>% ggmap()
 #' get_carto(bbox, maptype = "terrain-background") %>% ggmap()
-#' get_carto(bbox, maptype = "terrain-labels")     %>% ggmap()
-#' get_carto(bbox, maptype = "terrain-lines")      %>% ggmap()
-#' get_carto(bbox, maptype = "toner")              %>% ggmap()
-#' get_carto(bbox, maptype = "toner-2010")         %>% ggmap()
-#' get_carto(bbox, maptype = "toner-2011")         %>% ggmap()
-#' get_carto(bbox, maptype = "toner-background")   %>% ggmap()
-#' get_carto(bbox, maptype = "toner-hybrid")       %>% ggmap()
-#' get_carto(bbox, maptype = "toner-labels")       %>% ggmap()
-#' get_carto(bbox, maptype = "toner-lines")        %>% ggmap()
-#' get_carto(bbox, maptype = "toner-lite")         %>% ggmap()
-#' get_carto(bbox, maptype = "watercolor")         %>% ggmap()
+#' get_carto(bbox, maptype = "terrain-labels") %>% ggmap()
+#' get_carto(bbox, maptype = "terrain-lines") %>% ggmap()
+#' get_carto(bbox, maptype = "toner") %>% ggmap()
+#' get_carto(bbox, maptype = "toner-2010") %>% ggmap()
+#' get_carto(bbox, maptype = "toner-2011") %>% ggmap()
+#' get_carto(bbox, maptype = "toner-background") %>% ggmap()
+#' get_carto(bbox, maptype = "toner-hybrid") %>% ggmap()
+#' get_carto(bbox, maptype = "toner-labels") %>% ggmap()
+#' get_carto(bbox, maptype = "toner-lines") %>% ggmap()
+#' get_carto(bbox, maptype = "toner-lite") %>% ggmap()
+#' get_carto(bbox, maptype = "watercolor") %>% ggmap()
 #'
 #'
 #' ## zoom levels
@@ -100,7 +101,7 @@
 #' gc <- geocode("rio de janeiro")
 #'
 #' get_carto(bbox, zoom = 10) %>% ggmap() +
-#'  geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 2)
+#'   geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 2)
 #'
 #' get_carto(bbox, zoom = 10, crop = FALSE) %>% ggmap() +
 #'   geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 2)
@@ -123,32 +124,30 @@
 #' # accuracy check - white house
 #' gc <- geocode("the white house")
 #'
-#' qmap("the white house", zoom = 16)  +
+#' qmap("the white house", zoom = 16) +
 #'   geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 3)
 #'
-#' qmap("the white house", zoom = 16, source = "carto", maptype = "terrain")  +
+#' qmap("the white house", zoom = 16, source = "carto", maptype = "terrain") +
 #'   geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 3)
 #' }
 #'
-
 #' @export
 #' @rdname get_carto
-get_carto <- function(
-  bbox = c(left = -95.80204, bottom = 29.38048, right = -94.92313, top = 30.14344),
-  zoom = 10, maptype = c("light_all",
-                         "dark_all",
-                         "light_nolabels",
-                         "light_only_labels",
-                         "dark_nolabels",
-                         "dark_only_labels",
-                         "rastertiles/voyager",
-                         "rastertiles/voyager_nolabels",
-                         "rastertiles/voyager_only_labels",
-                         "rastertiles/voyager_labels_under"),
-  crop = TRUE, messaging = FALSE, urlonly = FALSE, color = c("color", "bw"), force = FALSE,
-  where = tempdir(), https = FALSE, ...
-) {
-
+get_carto <- function(bbox = c(left = -95.80204, bottom = 29.38048, right = -94.92313, top = 30.14344),
+                      zoom = 10, maptype = c(
+                        "light_all",
+                        "dark_all",
+                        "light_nolabels",
+                        "light_only_labels",
+                        "dark_nolabels",
+                        "dark_only_labels",
+                        "rastertiles/voyager",
+                        "rastertiles/voyager_nolabels",
+                        "rastertiles/voyager_only_labels",
+                        "rastertiles/voyager_labels_under"
+                      ),
+                      crop = TRUE, messaging = FALSE, urlonly = FALSE, color = c("color", "bw"), force = FALSE,
+                      where = tempdir(), https = FALSE, ...) {
   function_needs("ggmap")
   # enumerate argument checking (added in lieu of checkargs function)
   args <- as.list(match.call(expand.dots = TRUE)[-1])
@@ -166,7 +165,7 @@ get_carto <- function(
 
   if ("zoom" %in% argsgiven) {
     if (!(is.numeric(zoom) && length(zoom) == 1 &&
-         zoom == round(zoom) && zoom >= 0 && zoom <= 18)) {
+      zoom == round(zoom) && zoom >= 0 && zoom <= 18)) {
       stop("scale must be a positive integer 0-18, see ?get_carto.", call. = F)
     }
   }
@@ -190,15 +189,17 @@ get_carto <- function(
     lat = c(bbox["bottom"], bbox["top"])
   )
   fourCorners$zoom <- zoom
-  row.names(fourCorners) <- c("lowerleft","lowerright","upperleft","upperright")
-  fourCornersTiles <- apply(fourCorners, 1, function(v) ggmap::LonLat2XY(v[1],v[2],v[3]))
+  row.names(fourCorners) <- c("lowerleft", "lowerright", "upperleft", "upperright")
+  fourCornersTiles <- apply(fourCorners, 1, function(v) ggmap::LonLat2XY(v[1], v[2], v[3]))
 
   xsNeeded <- Reduce(":", sort(unique(as.numeric(sapply(fourCornersTiles, function(df) df$X)))))
   ysNeeded <- Reduce(":", sort(unique(as.numeric(sapply(fourCornersTiles, function(df) df$Y)))))
   tilesNeeded <- expand.grid(x = xsNeeded, y = ysNeeded)
-  if(nrow(tilesNeeded) > 40){
-    message(nrow(tilesNeeded), " tiles needed, this may take a while ",
-            "(try a smaller zoom).")
+  if (nrow(tilesNeeded) > 40) {
+    message(
+      nrow(tilesNeeded), " tiles needed, this may take a while ",
+      "(try a smaller zoom)."
+    )
   }
 
 
@@ -206,8 +207,10 @@ get_carto <- function(
   base_url <- paste(base_url, maptype, "/", zoom, sep = "")
   urls <- paste(base_url, apply(tilesNeeded, 1, paste, collapse = "/"), sep = "/")
   urls <- paste(urls, "png", sep = ".")
-  if(messaging) message(length(urls), " tiles required.")
-  if(urlonly) return(urls)
+  if (messaging) message(length(urls), " tiles required.")
+  if (urlonly) {
+    return(urls)
+  }
 
 
   # make list of tiles
@@ -225,11 +228,11 @@ get_carto <- function(
 
 
   # format map and return if not cropping
-  if(!crop) {
+  if (!crop) {
     # additional map meta-data
-    attr(map, "source")  <- "carto"
+    attr(map, "source") <- "carto"
     attr(map, "maptype") <- maptype
-    attr(map, "zoom")    <- zoom
+    attr(map, "zoom") <- zoom
 
     # return
     return(map)
@@ -237,7 +240,7 @@ get_carto <- function(
 
 
   # crop map
-  if(crop){
+  if (crop) {
     mbbox <- attr(map, "bb")
 
     size <- 256L * c(length(xsNeeded), length(ysNeeded))
@@ -247,18 +250,18 @@ get_carto <- function(
 
     # slat is the sequence of lats corresponding to the pixels bottom to top
     # slat is more complicated due to the mercator projection
-    slat <- vector("double", length = 256L*length(ysNeeded))
-    for(k in seq_along(ysNeeded)){
-      slat[(k-1)*256 + 1:256] <-
-        sapply(as.list(0:255), function(y){
+    slat <- vector("double", length = 256L * length(ysNeeded))
+    for (k in seq_along(ysNeeded)) {
+      slat[(k - 1) * 256 + 1:256] <-
+        sapply(as.list(0:255), function(y) {
           ggmap::XY2LonLat(X = xsNeeded[1], Y = ysNeeded[k], zoom, x = 0, y = y)$lat
         })
     }
     slat <- rev(slat)
-    ##slat <- seq(mbbox$ll.lat, mbbox$ur.lat, length.out = size[2])
+    ## slat <- seq(mbbox$ll.lat, mbbox$ur.lat, length.out = size[2])
 
     keep_x_ndcs <- which(bbox["left"] <= slon & slon <= bbox["right"])
-    keep_y_ndcs <- sort( size[2] - which(bbox["bottom"] <= slat & slat <= bbox["top"]) )
+    keep_y_ndcs <- sort(size[2] - which(bbox["bottom"] <= slat & slat <= bbox["top"]))
 
     croppedmap <- map[keep_y_ndcs, keep_x_ndcs]
   }
@@ -266,16 +269,16 @@ get_carto <- function(
 
   # format map
   croppedmap <- grDevices::as.raster(croppedmap)
-  class(croppedmap) <- c("ggmap","raster")
+  class(croppedmap) <- c("ggmap", "raster")
   attr(croppedmap, "bb") <- data.frame(
     ll.lat = bbox["bottom"], ll.lon = bbox["left"],
     ur.lat = bbox["top"], ur.lon = bbox["right"]
   )
 
   # additional map meta-data
-  attr(croppedmap, "source")  <- "carto"
+  attr(croppedmap, "source") <- "carto"
   attr(croppedmap, "maptype") <- maptype
-  attr(croppedmap, "zoom")    <- zoom
+  attr(croppedmap, "zoom") <- zoom
 
 
   # return
@@ -284,8 +287,7 @@ get_carto <- function(
 
 
 
-get_carto_tile <- function(maptype, zoom, x, y, color, force = FALSE, messaging = TRUE, where = tempdir(), https = FALSE, url){
-
+get_carto_tile <- function(maptype, zoom, x, y, color, force = FALSE, messaging = TRUE, where = tempdir(), https = FALSE, url) {
   if (missing(url)) {
 
     # check arguments
@@ -295,7 +297,7 @@ get_carto_tile <- function(maptype, zoom, x, y, color, force = FALSE, messaging 
 
 
     filetype <- "png" # nolint
-    domain <-"https://a.basemaps.cartocdn.com/" # nolint
+    domain <- "https://a.basemaps.cartocdn.com/" # nolint
     url <- glue::glue("{domain}/{maptype}/{zoom}/{x}/{y}.{filetype}")
 
 
@@ -304,21 +306,22 @@ get_carto_tile <- function(maptype, zoom, x, y, color, force = FALSE, messaging 
     fdg <- utils::getFromNamespace("file_drawer_get", "ggmap")
 
     tile <- fdg(url)
-    if (!is.null(tile) && !force) return(tile)
+    if (!is.null(tile) && !force) {
+      return(tile)
+    }
 
 
     # message url
     if (messaging) message("Source : ", url)
-
   } else {
-
-    url_pieces <- url %>% stringr::str_split("[/.]") %>% purrr::pluck(1L)
+    url_pieces <- url %>%
+      stringr::str_split("[/.]") %>%
+      purrr::pluck(1L)
     maptype <- url_pieces[6]
     zoom <- url_pieces[7] %>% as.integer()
     x <- url_pieces[8] %>% as.integer()
     y <- url_pieces[9] %>% as.integer()
     filetype <- url_pieces[10]
-
   }
 
 
@@ -328,41 +331,24 @@ get_carto_tile <- function(maptype, zoom, x, y, color, force = FALSE, messaging 
 
   # deal with bad responses
   if (response$status_code != 200L) {
-
     httr::message_for_status(response, glue::glue("acquire tile /{maptype}/{zoom}/{x}/{y}.{filetype}"))
     if (messaging) message("\n", appendLF = FALSE)
     log_carto_tile_download_fail(url)
     tile <- matrix(grDevices::rgb(1, 1, 1, 0), nrow = 256L, ncol = 256L)
-
   } else {
 
     # parse tile
     tile <- httr::content(response)
-    # tile <- aperm(tile, c(2, 1, 3))
 
     # convert to hex color
-    # if (maptype %in% c("toner-hybrid", "toner-labels", "toner-lines", "terrain-labels", "terrain-lines")) {
-    #
-    #   if(color == "color") {
-    #     tile <- apply(tile, 1:2, function(x) rgb(x[1], x[2], x[3], x[4]))
-    #   } else {  # color == "bw" (all these are black and white naturally)
-    #     tile <- apply(tile, 1:2, function(x) rgb(x[1], x[2], x[3], x[4]))
-    #   }
-    #
-    # } else {
-
-    if(color == "color") {
-      # tile <- apply(tile, 2, rgb)
+    if (color == "color") {
       tile <- tile %>% grDevices::as.raster()
-    } else {  # color == "bw"
+    } else {
       tile <- aperm(tile, c(2, 1, 3))
       tiled <- dim(tile)
-      tile <- grDevices::gray(.30 * tile[,,1] + .59 * tile[,,2] + .11 * tile[,,3])
+      tile <- grDevices::gray(.30 * tile[, , 1] + .59 * tile[, , 2] + .11 * tile[, , 3])
       dim(tile) <- tiled[1:2]
     }
-
-    # }
-
   }
 
 
@@ -420,7 +406,6 @@ log_carto_tile_download_fail <- function(url) {
   ggmap_environment <- rlang::new_environment()
 
   if (exists("carto_tile_download_fail_log", envir = ggmap_environment)) {
-
     assign(
       "carto_tile_download_fail_log",
       unique(c(
@@ -429,15 +414,11 @@ log_carto_tile_download_fail <- function(url) {
       )),
       envir = ggmap_environment
     )
-
   } else {
-
     assign("carto_tile_download_fail_log", url, envir = ggmap_environment)
-
   }
 
   invisible()
-
 }
 
 
@@ -450,7 +431,6 @@ log_carto_tile_download_fail <- function(url) {
 #' @export
 #' @rdname get_carto
 get_carto_tile_dl_fail_log <- function() {
-
   ggmap_environment <- rlang::new_environment()
 
   if (!exists("carto_tile_download_fail_log", envir = ggmap_environment)) {
@@ -458,7 +438,6 @@ get_carto_tile_dl_fail_log <- function() {
   }
 
   get("carto_tile_download_fail_log", envir = ggmap_environment)
-
 }
 
 
@@ -468,22 +447,16 @@ get_carto_tile_dl_fail_log <- function() {
 #' @export
 #' @rdname get_carto
 retry_carto_map_download <- function() {
-
   ggmap_environment <- rlang::new_environment()
 
   if (!exists("carto_tile_download_fail_log", envir = ggmap_environment)) {
-
     return(invisible())
-
   } else {
-
     get_carto_tile_dl_fail_log() %>%
       purrr::map(~ get_carto_tile("url" = .x, "force" = TRUE))
-
   }
 
   invisible()
-
 }
 
 
@@ -493,11 +466,13 @@ retry_carto_map_download <- function() {
 
 
 
-stitch <- function(tiles){
+stitch <- function(tiles) {
 
   # trick R CMD check
-  ll.lat <- NULL; rm(ll.lat);
-  ll.lon <- NULL; rm(ll.lon);
+  ll.lat <- NULL
+  rm(ll.lat)
+  ll.lon <- NULL
+  rm(ll.lon)
 
   # determine bounding box
   bbs <- plyr::ldply(tiles, function(x) attr(x, "bb"))
@@ -510,14 +485,14 @@ stitch <- function(tiles){
   )
 
   # determine positions of tile in slate (aggregate)
-  order <- as.numeric(dplyr::arrange(bbs, dplyr::desc(ll.lat), ll.lon)$.id )
+  order <- as.numeric(dplyr::arrange(bbs, dplyr::desc(ll.lat), ll.lon)$.id)
   tiles <- tiles[order]
   tiles <- lapply(tiles, as.matrix) # essential for cbind/rbind to work properly!
 
   # split tiles, then squeeze together from top and bottom
   # and then squeeze together from left and right
-  nrows <- length( unique(bbs$ll.lat) )
-  ncols <- length( unique(bbs$ll.lon) )
+  nrows <- length(unique(bbs$ll.lat))
+  ncols <- length(unique(bbs$ll.lon))
   tiles <- split(tiles, rep(1:nrows, each = ncols))
   tiles <- lapply(tiles, function(x) Reduce(cbind, x))
   tiles <- Reduce(rbind, tiles)
@@ -533,3 +508,5 @@ stitch <- function(tiles){
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
   abs(x - round(x)) < tol
 }
+
+# nolint end

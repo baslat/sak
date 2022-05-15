@@ -9,3 +9,4 @@
 ^\.github$
 ^README.html$
 ^\.vscode$
+^.lintr

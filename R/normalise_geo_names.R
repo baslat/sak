@@ -24,29 +24,32 @@
 normalise_geo_names <- function(.data,
                                 remove_year = TRUE,
                                 make_lower = TRUE) {
-
   clean_dat <- .data %>%
     # Make columns characters, and exclude columns with area in the name
     dplyr::mutate(dplyr::across(
-      c(tidyselect::matches("(_[0-9]{2,4}|[0-9]{2,4}|code)"),
-        -tidyselect::matches("area")), # Not the area column
-      as.character))
+      c(
+        tidyselect::matches("(_[0-9]{2,4}|[0-9]{2,4}|code)"),
+        -tidyselect::matches("area")
+      ), # Not the area column
+      as.character
+    ))
 
   # Remove "_NN"-"_NNNN" or "NN"-"NNNN" from column names
   if (remove_year) {
     clean_dat <- clean_dat %>%
       dplyr::rename_with(
-      .fn = stringr::str_remove_all,
-      pattern = "(_[0-9]{2,4}|[0-9]{2,4})",
-      .cols = tidyselect::matches("(_[0-9]{2,4}|[0-9]{2,4})")
-    )
+        .fn = stringr::str_remove_all,
+        pattern = "(_[0-9]{2,4}|[0-9]{2,4})",
+        .cols = tidyselect::matches("(_[0-9]{2,4}|[0-9]{2,4})")
+      )
   }
 
   if (make_lower) {
     clean_dat <- clean_dat %>%
-      dplyr::rename_with(.fn = tolower,
-                         .cols = tidyselect::everything())
-
+      dplyr::rename_with(
+        .fn = tolower,
+        .cols = tidyselect::everything()
+      )
   }
   clean_dat
 }

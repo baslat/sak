@@ -19,6 +19,7 @@ needed to fulfil that request (i.e. up to 358,122 rows). Note that
 minimise redundant results).
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 This function queries my personal GitHub and returns concorded geographic
 data. It is used to concord geographies in \code{concord_geos}, and can be
 used to get basic meshblock information like category or population estimate.
@@ -67,13 +68,12 @@ more:
 \examples{
 \dontrun{
 
- get_geos(cols = c(mb_category_name_2016,
-                   area_albers_sqkm,
-                   ced_name_2018,
-                   persons))
-
-
-
+get_geos(cols = c(
+  mb_category_name_2016,
+  area_albers_sqkm,
+  ced_name_2018,
+  persons
+))
 }
 
 }

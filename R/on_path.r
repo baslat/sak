@@ -15,18 +15,18 @@
 #' on_path(what = "Rscript")
 #' }
 on_path <- function(what, verbose = TRUE) {
-    function_needs("fs")
-    # where.exe is in C:\Windows\System32\where.exe, so should be usable
-    res <- run_well("where.exe",
-        args = what,
-        capture_error = TRUE
-    )
+  function_needs("fs")
+  # where.exe is in C:\Windows\System32\where.exe, so should be usable
+  res <- run_well("where.exe",
+    args = what,
+    capture_error = TRUE
+  )
 
-    if (verbose) {
-        res %>%
-            paste(collapse = "\n") %>%
-            message()
-    }
+  if (verbose) {
+    res %>%
+      paste(collapse = "\n") %>%
+      message()
+  }
 
-    any(fs::is_file(res))
+  any(fs::is_file(res))
 }

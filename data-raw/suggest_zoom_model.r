@@ -6,7 +6,7 @@ usethis::use_data(suggest_zoom_model, internal = TRUE, overwrite = TRUE)
 
 # `geom_defaults` data ----
 
-# Go to zzz.R and comment out set_plot_colours(type = "cah")
+# Go to zzz.R and comment out anything from this package
 
 devtools::load_all()
 check_subclass <- utils::getFromNamespace("check_subclass", "ggplot2")
@@ -16,19 +16,19 @@ check_subclass <- utils::getFromNamespace("check_subclass", "ggplot2")
 library(ggrepel)
 
 geom_defaults <- all_geoms %>% ## look at this is does what I want
-    purrr::map(purrr::safely(check_subclass),
-        "Geom",
-        env = parent.frame()
-    ) %>%
-    purrr::map(
-        purrr::pluck,
-        "result"
-    ) %>%
-    purrr::map(
-        purrr::pluck,
-        "default_aes"
-    ) %>%
-    purrr::set_names(all_geoms)
+  purrr::map(purrr::safely(check_subclass),
+    "Geom",
+    env = parent.frame()
+  ) %>%
+  purrr::map(
+    purrr::pluck,
+    "result"
+  ) %>%
+  purrr::map(
+    purrr::pluck,
+    "default_aes"
+  ) %>%
+  purrr::set_names(all_geoms)
 
 
 
@@ -42,18 +42,17 @@ geom_defaults <- all_geoms %>% ## look at this is does what I want
 
 lat_m <- 111111
 bp <- base_map_params %>%
-    dplyr::mutate(
-        zoom = dplyr::case_when(
-            geo_name == "Perth" ~ 10,
-            TRUE ~ zoom
-        ),
-        mean_lat = mean(top, bottom),
-        lat_range = abs(top - bottom),
-        lon_range = abs(right - left),
-        vert = lat_range * lat_m,
-        horz = abs(lon_range * cos(mean_lat) * lat_m),
-        met = (cos(mean_lat * pi / 180) * 2 * pi * 6378137) / (256 * (2^zoom))
-    )
+  dplyr::mutate(
+    zoom = dplyr::case_when(
+      geo_name == "Perth" ~ 10,
+      TRUE ~ zoom
+    ),
+    mean_lat = mean(top, bottom),
+    lat_range = abs(top - bottom),
+    lon_range = abs(right - left),
+    vert = lat_range * lat_m,
+    horiz = abs(lon_range * cos(mean_lat) * lat_m),
+    met = (cos(mean_lat * pi / 180) * 2 * pi * 6378137) / (256 * (2^zoom))
+  )
 
-suggest_zoom_model <- lm(met ~ 0 + vert + horz + I(vert^2) + I(horz^2), bp)
-
+suggest_zoom_model <- lm(met ~ 0 + vert + horiz + I(vert^2) + I(horiz^2), bp)

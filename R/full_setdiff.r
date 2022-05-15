@@ -7,5 +7,5 @@
 #' @export
 #'
 full_setdiff <- function(x, y) {
-    c(setdiff(x, y), setdiff(y, x))
+  c(setdiff(x, y), setdiff(y, x))
 }
