@@ -5,10 +5,11 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom desc desc_get
+#' @importFrom lifecycle deprecated
 #' @importFrom plyr .
+#' @importFrom rlang %||%
 #' @importFrom rlang .data
 #' @importFrom rlang .env
-#' @importFrom rlang %||%
 #' @importFrom rlang :=
 #' @importFrom stats weighted.mean
 #' @importFrom tibble tibble

@@ -20,6 +20,7 @@ Imports:
     ggplot2,
     glue,
     httr,
+    lifecycle,
     lubridate,
     magrittr,
     plyr,
