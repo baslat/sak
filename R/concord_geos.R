@@ -1,5 +1,6 @@
 #' Get geographical data from GitHub
 #'
+#' `r lifecycle::badge("experimental")`
 #' This function queries my personal GitHub and returns concorded geographic
 #' data. It is used to concord geographies in \code{concord_geos}, and can be
 #' used to get basic meshblock information like category or population estimate.
