@@ -3,6 +3,10 @@
         "news"
     ],
     "cSpell.words": [
+        "bbox",
+        "geoms",
+        "horiz",
+        "nolint",
         "nonportable"
     ]
 }

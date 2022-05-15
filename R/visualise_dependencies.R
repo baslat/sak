@@ -20,7 +20,7 @@
 #' \dontrun{
 #'
 #' # To visualise the dependencies of your global environment:
-#' sak:: load_custom_functions() # You need the functions in the env
+#' sak::load_custom_functions() # You need the functions in the env
 #' visualise_dependencies()
 #'
 #' # To visualise the dependencies of a package
@@ -28,16 +28,17 @@
 #' # You need to pass the name of a function from the package (any function will
 #' # do)
 #' visualise_dependencies(.f = sak::open_path)
-#'
 #' }
 visualise_dependencies <- function(.f = NULL, ...) {
   function_needs("foodwebr")
   function_needs("tidygraph")
   function_needs("visNetwork")
 
-  fw <- foodwebr::foodweb(FUN = .f,
-                          filter = FALSE,
-                          ...)
+  fw <- foodwebr::foodweb(
+    FUN = .f,
+    filter = FALSE,
+    ...
+  )
 
   tidy_fw <- tidygraph::as_tbl_graph(fw)
 
@@ -49,10 +50,15 @@ visualise_dependencies <- function(.f = NULL, ...) {
   # Displaying the network
   visNetwork::visIgraph(tidy_fw) %>%
     visNetwork::visOptions(
-      highlightNearest = list(enabled = TRUE,
-                              hover = TRUE),
-      nodesIdSelection = list(enabled = TRUE,
-                              main = "Select function")) %>%
+      highlightNearest = list(
+        enabled = TRUE,
+        hover = TRUE
+      ),
+      nodesIdSelection = list(
+        enabled = TRUE,
+        main = "Select function"
+      )
+    ) %>%
     visNetwork::visEdges(
       color = list(
         color = main_col,
@@ -63,14 +69,15 @@ visualise_dependencies <- function(.f = NULL, ...) {
         to = list(
           enabled = TRUE,
           scaleFactor = 1
-      ))
-    ) %>%
-      visNetwork::visNodes(
-        color = list(
-          background = main_col,
-          border = hover_col,
-          hover = hover_col,
-          highlight = highlight_col
         )
       )
+    ) %>%
+    visNetwork::visNodes(
+      color = list(
+        background = main_col,
+        border = hover_col,
+        hover = hover_col,
+        highlight = highlight_col
+      )
+    )
 }

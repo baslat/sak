@@ -20,7 +20,7 @@ This is a wrapper for \code{system.time}, but returns only the total elapsed tim
 
 # This will return time_taken and a_result
 time_taken <- stopwatch({
-    a_result <- Sys.sleep(60)
+  a_result <- Sys.sleep(60)
 })
 }
 }

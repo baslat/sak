@@ -66,8 +66,8 @@ downloads/stitches map tiles/formats a map image. Vendored from
 \verb{\url{https://github.com/gregleleu/ggmap/blob/master/R/get_carto.R}}.
 }
 \examples{
-
-\dontrun{ some requires Google API key, see ?register_google; heavy network/time load
+\dontrun{
+# some requires Google API key, see ?register_google; heavy network/time load
 
 
 ## basic usage
@@ -97,19 +97,19 @@ ggmap(google)
 
 bbox <- bb2bbox(attr(google, "bb"))
 
-get_carto(bbox, maptype = "terrain")            \%>\% ggmap()
+get_carto(bbox, maptype = "terrain") \%>\% ggmap()
 get_carto(bbox, maptype = "terrain-background") \%>\% ggmap()
-get_carto(bbox, maptype = "terrain-labels")     \%>\% ggmap()
-get_carto(bbox, maptype = "terrain-lines")      \%>\% ggmap()
-get_carto(bbox, maptype = "toner")              \%>\% ggmap()
-get_carto(bbox, maptype = "toner-2010")         \%>\% ggmap()
-get_carto(bbox, maptype = "toner-2011")         \%>\% ggmap()
-get_carto(bbox, maptype = "toner-background")   \%>\% ggmap()
-get_carto(bbox, maptype = "toner-hybrid")       \%>\% ggmap()
-get_carto(bbox, maptype = "toner-labels")       \%>\% ggmap()
-get_carto(bbox, maptype = "toner-lines")        \%>\% ggmap()
-get_carto(bbox, maptype = "toner-lite")         \%>\% ggmap()
-get_carto(bbox, maptype = "watercolor")         \%>\% ggmap()
+get_carto(bbox, maptype = "terrain-labels") \%>\% ggmap()
+get_carto(bbox, maptype = "terrain-lines") \%>\% ggmap()
+get_carto(bbox, maptype = "toner") \%>\% ggmap()
+get_carto(bbox, maptype = "toner-2010") \%>\% ggmap()
+get_carto(bbox, maptype = "toner-2011") \%>\% ggmap()
+get_carto(bbox, maptype = "toner-background") \%>\% ggmap()
+get_carto(bbox, maptype = "toner-hybrid") \%>\% ggmap()
+get_carto(bbox, maptype = "toner-labels") \%>\% ggmap()
+get_carto(bbox, maptype = "toner-lines") \%>\% ggmap()
+get_carto(bbox, maptype = "toner-lite") \%>\% ggmap()
+get_carto(bbox, maptype = "watercolor") \%>\% ggmap()
 
 
 ## zoom levels
@@ -140,7 +140,7 @@ ggmap(get_carto(bbox, zoom = 15, https = TRUE, messaging = TRUE))
 gc <- geocode("rio de janeiro")
 
 get_carto(bbox, zoom = 10) \%>\% ggmap() +
- geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 2)
+  geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 2)
 
 get_carto(bbox, zoom = 10, crop = FALSE) \%>\% ggmap() +
   geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 2)
@@ -163,10 +163,10 @@ c("left" = -125, "bottom" = 25.75, "right" = -67, "top" = 49) \%>\%
 # accuracy check - white house
 gc <- geocode("the white house")
 
-qmap("the white house", zoom = 16)  +
+qmap("the white house", zoom = 16) +
   geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 3)
 
-qmap("the white house", zoom = 16, source = "carto", maptype = "terrain")  +
+qmap("the white house", zoom = 16, source = "carto", maptype = "terrain") +
   geom_point(aes(x = lon, y = lat), data = gc, colour = "red", size = 3)
 }
 

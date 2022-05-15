@@ -52,18 +52,17 @@ against what's available, yet.
 # Build your own concordance, for example between SA4 and LGA:
 
 sa4 <- absmapsdata::sa42016 \%>\%
-    sf::st_set_geometry(NULL) \%>\% # Remove the geometry column
-    select(starts_with("sa4")) \%>\% # Just keep the identifiers
-    mutate(pct = 1) \%>\% # i.e. 100\% of a SA4
-    sak::normalise_geo_names(remove_year = FALSE) # deals with column classes
+  sf::st_set_geometry(NULL) \%>\% # Remove the geometry column
+  select(starts_with("sa4")) \%>\% # Just keep the identifiers
+  mutate(pct = 1) \%>\% # i.e. 100\% of a SA4
+  sak::normalise_geo_names(remove_year = FALSE) # deals with column classes
 
 sa4_lga_concord <- sa4 \%>\%
-    concord_geos(sa4_name_2016, sa4_code_2016, # add the identifiers so they
-                                               # are returned as columns
-                 from_geo = sa4_code_2016,
-                 to_geo = lga_name_2020,
-                 value = pct) # i.e. the 100\% from above
-
-
+  concord_geos(sa4_name_2016, sa4_code_2016, # add the identifiers so they
+    # are returned as columns
+    from_geo = sa4_code_2016,
+    to_geo = lga_name_2020,
+    value = pct
+  ) # i.e. the 100\% from above
 }
 }

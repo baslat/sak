@@ -94,10 +94,12 @@
 setup_project <- function() {
   # Create folders
 
-  c("code",
+  c(
+    "code",
     "data",
     "outputs",
-    "R") %>%
+    "R"
+  ) %>%
     purrr::walk(usethis::use_directory)
 
   # Create .gitignore
@@ -156,7 +158,8 @@ setup_project <- function() {
       "# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html",
       "rsconnect/",
       "",
-      "=======")
+      "======="
+    )
 
     lines <- setdiff(current_contents, lines) %>%
       setdiff(discard_lines) %>%
@@ -175,7 +178,6 @@ setup_project <- function() {
   if (use_renv) {
     setup_renv()
   }
-
 }
 
 
@@ -208,7 +210,6 @@ setup_project <- function() {
 #' usethis::create_package(".")
 #'
 #' sak::setup_package()
-#'
 #' }
 setup_package <- function() {
   usethis::use_package_doc()

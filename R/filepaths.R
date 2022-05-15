@@ -4,9 +4,7 @@
 #'
 #' @export
 op <- function(path = ".", browser = getOption("browser")) {
-
   fs::file_show(path = path, browser = browser)
-
 }
 
 #' Load all custom functions in a project
@@ -23,10 +21,9 @@ op <- function(path = ".", browser = getOption("browser")) {
 #'
 load_custom_functions <- function(path = "R/",
                                   recursive = TRUE) {
-
-
   assertthat::assert_that(dir.exists(path),
-                          msg = "Double check that your directory exists")
+    msg = "Double check that your directory exists"
+  )
 
   funcs <- dir(
     path,
@@ -57,17 +54,18 @@ load_custom_functions <- function(path = "R/",
 #' @export
 #' @examples
 #' \dontrun{
-#' download_file(url = "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true",
-#'               fileext = "csv",
-#'               dir = "./outputs",
-#'               name = "geos.csv")
+#' download_file(
+#'   url = "https://github.com/baslat/aus_geos_data/blob/master/geos.csv?raw=true",
+#'   fileext = "csv",
+#'   dir = "./outputs",
+#'   name = "geos.csv"
+#' )
 #' }
 #'
 download_file <- function(url,
                           fileext = file_ext(url),
                           dir = tempdir(),
                           name = NULL) {
-
   name <- name %||% (basename(url) %>%
     fs::path_sanitize() %>%
     stringr::str_remove(fileext) %>%
@@ -77,9 +75,13 @@ download_file <- function(url,
   dir <- normalizePath(dir)
   path <- file.path(dir, name)
 
-  httr::GET(url,
-            httr::write_disk(path = path,
-                             overwrite = TRUE))
+  httr::GET(
+    url,
+    httr::write_disk(
+      path = path,
+      overwrite = TRUE
+    )
+  )
 
   return(path)
 }
@@ -102,16 +104,18 @@ download_file <- function(url,
 #' make_dir_if_needed(path)
 #' }
 add_dir <- function(path) {
-
   assertthat::assert_that(is.character(path),
-                          msg = "`path` must be a character")
+    msg = "`path` must be a character"
+  )
 
   directory <- path %>%
     fs::path_sanitize() %>%
-    normalizePath(winslash = "/",
-                  mustWork = FALSE)
+    normalizePath(
+      winslash = "/",
+      mustWork = FALSE
+    )
 
-  if(!dir.exists(directory)) {
+  if (!dir.exists(directory)) {
     dir.create(directory)
   }
 }
@@ -134,16 +138,17 @@ add_dir <- function(path) {
 #'
 #' @examples
 #' \dontrun{
-#' epi_filepath <- append_time(path = "data/raw/raw_health.xlsx",
-#'                             time = ymd_hm("2021-05-20 14:30"))
+#' path <- append_time(
+#'   path = "/data/raw.xlsx",
+#'   time = ymd_hm("2021-05-20 14:30")
+#' )
 #'
 #' # Returns:
-#' # "Z:/data/raw/health/db_uploads/raw_health_2021_05_20_1430.xlsx"
+#' # "/data/raw_2021_05_20_1430.xlsx"
 #' }
 append_time <- function(path,
                         time = Sys.time(),
                         format = "%Y_%m_%d_%H%M") {
-
   file <- basename(path)
 
   ext <- paste0(".", tools::file_ext(file))
@@ -153,6 +158,8 @@ append_time <- function(path,
     fs::path_sanitize()
 
   file.path(dirname(path), fullname) %>%
-    normalizePath(mustWork = FALSE,
-                  winslash = "/")
+    normalizePath(
+      mustWork = FALSE,
+      winslash = "/"
+    )
 }

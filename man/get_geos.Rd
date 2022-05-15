@@ -67,13 +67,12 @@ more:
 \examples{
 \dontrun{
 
- get_geos(cols = c(mb_category_name_2016,
-                   area_albers_sqkm,
-                   ced_name_2018,
-                   persons))
-
-
-
+get_geos(cols = c(
+  mb_category_name_2016,
+  area_albers_sqkm,
+  ced_name_2018,
+  persons
+))
 }
 
 }

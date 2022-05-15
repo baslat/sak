@@ -13,12 +13,12 @@
 #'
 #' # This will return time_taken and a_result
 #' time_taken <- stopwatch({
-#'     a_result <- Sys.sleep(60)
+#'   a_result <- Sys.sleep(60)
 #' })
 #' }
 stopwatch <- function(expr) {
-    # Time the expression
-    time <- system.time(expr)
-    time <- time[3]
-    lubridate::seconds_to_period(time)
+  # Time the expression
+  time <- system.time(expr)
+  time <- time[3]
+  lubridate::seconds_to_period(time)
 }

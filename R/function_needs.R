@@ -21,12 +21,11 @@
 #' @examples \dontrun{
 #'
 #' function_that_uses_absmapsdata <- function() {
-#'     function_needs("absmapsdata")
-#'     print(absmapsdata::lga2018)
-#'     }
+#'   function_needs("absmapsdata")
+#'   print(absmapsdata::lga2018)
+#' }
 #'
 #' function_that_uses_absmapsdata()
-#'
 #' }
 #'
 function_needs <- function(pkg) {

@@ -13,20 +13,20 @@
 #' dplyr::storms %>% to_excel()
 #' }
 to_excel <- function(.data) {
-    function_needs("readr")
-    # assert it's a df, and not sf
-    assertthat::assert_that(is.data.frame(.data),
-        msg = ".data needs to be a data.frame"
-    )
+  function_needs("readr")
+  # assert it's a df, and not sf
+  assertthat::assert_that(is.data.frame(.data),
+    msg = ".data needs to be a data.frame"
+  )
 
-    assertthat::assert_that(!inherits(.data, "sf"),
-        msg = ".data cannot be an sf. Use strip_geometry() on it and try again."
-    )
+  assertthat::assert_that(!inherits(.data, "sf"),
+    msg = ".data cannot be an sf. Use strip_geometry() on it and try again."
+  )
 
-    if (interactive()) {
-        tmp <- tempfile(fileext = ".csv")
-        readr::write_excel_csv(.data, tmp)
-        shell(tmp) # opens the temp file # nolint
-    }
-    invisible(.data)
+  if (interactive()) {
+    tmp <- tempfile(fileext = ".csv")
+    readr::write_excel_csv(.data, tmp)
+    shell(tmp) # opens the temp file # nolint
+  }
+  invisible(.data)
 }

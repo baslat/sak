@@ -7,23 +7,23 @@
 #' @return Nothing, called for side effects.
 #' @export
 setup_lintr_config <- function() {
-    lintr_config <- system.file("lintr/lintr_config.txt", package = "sak") |>
-        readLines()
-    build_ignore_config <- system.file("rbuildignore_config.txt", package = "sak") |>
-        readLines()
+  lintr_config <- system.file("lintr/lintr_config.txt", package = "sak") |>
+    readLines()
+  build_ignore_config <- system.file("rbuildignore_config.txt", package = "sak") |>
+    readLines()
 
-    usethis::write_over(
-        path = ".lintr",
-        lines = lintr_config
-    )
+  usethis::write_over(
+    path = ".lintr",
+    lines = lintr_config
+  )
 
-    # modify .Rbuildignore to suppress warnings
-    usethis::write_union(
-        path = ".Rbuildignore",
-        lines = build_ignore_config
-    )
+  # modify .Rbuildignore to suppress warnings
+  usethis::write_union(
+    path = ".Rbuildignore",
+    lines = build_ignore_config
+  )
 
-    invisible(NULL)
+  invisible(NULL)
 }
 
 #' Create Lintr test that file
@@ -36,24 +36,24 @@ setup_lintr_config <- function() {
 #'
 setup_lintr_testthat <- function() {
 
-    # Look at the system file and read the lines of the test-linted.R file
-    lintr_file <- system.file("lintr/test-linted.R", package = "sak")
+  # Look at the system file and read the lines of the test-linted.R file
+  lintr_file <- system.file("lintr/test-linted.R", package = "sak")
 
-    # Get the name of the Package we are working in from Description File
-    package_name <- desc_get(keys = c("Package")) |>
-        as.character()
+  # Get the name of the Package we are working in from Description File
+  package_name <- desc_get(keys = c("Package")) |>
+    as.character()
 
-    # Replace the package name in the lintr test-that file.
-    lintr_file_lines <- readLines(lintr_file) |>
-        stringr::str_replace(
-            pattern = "place_package_name_here_please",
-            replacement = package_name
-        )
-
-    usethis::write_over(
-        path = "tests/testthat/test-linted.R",
-        lines = lintr_file_lines
+  # Replace the package name in the lintr test-that file.
+  lintr_file_lines <- readLines(lintr_file) |>
+    stringr::str_replace(
+      pattern = "place_package_name_here_please",
+      replacement = package_name
     )
+
+  usethis::write_over(
+    path = "tests/testthat/test-linted.R",
+    lines = lintr_file_lines
+  )
 }
 
 
@@ -71,27 +71,27 @@ setup_lintr_testthat <- function() {
 #' @export
 #'
 setup_yaml_megalinter <- function(default_branch = NULL) {
-    default_branch <- default_branch %||% usethis::git_branch_default()
+  default_branch <- default_branch %||% usethis::git_branch_default()
 
-    assertthat::assert_that(default_branch %in% c(
-        "master",
-        "main"
-    ),
-    msg = "`default_branch` should be 'main' or 'master'"
+  assertthat::assert_that(default_branch %in% c(
+    "master",
+    "main"
+  ),
+  msg = "`default_branch` should be 'main' or 'master'"
+  )
+
+  # Get the guts of the mega-linter file from inside `sak`
+  # and replace the default_repo
+  # and write the file
+  ml_yaml <- system.file("yaml_files/mega-linter.yml", package = "sak") %>%
+    readLines() %>%
+    stringr::str_replace(
+      pattern = "MAIN_REPO",
+      replacement = default_branch
     )
 
-    # Get the guts of the mega-linter file from inside `sak`
-    # and replace the default_repo
-    # and write the file
-    ml_yaml <- system.file("yaml_files/mega-linter.yml", package = "sak") %>%
-        readLines() %>%
-        stringr::str_replace(
-            pattern = "MAIN_REPO",
-            replacement = default_branch
-        )
-
-    usethis::write_over(
-        path = ".mega-linter.yml",
-        lines = ml_yaml
-    )
+  usethis::write_over(
+    path = ".mega-linter.yml",
+    lines = ml_yaml
+  )
 }

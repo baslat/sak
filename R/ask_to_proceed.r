@@ -13,21 +13,21 @@
 #' use_renv <- ask_to_proceed("Do you want to set up renv?")
 #'
 #' if (use_renv) {
-#'     setup_renv()
+#'   setup_renv()
 #' }
 #' }
 ask_to_proceed <- function(msg = "Do you want to proceed?") {
-    # never proceed if running from a script
-    if (!interactive()) {
-        return(FALSE)
-    }
-    assertthat::assert_that(assertthat::is.string(msg),
-        msg = "`msg` must be a string."
-    )
-    res <- utils::menu(
-        choices = c("yes", "no"),
-        title = msg
-    )
+  # never proceed if running from a script
+  if (!interactive()) {
+    return(FALSE)
+  }
+  assertthat::assert_that(assertthat::is.string(msg),
+    msg = "`msg` must be a string."
+  )
+  res <- utils::menu(
+    choices = c("yes", "no"),
+    title = msg
+  )
 
-    res == 1
+  res == 1
 }
