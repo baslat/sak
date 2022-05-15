@@ -6,8 +6,6 @@ linters: with_defaults(
     object_name_linter = lintr::object_name_linter(styles = c("snake_case", "symbols")),
     # Bonus linters
     absolute_path_linter = lintr::absolute_path_linter(),
-    # backport_linter = lintr::backport_linter(),
-    duplicate_argument_linter = lintr::duplicate_argument_linter(),
     missing_argument_linter = lintr::missing_argument_linter(),
     namespace_linter = lintr::namespace_linter(),
     nonportable_path_linter = lintr::nonportable_path_linter(),
