@@ -49,7 +49,6 @@ test_that("testing package is linted correctly", {
     (styles = c("snake_case", "symbols")),
     # Bonus linters
     lintr::duplicate_argument_linter(),
-    lintr::missing_argument_linter(),
     namespace_linter = lintr::namespace_linter(),
     lintr::nonportable_path_linter(),
     sprintf_linter = lintr::sprintf_linter(),
