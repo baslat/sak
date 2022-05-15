@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Abasi Latcham \email{abasi.latcham@gmail.com} (\href{https://orcid.org/0000-0002-1733-7350}{ORCID})
+\strong{Maintainer}: Bas Latcham \email{bas@latcham.com.au} (\href{https://orcid.org/0000-0002-1733-7350}{ORCID})
 
 }
 \keyword{internal}
