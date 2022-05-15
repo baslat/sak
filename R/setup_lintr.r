@@ -17,9 +17,7 @@ setup_lintr_config <- function() {
   )
 
   # If it's a package, edit the build ignore and add .lintr as a dep
-  is_package <- desc::desc_has_fields("Package")
-
-  if (is_package) {
+  if (is_package()) {
     # modify .Rbuildignore to suppress warnings
     usethis::write_union(
       path = ".Rbuildignore",

@@ -212,6 +212,13 @@ setup_project <- function() {
 #' sak::setup_package()
 #' }
 setup_package <- function() {
+  if (!is_package()) {
+    create_pack <- ask_to_proceed(msg = "This project isn't a package. Do you want to create a package?")
+    if (create_pack) {
+      usethis::create_tidy_package(".")
+    }
+  }
+
   usethis::use_package_doc()
   usethis::use_mit_license()
   usethis::use_news_md()
