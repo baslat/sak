@@ -30,9 +30,6 @@ test_that("testing package is linted correctly", {
     unlist()
 
 
-  # This might now be redundant, but if FALSE linting tests are skipped
-  Sys.setenv("NOT_CRAN" = "true")
-
   # Single expectation to assume no linting
   lintr::expect_lint_free(lint_path,
     # This bit is similar to the .lintr file, but the
@@ -54,14 +51,11 @@ test_that("testing package is linted correctly", {
       object_length_linter = lintr::object_length_linter(length = 50L),
       object_name_linter = lintr::object_name_linter(styles = c("snake_case", "symbols")),
       # Bonus linters
-      duplicate_argument_linter = lintr::duplicate_argument_linter(),
-      namespace_linter = lintr::namespace_linter(),
+      absolute_path_linter = lintr::absolute_path_linter(),
       nonportable_path_linter = lintr::nonportable_path_linter(),
-      sprintf_linter = lintr::sprintf_linter(),
       todo_comment_linter = lintr::todo_comment_linter(),
-      undesirable_operator_linter = lintr::undesirable_operator_linter(),
-      unneeded_concatenation_linter = lintr::unneeded_concatenation_linter()
-    ),
+      undesirable_operator_linter = lintr::undesirable_operator_linter()
+      ),
     # Exclude specific files
     exclusions = excluded_files
   )

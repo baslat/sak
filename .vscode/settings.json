@@ -4,11 +4,13 @@
     ],
     "cSpell.words": [
         "bbox",
+        "burnscar",
         "geoms",
         "horiz",
         "nolint",
         "nonportable",
         "pkgname",
+        "processx",
         "Rbuildignore",
         "winslash"
     ]

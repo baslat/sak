@@ -43,13 +43,14 @@ Suggests:
     renv,
     roxygen2,
     spelling,
-    targets,
     testthat (>= 3.0.0),
+    tflow,
     tidygraph,
     visNetwork
 Remotes:
     github::dkahle/ggmap,
-    github::lewinfox/foodwebr
+    github::lewinfox/foodwebr,
+    github::milesmcbain/tflow
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
