@@ -48,13 +48,12 @@ test_that("testing package is linted correctly", {
     (length = 50L),
     (styles = c("snake_case", "symbols")),
     # Bonus linters
-    lintr::duplicate_argument_linter(),
-    namespace_linter = lintr::namespace_linter(),
-    lintr::nonportable_path_linter(),
-    sprintf_linter = lintr::sprintf_linter(),
+    absolute_path_linter = lintr::absolute_path_linter(),
+    nonportable_path_linter = lintr::nonportable_path_linter(),
     todo_comment_linter = lintr::todo_comment_linter(),
-    lintr::undesirable_operator_linter(),
-    lintr::unneeded_concatenation_linter()),
+    undesirable_function_linter = lintr::undesirable_function_linter(),
+    undesirable_operator_linter = lintr::undesirable_operator_linter()
+    ),
     # Exclude specific files
   exclusions = excluded_files)
 })
