@@ -16,11 +16,10 @@
 #' convert_pdf_to_docx("C:/files/pdfs/norm.pdf")
 #'
 #' # Convert a folder of files
-#' list.files("C:/files/pdfs", full.names = TRUE) %>%
+#' list.files("C:/files/pdfs", full.names = TRUE) |>
 #'   purrr::walk(convert_pdf_to_docx)
 #' }
-convert_pdf_to_docx <- function(pdf,
-                                verbose = TRUE) {
+convert_pdf_to_docx <- function(pdf, verbose = TRUE) {
   # Need to do this to prevent unwanted escapes
   pdf <- normalizePath(pdf,
     winslash = "/",
@@ -38,26 +37,26 @@ convert_pdf_to_docx <- function(pdf,
   # Check it's a pdf
   pdf_ext <- tools::file_ext(pdf)
   if (pdf_ext != "pdf") {
-    glue::glue("It looks like this ({filename}) is not a pdf, exiting!") %>%
+    glue::glue("It looks like this ({filename}) is not a pdf, exiting!") |>
       message()
     return(invisible(NULL))
   }
 
   # Check it's not already converted
   if (file.exists(paste0(pdf, ".docx"))) {
-    glue::glue("It looks like this ({filename}) has already been converted to docx, exiting!") %>% message()
+    glue::glue("It looks like this ({filename}) has already been converted to docx, exiting!") |> message()
     return(invisible(NULL))
   }
 
 
 
   # Read the powershell script, and swap in the file name components
-  ps <- system.file("pdf_to_docx.ps1", package = "sak") %>%
-    readLines() %>%
+  ps <- system.file("pdf_to_docx.ps1", package = "sak") |>
+    readLines() |>
     purrr::map_chr(stringr::str_replace_all,
       pattern = "REPLACE_ME_DIR",
       replacement = dir
-    ) %>%
+    ) |>
     purrr::map_chr(stringr::str_replace_all,
       pattern = "REPLACE_ME_FILENAME",
       replacement = filename
@@ -65,7 +64,7 @@ convert_pdf_to_docx <- function(pdf,
 
   if (verbose) {
     glue::glue("Converting '{pdf}' to .docx (this will take a few seconds)...
-               (if it hangs check for hidden dialogue boxes)") %>%
+               (if it hangs check for hidden dialogue boxes)") |>
       message()
   }
 

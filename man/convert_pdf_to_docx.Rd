@@ -26,7 +26,7 @@ want to open Word (at least the first time you run it).
 convert_pdf_to_docx("C:/files/pdfs/norm.pdf")
 
 # Convert a folder of files
-list.files("C:/files/pdfs", full.names = TRUE) \%>\%
+list.files("C:/files/pdfs", full.names = TRUE) |>
   purrr::walk(convert_pdf_to_docx)
 }
 }
