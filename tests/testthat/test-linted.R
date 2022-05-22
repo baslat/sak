@@ -30,9 +30,6 @@ test_that("testing package is linted correctly", {
     unlist()
 
 
-  # This might now be redundant, but if FALSE linting tests are skipped
-  Sys.setenv("NOT_CRAN" = "true")
-
   # Single expectation to assume no linting
   lintr::expect_lint_free(lint_path,
     # This bit is similar to the .lintr file, but the

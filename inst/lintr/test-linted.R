@@ -30,9 +30,6 @@ test_that("testing package is linted correctly", {
       unlist()
 
 
-  # This might now be redundant, but if FALSE linting tests are skipped
-  Sys.setenv("NOT_CRAN" = "true")
-
   # Single expectation to assume no linting
   # This bit is similar to the .lintr file, but the .lintr file is ignored on devops. So my workflow is running
   # through the stages here lintr # lintr-file-example until all good, then copying the linters from .lintr to here
