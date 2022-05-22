@@ -242,8 +242,7 @@ fix_ggmap_bbox <- function(.map) {
 #'
 #' strip_geometry(.sf = sf, .name_repair = janitor::make_clean_names)
 #' }
-strip_geometry <- function(.sf,
-                           .name_repair = "universal") {
+strip_geometry <- function(.sf, .name_repair = "universal") {
   assertthat::assert_that(class(.sf)[1] == "sf",
     msg = "Object is not of class sf"
   )
@@ -284,9 +283,7 @@ strip_geometry <- function(.sf,
 #' \dontrun{
 #' st_intersection_quicker(burnscar, lga_shapefile)
 #' }
-st_intersection_quicker <- function(.x,
-                                    .y,
-                                    verbose = TRUE) {
+st_intersection_quicker <- function(.x, .y, verbose = TRUE) {
   old_crs_x <- sf::st_crs(.x)
   old_crs_y <- sf::st_crs(.y)
 
