@@ -187,8 +187,8 @@ setup_project <- function() {
 
 use_targets <- ask_to_proceed("Do you want to use `{targets}`?")
 if (use_targets) {
-  function_needs("targets")
-  targets::use_targets()
+  function_needs("tflow")
+  tflow::use_tflow()
 }
 
 }
