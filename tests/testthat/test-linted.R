@@ -54,7 +54,6 @@ test_that("testing package is linted correctly", {
       absolute_path_linter = lintr::absolute_path_linter(),
       nonportable_path_linter = lintr::nonportable_path_linter(),
       todo_comment_linter = lintr::todo_comment_linter(),
-      undesirable_function_linter = lintr::undesirable_function_linter(),
       undesirable_operator_linter = lintr::undesirable_operator_linter()
       ),
     # Exclude specific files
