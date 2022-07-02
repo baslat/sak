@@ -22,6 +22,10 @@ sg <- function(.data) {
     msg = "`.data` must be a `data.frame`"
   )
 
+  if (inherits(.data, "sf")) {
+     .data <- strip_geometry(.data)
+  }
+
   .data <- .data %>%
     dplyr::select(
       tidyselect::vars_select_helpers$where(is.character),
