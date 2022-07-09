@@ -25,11 +25,16 @@
 #'
 #' @examples
 #' \dontrun{
-#' usethis::create_package(".")
-#'
 #' sak::setup_package()
 #' }
 setup_package <- function() {
+  if (!is_package()) {
+    create_pack <- ask_to_proceed(msg = "This project isn't a package. Do you want to create a package?")
+    if (create_pack) {
+      usethis::create_tidy_package(".")
+    }
+  }
+
   usethis::use_package_doc()
   usethis::use_mit_license()
   usethis::use_news_md()
@@ -39,15 +44,12 @@ setup_package <- function() {
   usethis::use_pipe()
   usethis::use_tibble()
   usethis::use_tidy_description()
-  usethis::use_tidy_style()
   usethis::use_roxygen_md()
   usethis::use_lifecycle()
   usethis::use_readme_md()
   setup_lintr_config()
   setup_lintr_testthat()
-  setup_git_hooks(repo_type = "package")
-  setup_yaml_azdo(repo_type = "package")
-  setup_renv()
+  usethis::use_tidy_style()
 }
 
 #' Setup folders and .gitignore for projects and repos
@@ -147,7 +149,7 @@ setup_package <- function() {
 #' }
 setup_project <- function(default_branch = NULL) {
 
-  default_branch <- default_branch %||% get_git_default_branch()
+  default_branch <- default_branch %||% usethis::git_default_branch()
   # Create folders
 
   c("code",
@@ -223,14 +225,38 @@ setup_project <- function(default_branch = NULL) {
       ".gitignore",
       lines
     )
-    usethis::use_readme_md()
-    # setup lintr config
-    setup_lintr_config()
+  # Use a markdown readme
+  usethis::use_readme_md()
+  # setup lintr config
+  setup_lintr_config()
+
+use_renv <- ask_to_proceed("Do you want to track this project with renv?")
+if (use_renv) {
+  setup_renv()
+}
+
+use_capsule <- ask_to_proceed("Do you want to track this project with capsule?")
+if (use_capsule) {
+  setup_capsule()
+}
+
+use_targets <- ask_to_proceed("Do you want to use `{targets}`?")
+if (use_targets) {
+  # inspired by `tflow::use_tflow()`
+  usethis::use_directory("R")
+  usethis::use_template(
+    template = "_packages.R",
+    save_as = file.path("R", "_packages.R"),
+    package = "sak"
+  )
+  usethis::use_template("_targets.R", package = "sak")
+  usethis::use_template(".env", package = "sak")
+}
     # Setup yamls
-    setup_yaml_megalinter(default_branch = default_branch)
-    setup_git_hooks(repo_type = "project")
-    setup_yaml_azdo(repo_type = "project")
-    setup_renv()
+# TODO deal with these yaml files
+# setup_yaml_megalinter(default_branch = default_branch)
+# setup_git_hooks(repo_type = "project")
+# setup_yaml_azdo(repo_type = "project")
 
 }
 
