@@ -52,13 +52,13 @@ arguments expected by \code{.f}.
 \dontrun{
 
 # Create a column of charts
-tibble::tibble(citymapper = list(
-    covidpmc::get_citymapper(),
-    covidpmc::get_citymapper()
+tibble::tibble(mtcars = list(
+    mtcars,
+    mtcars
 )) \%>\%
     mutate_pmap(
         col_name = plot,
-        .f = covidpmc::chart_citymapper
+        .f = chart_mtcars()
     )
 }
 }

@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' bs <- sf::st_read(covidpmc::onedrive("data/fires_storage/burnscar/lga_bs/lga_burnscar.shp")) %>%
+#' bs <- sf::st_read("data/fires_storage/burnscar/lga_bs/lga_burnscar.shp") %>%
 #'     sf::st_transform(crs = 7844) %>%
 #'     sak::normalise_geo_names() %>%
 #'     dplyr::filter(stringr::str_detect(lga_name, "Kangaroo Island"))
@@ -92,7 +92,7 @@ osm_find <- function(bb,
 #'   \code{osm_query_features}
 #' @param types (character vector) which SF types do you want. Valid options:
 #'   lines, points, polygons, multilines, multipolygons
-#' @param crs (numeric, default = 7844) which CRS should the result be?
+#' @param crs (numeric, default = 4326) which CRS should the result be?
 #'   \code{osmdata} returns 4326 by default, but in order to intersect two sfs
 #'   they must have the same crs, and if you are dealing with Australian
 #'   geographies you should be using 7844.
@@ -102,7 +102,7 @@ osm_find <- function(bb,
 #'
 osm_bind <- function(sf_list,
                      types,
-                     crs = 7844) {
+                     crs = 4326) {
     # Check the inputs
     assertthat::assert_that(inherits(sf_list, "osmdata"))
     assertthat::assert_that(all(types %in% c(

@@ -4,7 +4,7 @@
 \alias{osm_bind}
 \title{Bind the results of an OpenStreeMap (OSM) feature query}
 \usage{
-osm_bind(sf_list, types, crs = 7844)
+osm_bind(sf_list, types, crs = 4326)
 }
 \arguments{
 \item{sf_list}{(\code{osmdata} object) as returned by
@@ -13,7 +13,7 @@ osm_bind(sf_list, types, crs = 7844)
 \item{types}{(character vector) which SF types do you want. Valid options:
 lines, points, polygons, multilines, multipolygons}
 
-\item{crs}{(numeric, default = 7844) which CRS should the result be?
+\item{crs}{(numeric, default = 4326) which CRS should the result be?
 \code{osmdata} returns 4326 by default, but in order to intersect two sfs
 they must have the same crs, and if you are dealing with Australian
 geographies you should be using 7844.}

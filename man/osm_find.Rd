@@ -26,7 +26,7 @@ conjunction with \code{osm_bind_features}.
 }
 \examples{
 \dontrun{
-bs <- sf::st_read(covidpmc::onedrive("data/fires_storage/burnscar/lga_bs/lga_burnscar.shp")) \%>\%
+bs <- sf::st_read("data/fires_storage/burnscar/lga_bs/lga_burnscar.shp") \%>\%
     sf::st_transform(crs = 7844) \%>\%
     sak::normalise_geo_names() \%>\%
     dplyr::filter(stringr::str_detect(lga_name, "Kangaroo Island"))
