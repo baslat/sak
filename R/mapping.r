@@ -459,19 +459,6 @@ extract_gmaps <- function(.data,
   return(extracted_maps)
 }
 
-#' A model output to predict meters per pixel given coordinates
-#'
-#' A model output to predict how many meters a pixel represents, given a
-#' bounding box's vertical and horizontal distance. The predicted meters are
-#' then used in \code{suggest_zoom} (along with other data) to suggest a zoom
-#' level for a static map.
-#'
-#' @format A \code{lm} object that requires vertical and horizontal distance
-#'   (and their squares) in meters.
-#'
-#' @source Calculations based on \code{base_map_params}
-"suggest_zoom_model"
-
 
 #' Suggest a zoom level for a basemap
 #'
