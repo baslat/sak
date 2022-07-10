@@ -72,7 +72,7 @@ expand_bbox <- function(.data,
 #' }
 #'
 extract_map_aspect_ratio <- function(.ggmap) {
-  function_needs("ggmap")
+  rlang::check_installed("ggmap")
   # Get the coordinate projection
   coord <- ggplot2::coord_quickmap(.ggmap)
 
@@ -115,7 +115,7 @@ extract_map_aspect_ratio <- function(.ggmap) {
 normalise_geo_names <- function(.data,
                                 remove_year = TRUE,
                                 make_lower = TRUE) {
-  function_needs("tidyselect")
+  rlang::check_installed("tidyselect")
 
   clean_dat <- .data %>%
     # Make columns characters, and exclude columns with area in the name
@@ -176,7 +176,7 @@ standardise_geo_names <- normalise_geo_names
 #' }
 #'
 fix_ggmap_bbox <- function(.map) {
-  function_needs("ggmap")
+  rlang::check_installed("ggmap")
   assertthat::assert_that(inherits(.map, "ggmap"),
     msg = ".map must be a ggmap object"
   )
@@ -243,13 +243,16 @@ fix_ggmap_bbox <- function(.map) {
 #' strip_geometry(.sf = sf, .name_repair = janitor::make_clean_names)
 #' }
 strip_geometry <- function(.sf, .name_repair = "universal") {
-  assertthat::assert_that(class(.sf)[1] == "sf",
+  assertthat::assert_that(
+    class(.sf)[[1L]] == "sf",
     msg = "Object is not of class sf"
   )
-  assertthat::assert_that(is.character(.name_repair) | is.function(.name_repair),
+  assertthat::assert_that(
+    is.character(.name_repair) | is.function(.name_repair),
     msg = ".name_repair is not a character or a function which acts on the column names."
   )
-  assertthat::assert_that(length(.name_repair) == 1,
+  assertthat::assert_that(
+    length(.name_repair) == 1L,
     msg = ".name_repair is not of length 1, please enter a single quoted character or function not a list."
   )
   assertthat::assert_that(if (is.character(.name_repair)) {
@@ -411,7 +414,7 @@ utils::globalVariables(c("time_new_form", "time_old_form", "time_save_form"))
 #' }
 embed_gmap <- function(left, bottom, right, top,
                        zoom, maptype, ...) {
-  function_needs("ggmap")
+  rlang::check_installed("ggmap")
   ggmap::get_stamenmap(
     bbox = c(left, bottom, right, top),
     zoom = zoom,
