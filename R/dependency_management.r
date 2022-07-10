@@ -40,7 +40,7 @@ setup_renv <- function(starter_packs = c("sak", "renv"),
     message("Initialising renv and tracking no packages...\nNext steps:\n-- R Studio will restart after this.\n-- Wait for renv to bootstrap (ie, after the restart wait a few seconds, then renv will print a few messages about bootstrapping)\n-- Run this function again (you might see a 'stop' icon after the bootstrap; if so try evaluating `1+1` in the console to see if R is responsive.\n")
     renv::init(
       settings = list(
-        r.version = "4.1.0",
+        r.version = paste0(R.Version()[c("major","minor")], collapse = "."),
         use.cache = TRUE
       ),
       bare = TRUE
