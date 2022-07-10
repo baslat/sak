@@ -260,52 +260,6 @@ if (use_targets) {
 
 }
 
-#' Setup proxy and keyring for RStudio Connect
-#'
-#' `r lifecycle::badge("deprecated")`
-#' RStudio Connect needs to connect to the internet via a proxy, but our dev
-#' machines won't work if they try to use the same proxy. Run this script at the
-#' start of any RMD or Shiny app that requires internet connectivity that you
-#' want to publish on RStudio Connect.
-#'
-#' We need a range of passwords and API keys available and don't want to manage
-#' them individually nor hardcode. Keyring files are copied to a read-write
-#' location \code{tempdir()} and then unlocked using
-#' \code{Sys.getenv("KEYRING_UNLOCK")}. The unlock password is added to the VARS
-#' section in RSCONNECT.
-#'
-#' This is necessary as behind the scenes packrat clones required packages into
-#' a read-only environment. Unlocking a keyring requires read-write privileges.
-#'
-#' This function also sets the timezone to \code{Australia/Sydney} to silence a
-#' warning that can occur when calling \code{library(tidyverse)}, so the
-#' suggested use is to call \code{sak::setup_rsc()} before any library calls.
-#'
-#' @return \code{NULL}, but changes some proxy, timezone and keyring settings on
-#'   RStudio Connect.
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' # At the start of an RMD file, before library calls:
-#' ```{r setup, include=FALSE}
-#' sak::setup_rsc()
-#' ```
-#'
-#' }
-setup_rsc <- function() {
-  lifecycle::deprecate_warn("2.0.0",
-                            "setup_rsc()",
-                            details = "setup_rsc has been replaced with setup_env which is called on loading sak, so setup_rsc is no longer needed.")
-  if (get_sak_env() == "rsc") {
-    # Timezone settings
-    Sys.setenv(TZ = "Australia/Sydney")
-    # proxy settings
-    Sys.setenv(http_proxy = "http://uint-proxy.internal.niaa.gov.au:8080/")
-    Sys.setenv(https_proxy = "http://uint-proxy.internal.niaa.gov.au:8080/")
-
-  }
-}
 
 #' Create Lintr test that file
 #'
