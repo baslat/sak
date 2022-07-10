@@ -1,5 +1,4 @@
-
-#' Use \code{pmap} to create a new column in a `data.frame`
+#' Use \code{pmap} to create a new column in a data.frame
 #'
 #' Sometimes you want to use \code{mutate} to create a new column in a
 #' data.frame, but that function doesn't work with vectors. One workaround is to
@@ -21,37 +20,44 @@
 #' @examples
 #' \dontrun{
 #'
-#' # Create a column of charts
-#' tibble::tibble(mtcars = list(
-#'     mtcars,
-#'     mtcars
+#' # Create a column of charts:
+#'
+#' # Create a custom plotting function
+#' plot_starwars <- function(data) {
+#'   ggplot2::qplot(x = mass, y = height, data = data)
+#' }
+#'
+#' # Make a tibble with the starwars data in twice
+#' tibble::tibble(data = list(
+#'   dplyr::starwars,
+#'   dplyr::starwars
 #' )) %>%
-#'     mutate_pmap(
-#'         col_name = plot,
-#'         .f = chart_mtcars()
-#'     )
+#'   mutate_pmap(
+#'     col_name = plot,
+#'     .f = plot_starwars
+#'   )
 #' }
 mutate_pmap <- function(.data,
                         col_name,
                         .f,
                         ...) {
 
-    # Check column names of data match the arguments expected by the function
-    nm <- names(.data)
-    args <- rlang::fn_fmls_names(fn = .f)
+  # Check column names of data match the arguments expected by the function
+  nm <- names(.data)
+  args <- rlang::fn_fmls_names(fn = .f)
 
-    correct_args <- any(nm %in% args)
-
-
-    assertthat::assert_that(correct_args,
-        msg = "Note that the column names in `.data` don't full match the expected arguments in `.f`. You might want to rename some columns."
-    )
+  correct_args <- any(nm %in% args)
 
 
-    out <- .data %>%
-        dplyr::select(tidyselect::any_of(args)) %>%
-        purrr::pmap(.f)
+  assertthat::assert_that(correct_args,
+    msg = "Note that the column names in `.data` don't full match the expected arguments in `.f`. You might want to rename some columns."
+  )
 
-    .data %>%
-        dplyr::mutate({{ col_name }} := out)
+
+  out <- .data %>%
+    dplyr::select(tidyselect::any_of(args)) %>%
+    purrr::pmap(.f)
+
+  .data %>%
+    dplyr::mutate({{ col_name }} := out)
 }

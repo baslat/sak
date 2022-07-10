@@ -4,13 +4,15 @@
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
-#' @importFrom tibble tibble
+#' @importFrom desc desc_get
+#' @importFrom lifecycle deprecated
 #' @importFrom plyr .
-#' @importFrom stats weighted.mean
+#' @importFrom rlang %||%
 #' @importFrom rlang .data
 #' @importFrom rlang .env
 #' @importFrom rlang :=
-#' @importFrom rlang %||%
+#' @importFrom stats weighted.mean
+#' @importFrom tibble tibble
 #' @importFrom tools file_ext
 #' @importFrom utils browseURL
 #' @importFrom utils getFromNamespace

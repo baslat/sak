@@ -66,10 +66,12 @@ visualise_dependencies <- function(.f = NULL,
         hover = hover_col,
         highlight = highlight_col
       ),
-      arrows = list(to = list(
-        enabled = TRUE,
-        scaleFactor = 1
-      ))
+      arrows = list(
+        to = list(
+          enabled = TRUE,
+          scaleFactor = 1
+        )
+      )
     ) %>%
     visNetwork::visNodes(
       color = list(

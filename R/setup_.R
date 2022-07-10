@@ -56,8 +56,14 @@ setup_package <- function() {
 
 #' Setup folders and .gitignore for projects and repos
 #'
-#' This function creates standard folders for analytical projects, and exempts
-#' \code{/outputs/.} and temporary files from syncing with \code{git}.
+#' This function:
+#' \itemize{
+#'    \item{creates standard folders for analytical projects}
+#'    \item{exempts \code{/outputs/.}, and data & temp files from syncing with git}
+#'    \item{adds a markdown readme}
+#'    \item{asks if you want to use `{renv}`}
+#'    \item{asks if you want to use `{targets}`}
+#' }
 #'
 #' The folders created are:
 #'
@@ -154,58 +160,62 @@ setup_project <- function(default_branch = NULL) {
   default_branch <- default_branch %||% usethis::git_default_branch()
   # Create folders
 
-  c("code",
+  c(
+    "code",
     "data",
     "outputs",
-    "R") %>%
+    "R"
+  ) %>%
     purrr::walk(usethis::use_directory)
 
   # Create .gitignore
-  lines <- c("# History files",
-             ".Rhistory",
-             ".Rapp.history",
-             "# Session Data files",
-             ".RData",
-             "# User-specific files",
-             ".Ruserdata",
-             "# Example code in package build process",
-             "*-Ex.R",
-             "# Output files from R CMD build",
-             "/*.tar.gz",
-             "# Output files from R CMD check",
-             "/*.Rcheck/",
-             "# RStudio files",
-             ".Rproj.user/",
-             "# produced vignettes",
-             "vignettes/*.html",
-             "vignettes/*.pdf",
-             "# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3",
-             ".httr-oauth",
-             "# knitr and R markdown default cache directories",
-             "*_cache/",
-             "/cache/",
-             "# Temporary files created by R markdown",
-             "*.utf8.md",
-             "*.knit.md",
-             "# R Environment Variables",
-             ".Renviron",
-             "# pkgdown site",
-             "docs/",
-             "# Output folder",
-             "outputs/",
-             "# translation temp files",
-             "po/*~",
-             "# Leaflet folders",
-             "*_files/",
-             "# Office and web documents",
-             "*.docx",
-             "*.html",
-             "*.pdf",
-             "*.csv",
-             "*.xls",
-             "*.xlsx",
-             "*.ppt",
-             "*.pptx")
+  lines <- c(
+    "# History files",
+    ".Rhistory",
+    ".Rapp.history",
+    "# Session Data files",
+    ".RData",
+    "# User-specific files",
+    ".Ruserdata",
+    "# Example code in package build process",
+    "*-Ex.R",
+    "# Output files from R CMD build",
+    "/*.tar.gz",
+    "# Output files from R CMD check",
+    "/*.Rcheck/",
+    "# RStudio files",
+    ".Rproj.user/",
+    "# produced vignettes",
+    "vignettes/*.html",
+    "vignettes/*.pdf",
+    "# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3",
+    ".httr-oauth",
+    "# knitr and R markdown default cache directories",
+    "*_cache/",
+    "/cache/",
+    "# Temporary files created by R markdown",
+    "*.utf8.md",
+    "*.knit.md",
+    "# R Environment Variables",
+    ".Renviron",
+    "# pkgdown site",
+    "docs/",
+    "# Output folder",
+    "outputs/",
+    "# translation temp files",
+    "po/*~",
+    "# Leaflet folders",
+    "*_files/",
+    "# Office and web documents",
+    "*.docx",
+    "*.html",
+    "*.pdf",
+    "*.csv",
+    "*.xls",
+    "*.xlsx",
+    "*.ppt",
+    "*.pptx"
+  )
   # Does a gitignore file exist?
   if (file.exists(".gitignore")) {
     # Read current
@@ -214,7 +224,8 @@ setup_project <- function(default_branch = NULL) {
       "# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html",
       "rsconnect/",
       "",
-      "=======")
+      "======="
+    )
 
     lines <- setdiff(current_contents, lines) %>%
       setdiff(discard_lines) %>%

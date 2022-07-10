@@ -1,6 +1,17 @@
 {
+    "conventionalCommits.scopes": [
+        "news"
+    ],
     "cSpell.words": [
-        "longlat",
-        "zcol"
+        "bbox",
+        "burnscar",
+        "geoms",
+        "horiz",
+        "nolint",
+        "nonportable",
+        "pkgname",
+        "processx",
+        "Rbuildignore",
+        "winslash"
     ]
 }
