@@ -5,3 +5,5 @@
 ^debug.log
 ^.github
 ^\.github$
+^.lintr
+^templates$
