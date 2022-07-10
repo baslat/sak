@@ -148,7 +148,7 @@ get_carto <- function(bbox = c(left = -95.80204, bottom = 29.38048, right = -94.
                       ),
                       crop = TRUE, messaging = FALSE, urlonly = FALSE, color = c("color", "bw"), force = FALSE,
                       where = tempdir(), https = FALSE, ...) {
-  function_needs("ggmap")
+  rlang::check_installed("ggmap")
   # enumerate argument checking (added in lieu of checkargs function)
   args <- as.list(match.call(expand.dots = TRUE)[-1])
   argsgiven <- names(args)

@@ -72,7 +72,7 @@ expand_bbox <- function(.data,
 #' }
 #'
 extract_map_aspect_ratio <- function(.ggmap) {
-  function_needs("ggmap")
+  rlang::check_installed("ggmap")
   # Get the coordinate projection
   coord <- ggplot2::coord_quickmap(.ggmap)
 
@@ -115,7 +115,7 @@ extract_map_aspect_ratio <- function(.ggmap) {
 normalise_geo_names <- function(.data,
                                 remove_year = TRUE,
                                 make_lower = TRUE) {
-  function_needs("tidyselect")
+    rlang::check_installed("tidyselect")
 
   clean_dat <- .data %>%
     # Make columns characters, and exclude columns with area in the name
@@ -176,7 +176,7 @@ standardise_geo_names <- normalise_geo_names
 #' }
 #'
 fix_ggmap_bbox <- function(.map) {
-  function_needs("ggmap")
+  rlang::check_installed("ggmap")
   assertthat::assert_that(inherits(.map, "ggmap"),
     msg = ".map must be a ggmap object"
   )
@@ -411,7 +411,7 @@ utils::globalVariables(c("time_new_form", "time_old_form", "time_save_form"))
 #' }
 embed_gmap <- function(left, bottom, right, top,
                        zoom, maptype, ...) {
-  function_needs("ggmap")
+  rlang::check_installed("ggmap")
   ggmap::get_stamenmap(
     bbox = c(left, bottom, right, top),
     zoom = zoom,

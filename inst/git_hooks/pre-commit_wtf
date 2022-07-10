@@ -1,0 +1,55 @@
+#!/bin/bash
+#
+# This hook verifies what is about to be committed.
+# Specifically it calls the wtf python utility to handle whitespace differences
+# Most of this code was copied from https://github.com/dlenski/wtf#careful-version
+#
+# We are now using the simple version of wtf hook, which is edit and re-add
+# changed files (tweaked by Ben)
+
+echo "Attempting to clean whitespace of staged files with wtf..."
+wtf_options='--coerce-eol crlf'
+# get a list of to-be-committed filepaths, EXCLUDING files considered
+# by Git to be binary
+committees=$(git diff --cached --numstat --diff-filter=ACMRTU |grep -E -v ^-|cut -f3-)
+
+# Check if wtf.py is on path
+if which wtf.py &> /dev/null
+then
+  for committee in $committees
+  do # Run Whitespace Total Fixer in-place, and re-add files modified by it
+    wtf.py -i $wtf_options "$committee" || git add "$committee"
+  done
+  echo "Done! All the line endings are now spick and span!"
+else
+  echo "Couldn't find wtf.py on your path. Get the py file here and add to your path (easy to do, hard to find examples): https://github.com/dlenski/wtf"
+  echo "Skipping."
+fi
+
+
+# # The below code is the "careful" version of the pre-hook, which doesn't modify
+# # the working area. Turned off because of likely confusion arising from files
+# # reappearing as changed, but kept for future reference.
+# echo "Attempting to clean whitespace of staged files with wtf..."
+# wtf_options='--coerce-eol crlf'
+# tmp=$(mktemp /tmp/wtf.XXXX) # BSD/OSX version of mktemp requires template
+# hh=$(git rev-parse -q --verify HEAD || echo 4b825dc642cb6eb9a060e54bf8d69288fbee4904) # empty tree
+# # Run Whitespace Total Fixer on index contents WITHOUT modifying working directory
+# git diff-index --raw -z --cached $hh --diff-filter=ACMRTU -- |
+# while read -d '' _ MODE _ SHA1 _ && read -d '' FILE
+# do
+#     if [ "$MODE" == 120000 ]; then
+#         true # ignore symlinks
+#     elif git check-attr -a -- "$FILE" | grep -Eq ': (binary: set|text: unset)$'; then
+#          # ignore files marked as binary or non-text; see gitattributes(5) and git-check-attr(1)
+#         echo "No whitespace checking for file '$FILE'; marked +binary or -text"
+#     elif ! ( git cat-file blob $SHA1 | wtf.py $wtf_options > $tmp ); then
+#         if [ -s $tmp ]; then
+#             git update-index --cacheinfo $MODE $(git hash-object -w $tmp) "$FILE"
+#             echo "Fixed whitespace in $FILE" >&2
+#         else
+#             echo "Couldn't fix whitespace with wtf -- is it in your PATH?" >&2
+#         fi
+#     fi
+# done
+# rm -f $tmp 2> /dev/null

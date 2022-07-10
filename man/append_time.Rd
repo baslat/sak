@@ -29,10 +29,8 @@ default the timestamp will be formatted as \code{\%Y_\%m_\%d_\%H\%M}.
 }
 \examples{
 \dontrun{
-path <- append_time(
-  path = "/data/raw.xlsx",
-  time = ymd_hm("2021-05-20 14:30")
-)
+epi_filepath <- append_time(path = "data/raw/raw_health.xlsx",
+                            time = ymd_hm("2021-05-20 14:30"))
 
 # Returns:
 # "/data/raw_2021_05_20_1430.xlsx"

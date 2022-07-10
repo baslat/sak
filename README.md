@@ -4,8 +4,6 @@
 # sak
 
 <!-- badges: start -->
-
-[![R-CMD-check](https://github.com/baslat/sak/workflows/R-CMD-check/badge.svg)](https://github.com/baslat/sak/actions)
 <!-- badges: end -->
 
 `sak` is my Swiss Army knife package, and it’s also where I put things.

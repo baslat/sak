@@ -1,8 +1,6 @@
-# sak (development version)
-- copies many of my functions from work done elsewhere
-- many minor style changes
-- swaps the internals of `op()` to just be a wrapper for `fs::file_show()`
-- adds `%not_in%`
+# sak 0.1.0
+- copies many of my functions from `cah`
+- upgrade `{lintr}` settings in light of v3.0.0 being released
 
 # sak 0.0.0.9000
 

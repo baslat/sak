@@ -4,9 +4,7 @@
 ^README\.Rmd$
 ^debug.log
 ^.github
-.code-workspace$
-^data-raw$
 ^\.github$
-^README.html$
-^\.vscode$
 ^.lintr
+^templates$
+^\.vscode
