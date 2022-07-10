@@ -2,7 +2,7 @@
 % Please edit documentation in R/osm_helpers.r
 \name{osm_summarise}
 \alias{osm_summarise}
-\title{Summarise OpenStreeMap (OSM) features by group}
+\title{Summarise OpenStreetMap (OSM) features by group}
 \usage{
 osm_summarise(osm_sf, ..., .f, units = NULL)
 }

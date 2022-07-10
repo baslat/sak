@@ -2,7 +2,7 @@
 % Please edit documentation in R/osm_helpers.r
 \name{osm_find}
 \alias{osm_find}
-\title{Query OpenStreeMap (OSM) for features}
+\title{Query OpenStreetMap (OSM) for features}
 \usage{
 osm_find(bb, feature_key, feature_values)
 }
@@ -47,7 +47,7 @@ features <- osm_bind_features(features_raw,
 
 # Take a look if you're curious
 mapview::mapview(features,
-    zcol = "highway"
+    zcol = "highway" # nolint
 )
 
 # Intersect with the burnscar

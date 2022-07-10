@@ -1,4 +1,4 @@
-#' Query OpenStreeMap (OSM) for features
+#' Query OpenStreetMap (OSM) for features
 #'
 #' Get the SF details for each requested feature. The list of OSM features is
 #' \href{https://wiki.openstreetmap.org/wiki/Map_features}{here}. Use in
@@ -37,7 +37,7 @@
 #'
 #' # Take a look if you're curious
 #' mapview::mapview(features,
-#'     zcol = "highway"
+#'     zcol = "highway" # nolint
 #' )
 #'
 #' # Intersect with the burnscar
@@ -51,9 +51,7 @@
 #'     units = "km"
 #' )
 #' }
-osm_find <- function(bb,
-                     feature_key,
-                     feature_values) {
+osm_find <- function(bb, feature_key, feature_values) {
 
     # Check for installed package
     rlang::check_installed("osmdata") # nolint
@@ -61,15 +59,16 @@ osm_find <- function(bb,
     # Check CRS of bounding box
     bb_crs <- sf::st_crs(bb)
 
-    assertthat::assert_that(bb_crs$input == "+proj=longlat +datum=WGS84",
-        msg = "The CRS of your bounding box is incorrect. Use the following code to get a bbox with the CRS OSM requires:\n\nsf::st_transform(sf_object, '+proj=longlat +datum=WGS84') %>% sf::st_bbox()\n\n"
+    assertthat::assert_that(
+        bb_crs[["input"]] == "+proj=longlat +datum=WGS84",
+        msg = "The CRS of your bounding box is incorrect. Use the following code to get a bbox with the CRS OSM requires:\n\nsf::st_transform(sf_object, '+proj=longlat +datum=WGS84') |> sf::st_bbox()\n\n" # nolint
     )
 
 
 
     # Set the OSM query connection
     sf_list <- bb %>%
-        osmdata::opq(timeout = 50) %>%
+        osmdata::opq(timeout = 50L) %>%
         osmdata::add_osm_feature(
             key = feature_key,
             value = feature_values
@@ -81,7 +80,7 @@ osm_find <- function(bb,
 
 
 
-#' Bind the results of an OpenStreeMap (OSM) feature query
+#' Bind the results of an OpenStreetMap (OSM) feature query
 #'
 #' An OSM query returns a list of SFs of different types. This function binds
 #' the ones you want together. If a requested geometry is NULL it will not be
@@ -100,9 +99,7 @@ osm_find <- function(bb,
 #' @return a \code{sf}
 #' @export
 #'
-osm_bind <- function(sf_list,
-                     types,
-                     crs = 4326) {
+osm_bind <- function(sf_list, types, crs = 4326) { # nolint
     # Check the inputs
     assertthat::assert_that(inherits(sf_list, "osmdata"))
     assertthat::assert_that(all(types %in% c(
@@ -122,14 +119,14 @@ osm_bind <- function(sf_list,
         purrr::discard(.p = is.null)
 
     # Bind the final results
-    if (length(kept_sf) == 1) {
-        final_sf <- kept_sf[[1]]
+    if (length(kept_sf) == 1L) {
+        final_sf <- kept_sf[[1L]]
     } else {
         final_sf <- dplyr::bind_rows(kept_sf)
     }
 
     # Break for invalid selection
-    if (length(final_sf) == 0) {
+    if (length(final_sf) == 0L) {
         valid_geoms <- sf_list %>%
             purrr::discard(.p = is.null) %>%
             names() %>%
@@ -154,7 +151,7 @@ osm_bind <- function(sf_list,
     return(final_sf)
 }
 
-#' Summarise OpenStreeMap (OSM) features by group
+#' Summarise OpenStreetMap (OSM) features by group
 #'
 #' Generally you will do this after querying the OSM features, binding the
 #' results, intersecting with an irregular polygon (e.g. a burnscar).
@@ -173,14 +170,11 @@ osm_bind <- function(sf_list,
 #'   column
 #' @export
 #'
-osm_summarise <- function(osm_sf,
-                          ...,
-                          .f,
-                          units = NULL) {
+osm_summarise <- function(osm_sf, ..., .f, units = NULL) {
     rlang::check_installed("osmdata") # nolint
     # Class check
     assertthat::assert_that(inherits(osm_sf, "sf"))
-    assertthat::assert_that(length(.f) == 1)
+    assertthat::assert_that(length(.f) == 1L)
     assertthat::assert_that(.f %in% c("length", "area", "count"))
 
     # Group by relevant columns
@@ -196,12 +190,12 @@ osm_summarise <- function(osm_sf,
         # Run the summary function and assign to dynamic variable name
         summary_df <- osm_sf %>%
             dplyr::mutate(summary = eval(parse(text = fun))) %>%
-            # Can't use strip_geomtery as it doesn't respect groups
+            # Can't use strip_geometry as it doesn't respect groups
             sf::st_set_geometry(NULL) %>%
             dplyr::summarise({{ .f }} := sum(summary))
     } else {
         summary_df <- osm_sf %>%
-            # Can't use strip_geomtery as it doesn't respect groups
+            # Can't use strip_geometry as it doesn't respect groups
             sf::st_set_geometry(NULL) %>%
             dplyr::count(name = "count")
     }

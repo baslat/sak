@@ -2,7 +2,7 @@
 % Please edit documentation in R/osm_helpers.r
 \name{osm_bind}
 \alias{osm_bind}
-\title{Bind the results of an OpenStreeMap (OSM) feature query}
+\title{Bind the results of an OpenStreetMap (OSM) feature query}
 \usage{
 osm_bind(sf_list, types, crs = 4326)
 }
