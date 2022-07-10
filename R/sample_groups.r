@@ -16,23 +16,24 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' gapminder::gapminder %>%
-#'   group_by(continent) %>%
+#' dplyr::storms %>%
+#'   dplyr::group_by(name) %>%
 #'   sample_groups(2)
-#' }
+#'
 sample_groups <- function(grouped_df, n, replace = FALSE) {
 
   # Error checking
   # Is a grouped data frame
-  assertthat::assert_that(dplyr::groups(grouped_df) %>%
-    length() > 0,
-  msg = "grouped_df must be a grouped dataframe"
+  assertthat::assert_that(
+    dplyr::groups(grouped_df) %>%
+        length() > 0L,
+    msg = "grouped_df must be a grouped dataframe"
   )
 
 
   # Not an sf
-  assertthat::assert_that(class(grouped_df)[1] != "sf",
+  assertthat::assert_that(
+    !inherits(grouped_df, "sf"),
     msg = "sample_groups doesn't work with sf objects, yet..."
   )
 
@@ -57,5 +58,5 @@ sample_groups <- function(grouped_df, n, replace = FALSE) {
   grouped_df %>%
     dplyr::right_join(random_grp, by = grp_var) %>%
     dplyr::group_by(!!gv) %>%
-    dplyr::select(-.data$unique_id)
+    dplyr::select(-.data[["unique_id"]])
 }
