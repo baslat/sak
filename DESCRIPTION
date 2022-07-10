@@ -21,8 +21,8 @@ Imports:
     magrittr,
     plyr,
     purrr,
-    readr,
     rlang (>= 0.1.2),
+    sf,
     stringr,
     tibble,
     tidyr,
@@ -32,7 +32,11 @@ Imports:
     utils,
     vroom
 Suggests:
-    foodwebr,
+    capsule (>= 0.4.0.9006),
+    foodwebr (>= 0.1.1),
+    osmdata,
+    readr,
+    renv,
     roxygen2,
     spelling,
     testthat (>= 3.0.0),

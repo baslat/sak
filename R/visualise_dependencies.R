@@ -31,9 +31,9 @@
 #' }
 visualise_dependencies <- function(.f = NULL,
                                    ...) {
-  function_needs("foodwebr")
-  function_needs("tidygraph")
-  function_needs("visNetwork")
+  rlang::check_installed("foodwebr")
+  rlang::check_installed("tidygraph")
+  rlang::check_installed("visNetwork")
 
   fw <- foodwebr::foodweb(
     FUN = .f,

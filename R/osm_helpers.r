@@ -56,7 +56,7 @@ osm_find <- function(bb,
                      feature_values) {
 
     # Check for installed package
-    function_needs("osmdata") # nolint
+    rlang::check_installed("osmdata") # nolint
 
     # Check CRS of bounding box
     bb_crs <- sf::st_crs(bb)
@@ -177,7 +177,7 @@ osm_summarise <- function(osm_sf,
                           ...,
                           .f,
                           units = NULL) {
-    function_needs("osmdata") # nolint
+    rlang::check_installed("osmdata") # nolint
     # Class check
     assertthat::assert_that(inherits(osm_sf, "sf"))
     assertthat::assert_that(length(.f) == 1)

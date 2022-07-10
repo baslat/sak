@@ -29,7 +29,9 @@
 #' }
 setup_package <- function() {
   if (!is_package()) {
-    create_pack <- ask_to_proceed(msg = "This project isn't a package. Do you want to create a package?")
+    create_pack <- ask_to_proceed(
+      msg = "This project isn't a package. Do you want to create a package?"
+    )
     if (create_pack) {
       usethis::create_tidy_package(".")
     }

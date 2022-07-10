@@ -151,7 +151,7 @@ check_files <- function(term,
 #' }
 setup_renv <- function(starter_packs = c("sak", "renv"),
                        search_for_deps = TRUE) {
-  function_needs("renv")
+  rlang::check_installed("renv")
   # Check if there is a project
   needs_to_start <- is.null(renv::project())
 
@@ -216,9 +216,9 @@ setup_renv <- function(starter_packs = c("sak", "renv"),
 #'@export
 #'
 setup_capsule <- function() {
-  function_needs("capsule")
+  rlang::check_installed("capsule")
   capsule::create(
-    dep_source_paths = "R/_packages.R",
+    dep_source_paths = file.path("R", "_packages.R"),
     lockfile_path = "renv.lock"
   )
 }
