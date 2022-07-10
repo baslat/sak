@@ -228,7 +228,7 @@ setup_project <- function(default_branch = NULL) {
   # Use a markdown readme
   usethis::use_readme_md()
   # setup lintr config
-  setup_lintr_config()
+lintr::use_lintr(type = "full")
 
 use_renv <- ask_to_proceed("Do you want to track this project with renv?")
 if (use_renv) {
@@ -342,24 +342,6 @@ setup_lintr_testthat <- function() {
 }
 
 
-#' Setup the \code{lintr} config file
-#'
-#' A simple function to create the config file needed for \code{lintr}. Most
-#' linters are enable by default, except for \code{line_length_linter} and
-#' \code{trailing_whitespace_linter}.
-#'
-#' @return Nothing, called for side effects.
-#' @export
-setup_lintr_config <- function() {
-  lintr_config <- readLines(system.file("lintr/lintr_config.txt", package = "sak"))
-  usethis::write_over(
-    path = ".lintr",
-    lines = lintr_config
-  )
-  invisible(NULL)
-}
-
-
 #' Setup a yaml file for megalinter
 #'
 #' Megalinter is a pipeline program that can lint multiple languages. This
@@ -374,7 +356,7 @@ setup_lintr_config <- function() {
 #' @export
 #'
 setup_yaml_megalinter <- function(default_branch = NULL) {
-  default_branch <- default_branch %||% get_git_default_branch()
+  default_branch <- default_branch %||% usethis::git_branch_default()
 
   assertthat::assert_that(default_branch %in% c(
     "master",

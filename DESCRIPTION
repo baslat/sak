@@ -1,6 +1,6 @@
 Package: sak
 Title: The Swiss Army Knife of R
-Version: 0.0.0.9003
+Version: 0.1.0
 Authors@R:
     person("Abasi", "Latcham", , "abasi.latcham@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-1733-7350"))
@@ -17,6 +17,7 @@ Imports:
     glue,
     httr,
     lifecycle,
+    lintr (>= 3.0.0),
     magrittr,
     plyr,
     purrr,
