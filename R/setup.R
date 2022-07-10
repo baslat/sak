@@ -348,8 +348,7 @@ setup_yaml_megalinter <- function(default_branch = NULL) {
 #' }
 setup_yaml_azdo <- function(repo_type) {
 
-  assertthat::assert_that(repo_type %in% c("project",
-                                               "package"),
+  assertthat::assert_that(repo_type %in% c("project", "package"),
                           msg = "`repo_type` must be one of 'project' or 'package'.")
 
   # Select which azdo yaml template to use
