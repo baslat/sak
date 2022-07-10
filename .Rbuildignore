@@ -10,3 +10,5 @@
 ^README.html$
 ^\.vscode$
 ^.lintr
+^templates$
+^\.vscode
