@@ -16,8 +16,10 @@
 #' on_path(what = "Rscript")
 #' }
 on_path <- function(what, verbose = TRUE) {
+    lifecycle::signal_stage("experimental", "on_path()")
+
     # only runs on windows
-    if (.Platform$OS.type != "windows") {
+    if (.Platform[["OS.type"]] != "windows") {
         message("This only runs on Windows")
         invisible(FALSE)
     }

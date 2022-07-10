@@ -12,7 +12,6 @@ URL: https://github.com/baslat/sak
 BugReports: https://github.com/baslat/sak/issues
 Imports:
     assertthat,
-    desc,
     dplyr,
     fs,
     glue,
