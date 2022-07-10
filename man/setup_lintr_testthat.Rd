@@ -7,9 +7,9 @@
 setup_lintr_testthat()
 }
 \description{
-This function will take the file test-linted.R from the system files of the package
-and copy it into the test/testthat directory of your package. This will allow lintr
-tests to be executed when you run check on your package.
+This function will take the file test-linted.R from the system files of the
+package and copy it into the test/testthat directory of your package. This
+will allow lintr tests to be executed when you run check on your package.
 }
 \examples{
 \dontrun{

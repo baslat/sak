@@ -265,9 +265,9 @@ if (use_targets) {
 
 #' Create Lintr test that file
 #'
-#' This function will take the file test-linted.R from the system files of the package
-#' and copy it into the test/testthat directory of your package. This will allow lintr
-#' tests to be executed when you run check on your package.
+#' This function will take the file test-linted.R from the system files of the
+#' package and copy it into the test/testthat directory of your package. This
+#' will allow lintr tests to be executed when you run check on your package.
 #'
 #' @export
 #'
@@ -278,7 +278,7 @@ if (use_targets) {
 setup_lintr_testthat <- function() {
   usethis::use_template(
     template = "test-linted.R",
-    save_as = "tests/testthat/test-linted.R",
+    save_as = file.path("tests", "testthat", "test-linted.R"),
     package = "sak"
   )
 }
