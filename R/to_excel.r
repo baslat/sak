@@ -13,9 +13,10 @@
 #' dplyr::storms %>% to_excel()
 #' }
 to_excel <- function(.data) {
-  function_needs("readr")
+  rlang::check_installed("readr")
   # assert it's a df, and not sf
-  assertthat::assert_that(is.data.frame(.data),
+  assertthat::assert_that(
+    is.data.frame(.data),
     msg = ".data needs to be a data.frame"
   )
 
