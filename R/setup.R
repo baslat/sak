@@ -252,7 +252,12 @@ if (use_targets) {
     package = "sak"
   )
   usethis::use_template("_targets.R", package = "sak")
-  usethis::use_template(".env", package = "sak")
+  usethis::use_template(
+    template = "dot_env",
+    save_as = ".env",
+    package = "sak"
+  )
+
 }
     # Setup yamls
 # TODO deal with these yaml files
@@ -523,44 +528,6 @@ setup_azdo_pipeline <- function() {
   message("All done!")
 }
 
-
-#' Setup \code{renv}
-#'
-#' This function prints instructions and suggestions on how to use \code{renv}
-#' to track dependencies in a project. This only prints instructions, because
-#' \code{renv} functions are fairly simple to use, but their use is highly
-#' context dependent, so instructions made the most sense.
-#'
-#' @return nothing, just prints a message
-#' @export
-#'
-setup_renv <- function() {
-  # Just prints advice on how to use renv
-
-  # Has renv been initialised?
-  renv_started <- file.exists("renv.lock") # nolint
-
-  # Specify messages for each case
-  no_renv_msg <- "\nI suggest tracking package dependencies with `renv`. To start doing so, run the following and follow the prompts:\n
-renv::init(settings = list(r.version = '4.1.0', use.cache = TRUE))"
-
-  already_renv_msg <- "`renv` is already tracking dependencies in this repo. Some common functions are:
-renv::status():   see if you packages match the lockfile
-renv::install():  install a new package into your renv library (used before calling library on it)
-renv::update():   pass a package name to update the lockfile to use a more recent version of that package
-renv::snapshot(): overwrite the lockfile with all your installed packages (often used after requiring new packages in a project)
-renv::restore():  change your installed packages to match the lockfile (often used to restore your setup to how an old project needed it)
-renv::init():     get prompted to do some of the above"
-
-  # Pick the appropriate message and print it
-  msg <- dplyr::case_when(
-    renv_started == TRUE ~ already_renv_msg,
-    renv_started == FALSE ~ no_renv_msg,
-    TRUE ~ "I don't know what's going on in this repo..."
-  )
-
-  message(msg)
-}
 
 
 #' Setup some git hooks
