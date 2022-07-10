@@ -320,24 +320,10 @@ setup_rsc <- function() {
 #' sak::setup_lintr_testthat()
 #' }
 setup_lintr_testthat <- function() {
-
-  # Look at the system file and read the lines of the test-linted.R file
-  lintr_file <- system.file("lintr/test-linted.R", package = "sak")
-
-  # Get the name of the Package we are working in from Description File
-  package_name <- desc_get(keys = c("Package")) %>%
-    as.character()
-
-  # Replace the package name in the lintr test-that file.
-  lintr_file_lines <- readLines(lintr_file) %>%
-    stringr::str_replace(
-      pattern = "place_package_name_here_please",
-      replacement = package_name
-    )
-
-  usethis::write_over(
-    path = "tests/testthat/test-linted.R",
-    lines = lintr_file_lines
+  usethis::use_template(
+    template = "test-linted.R",
+    save_as = "tests/testthat/test-linted.R",
+    package = "sak"
   )
 }
 
