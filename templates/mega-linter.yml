@@ -1,0 +1,16 @@
+# Configuration file for Mega-Linter
+# See all available variables at https://nvuillam.github.io/mega-linter/configuration/ and in linters documentation
+
+APPLY_FIXES: all # all, none, or list of linter keys
+DEFAULT_BRANCH: {{branch}} # Usually master or main
+DISABLE:
+  - COPYPASTE # Comment to disable checks of abusive copy-pastes
+  - SPELL # Uncomment to enable checks of spelling mistakes
+DISABLE_LINTERS:
+  - SPELL_CSPELL
+  - YAML_V8R
+  - YAML_YAMLLINT
+SHOW_ELAPSED_TIME: true
+FILEIO_REPORTER: true
+EXCLUDED_DIRECTORIES:
+  - renv

@@ -4,7 +4,7 @@
 \alias{setup_project}
 \title{Setup folders and .gitignore for projects and repos}
 \usage{
-setup_project()
+setup_project(default_branch = NULL)
 }
 \description{
 This function:
@@ -101,6 +101,6 @@ Temporary files exempted from syncing are:
 }
 \examples{
 \dontrun{
-sak::setup_project() # This will make all your folders
+sak::setup_project(default_branch = "main") # This will make all your folders
 }
 }
