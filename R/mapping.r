@@ -522,6 +522,6 @@ swap_coords <- function(.data, geometry = geometry) {
     dplyr::mutate({{ geometry }} := purrr::modify(
       {{ geometry }},
       purrr::modify,
-      ~ list(.[[1]][, c(2, 1)])
+      ~ list(.[[1L]][, c(2L, 1L)])
     ))
 }
