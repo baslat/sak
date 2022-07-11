@@ -35,9 +35,11 @@ Imports:
     utils,
     vroom
 Suggests:
+    capsule (>= 0.4.0.9006),
     foodwebr,
     ggmap,
     lintr (>= 3.0.0),
+    osmdata,
     processx,
     readr,
     renv,

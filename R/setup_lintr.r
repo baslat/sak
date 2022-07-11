@@ -33,11 +33,11 @@ setup_lintr_config <- function() {
   invisible(NULL)
 }
 
-#' Create Lintr test that file
+#' Create `{lintr}` test that file
 #'
-#' This function will take the file test-linted.R from the system files of the package
-#' and copy it into the test/testthat directory of your package. This will allow lintr
-#' tests to be executed when you run check on your package.
+#' This function will take the file test-linted.R from the system files of the
+#' package and copy it into the test/testthat directory of your package. This
+#' will allow lintr tests to be executed when you run check on your package.
 #'
 #' @export
 #'

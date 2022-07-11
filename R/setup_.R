@@ -90,6 +90,7 @@
 #'         \itemize{
 #'             \item *.pptx}
 #'     }
+#' @inheritParams setup_yaml_megalinter
 #'
 #' @export
 #'

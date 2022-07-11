@@ -6,6 +6,11 @@
 \usage{
 setup_project(default_branch = NULL)
 }
+\arguments{
+\item{default_branch}{(str, default = \code{NULL}) the default branch of the
+repo, one of 'main' or 'master'. If \code{NULL} it will try to figure it
+out.}
+}
 \description{
 This function:
 \itemize{

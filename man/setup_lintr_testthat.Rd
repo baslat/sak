@@ -2,12 +2,12 @@
 % Please edit documentation in R/setup_lintr.r
 \name{setup_lintr_testthat}
 \alias{setup_lintr_testthat}
-\title{Create Lintr test that file}
+\title{Create \code{{lintr}} test that file}
 \usage{
 setup_lintr_testthat()
 }
 \description{
-This function will take the file test-linted.R from the system files of the package
-and copy it into the test/testthat directory of your package. This will allow lintr
-tests to be executed when you run check on your package.
+This function will take the file test-linted.R from the system files of the
+package and copy it into the test/testthat directory of your package. This
+will allow lintr tests to be executed when you run check on your package.
 }
