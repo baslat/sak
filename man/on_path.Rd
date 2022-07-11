@@ -2,7 +2,7 @@
 % Please edit documentation in R/on_path.r
 \name{on_path}
 \alias{on_path}
-\title{Check if something is on the system path}
+\title{Check if something is on the system path (Windows only)}
 \usage{
 on_path(what, verbose = TRUE)
 }
