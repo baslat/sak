@@ -35,7 +35,7 @@ Imports:
     utils,
     vroom
 Suggests:
-    capsule (>= 0.4.0.9006),
+    capsule (>= 0.4.1),
     foodwebr,
     ggmap,
     lintr (>= 3.0.0),
@@ -49,10 +49,11 @@ Suggests:
     tflow,
     tidygraph,
     visNetwork
-Remotes:
+Remotes: 
     github::dkahle/ggmap,
     github::lewinfox/foodwebr,
-    github::milesmcbain/tflow
+    github::milesmcbain/tflow,
+    milesmcbain/capsule
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
