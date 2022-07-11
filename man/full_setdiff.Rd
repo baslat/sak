@@ -6,6 +6,11 @@
 \usage{
 full_setdiff(x, y)
 }
+\arguments{
+\item{x}{a vector to combine}
+
+\item{y}{a vector to combine}
+}
 \description{
 Regular \code{setdiff()} is order-specific, but sometimes you just want to know what elements are just not in both lists. This function does that.
 }
