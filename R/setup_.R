@@ -204,7 +204,7 @@ setup_project <- function(default_branch = NULL) {
   )
   usethis::use_template("_targets.R", package = "sak")
   usethis::use_template(
-    template = "dot_env",
+    template = "dot.env",
     save_as = ".env",
     package = "sak"
   )
