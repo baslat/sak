@@ -1,0 +1,4 @@
+name: SAK Report
+description: >
+   An opinionated R Markdown report template.
+create_dir: FALSE

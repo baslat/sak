@@ -1,0 +1,32 @@
+---
+title: "Draft Report"
+author: "Bas Latcham"
+date: "`r Sys.Date()`"
+output:
+  word_document:
+    # reference_docx: !expr system.file("word_templates/doc_portrait.docx", package = "sak")
+    fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( # nolint
+    echo = FALSE,
+    warning = FALSE,
+    message = FALSE,
+    out.width = "18cm",
+    out.height = "11.25cm",
+    dpi = 320L,
+    fig.width = 10L,
+    fig.asp = 0.618,
+    dev = "ragg_png",
+    eval.expr = TRUE
+)
+```
+
+## Summary
+
+## Data and method
+
+## Results
+
+## Caveats and interpretations
