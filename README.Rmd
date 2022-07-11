@@ -36,7 +36,8 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(sak)
-## basic example code
+## What are the unique values in each non-numeric dataframe column?
+sg(dplyr::storms)
 ```
 
 You'll still need to render `README.Rmd` regularly, to keep `README.md`

@@ -1,4 +1,4 @@
-# sak (development version)
+# sak 0.1.0
 - copies many of my functions from work done elsewhere
 - many minor style changes
 - swaps the internals of `op()` to just be a wrapper for `fs::file_show()`

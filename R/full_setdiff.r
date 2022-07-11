@@ -2,7 +2,8 @@
 #'
 #' Regular `setdiff()` is order-specific, but sometimes you just want to know what elements are just not in both lists. This function does that.
 #'
-#' @inheritParams base::setdiff
+#' @param x a vector to combine
+#' @param y a vector to combine
 #'
 #' @export
 #'

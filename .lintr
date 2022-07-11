@@ -1,12 +1,3 @@
-linters: with_defaults(
-    # Default linters
-    trailing_whitespace_linter = NULL,
-    line_length_linter = NULL,
-    object_length_linter = lintr::object_length_linter(length = 50L),
-    object_name_linter = lintr::object_name_linter(styles = c("snake_case", "symbols")),
-    # Bonus linters
-    absolute_path_linter = lintr::absolute_path_linter(),
-    nonportable_path_linter = lintr::nonportable_path_linter(),
-    todo_comment_linter = lintr::todo_comment_linter(),
-    undesirable_function_linter = lintr::undesirable_function_linter(),
-    undesirable_operator_linter = lintr::undesirable_operator_linter())
+linters: linters_with_tags(tags = NULL, line_length_linter = line_length_linter(120L), packages = "lintr") # see vignette("lintr")
+encoding: "UTF-8"
+exclusions: list("renv", "packrat") # see ?lintr::exclude

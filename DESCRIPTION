@@ -1,6 +1,6 @@
 Package: sak
 Title: The Swiss Army Knife of R
-Version: 0.0.0.9005
+Version: 0.1.0
 Authors@R:
     person("Bas", "Latcham", , "bas@latcham.com.au", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1733-7350"))
 Description: This is my personal package of helper functions. Like a Swiss
@@ -35,9 +35,11 @@ Imports:
     utils,
     vroom
 Suggests:
+    capsule (>= 0.4.1),
     foodwebr,
     ggmap,
-    lintr,
+    lintr (>= 3.0.0),
+    osmdata,
     processx,
     readr,
     renv,
@@ -47,13 +49,14 @@ Suggests:
     tflow,
     tidygraph,
     visNetwork
-Remotes:
+Remotes: 
     github::dkahle/ggmap,
     github::lewinfox/foodwebr,
-    github::milesmcbain/tflow
+    github::milesmcbain/tflow,
+    milesmcbain/capsule
 Config/testthat/edition: 3
 Encoding: UTF-8
-Language: en-US
+Language: en-GB
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0

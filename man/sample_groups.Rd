@@ -27,9 +27,8 @@ you do that.
 Doesn't work with \code{sf}s because of the geometry column.
 }
 \examples{
-\dontrun{
-gapminder::gapminder \%>\%
-  group_by(continent) \%>\%
+dplyr::storms \%>\%
+  dplyr::group_by(name) \%>\%
   sample_groups(2)
-}
+
 }

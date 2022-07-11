@@ -90,16 +90,20 @@
 #'         \itemize{
 #'             \item *.pptx}
 #'     }
+#' @inheritParams setup_yaml_megalinter
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' sak::setup_project() # This will make all your folders
+#' sak::setup_project(default_branch = "main") # This will make all your folders
 #' }
-setup_project <- function() {
-  # Create folders
+setup_project <- function(default_branch = NULL) {
 
+  rlang::check_installed("lintr")
+  default_branch <- default_branch %||% usethis::git_default_branch()
+
+  # Create folders
   c(
     "code",
     "data",
@@ -178,17 +182,32 @@ setup_project <- function() {
   # Use a markdown readme
   usethis::use_readme_md()
   # setup lintr config
-  setup_lintr_config()
+  lintr::use_lintr(type = "full")
 
   use_renv <- ask_to_proceed("Do you want to track this project with renv?")
   if (use_renv) {
     setup_renv()
   }
+  use_capsule <- ask_to_proceed("Do you want to track this project with capsule?")
+  if (use_capsule) {
+    setup_capsule()
+  }
 
-use_targets <- ask_to_proceed("Do you want to use `{targets}`?")
-if (use_targets) {
-  function_needs("tflow")
-  tflow::use_tflow()
+  use_targets <- ask_to_proceed("Do you want to use `{targets}`?")
+  if (use_targets) {
+  # inspired by `tflow::use_tflow()`
+  usethis::use_directory("R")
+  usethis::use_template(
+    template = "_packages.R",
+    save_as = file.path("R", "_packages.R"),
+    package = "sak"
+  )
+  usethis::use_template("_targets.R", package = "sak")
+  usethis::use_template(
+    template = "dot.env",
+    save_as = ".env",
+    package = "sak"
+  )
 }
 
 }
@@ -223,12 +242,14 @@ if (use_targets) {
 #' }
 setup_package <- function() {
   if (!is_package()) {
-    create_pack <- ask_to_proceed(msg = "This project isn't a package. Do you want to create a package?")
+    create_pack <- ask_to_proceed(
+      msg = "This project isn't a package. Do you want to create a package?"
+    )
     if (create_pack) {
       usethis::create_tidy_package(".")
     }
   }
-
+  rlang::check_installed("lintr")
   usethis::use_package_doc()
   usethis::use_mit_license()
   usethis::use_news_md()
@@ -241,7 +262,7 @@ setup_package <- function() {
   usethis::use_roxygen_md()
   usethis::use_lifecycle()
   usethis::use_readme_md()
-  setup_lintr_config()
+  lintr::use_lintr(type = "full")
   setup_lintr_testthat()
   usethis::use_tidy_style()
 }

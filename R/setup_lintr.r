@@ -33,36 +33,24 @@ setup_lintr_config <- function() {
   invisible(NULL)
 }
 
-#' Create Lintr test that file
+#' Create `{lintr}` test that file
 #'
-#' This function will take the file test-linted.R from the system files of the package
-#' and copy it into the test/testthat directory of your package. This will allow lintr
-#' tests to be executed when you run check on your package.
+#' This function will take the file test-linted.R from the system files of the
+#' package and copy it into the test/testthat directory of your package. This
+#' will allow lintr tests to be executed when you run check on your package.
 #'
 #' @export
 #'
 setup_lintr_testthat <- function() {
 
-  # Look at the system file and read the lines of the test-linted.R file
-  lintr_file <- file.path("lintr", "test-linted.R") |>
-    system.file(package = "sak")
-
-  # Get the name of the Package we are working in from Description File
-  package_name <- desc_get(keys = "Package") |>
-    as.character()
-
-  # Replace the package name in the lintr test-that file.
-  lintr_file_lines <- readLines(lintr_file) |>
-    stringr::str_replace(
-      pattern = "place_package_name_here_please",
-      replacement = package_name
-    )
-
-  usethis::write_over(
-    path = file.path("tests", "testthat", "test-linted.R"),
-    lines = lintr_file_lines
+  usethis::use_template(
+    template = "test-linted.R",
+    save_as = file.path("tests", "testthat", "test-linted.R"),
+    package = "sak"
   )
 }
+
+
 
 
 #' Setup a yaml file for megalinter
@@ -81,26 +69,14 @@ setup_lintr_testthat <- function() {
 setup_yaml_megalinter <- function(default_branch = NULL) {
   default_branch <- default_branch %||% usethis::git_branch_default()
 
-  assertthat::assert_that(default_branch %in% c(
-    "master",
-    "main"
-  ),
-  msg = "`default_branch` should be 'main' or 'master'"
+  assertthat::assert_that(
+    default_branch %in% c("master", "main"),
+    msg = "`default_branch` should be 'main' or 'master'"
   )
 
-  # Get the guts of the mega-linter file from inside `sak`
-  # and replace the default_repo
-  # and write the file
-  ml_yaml <- file.path("yaml_files", "mega-linter.yml") |>
-    system.file(package = "sak") %>%
-    readLines() %>%
-    stringr::str_replace(
-      pattern = "MAIN_REPO",
-      replacement = default_branch
-    )
-
-  usethis::write_over(
-    path = ".mega-linter.yml",
-    lines = ml_yaml
+  usethis::use_template(
+    template = "mega-linter.yml",
+    save_as = ".mega-linter.yml",
+    data = list(branch = default_branch)
   )
 }
