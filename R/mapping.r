@@ -483,19 +483,19 @@ extract_gmaps <- function(.data,
 #' }
 suggest_zoom <- function(bbox) {
   # Get some averages of the bbox
-  mean_lat <- mean(c(bbox["top"], bbox["bottom"]))
-  lat_range <- unname(abs(bbox["top"] - bbox["bottom"]))
-  lon_range <- unname(abs(bbox["right"] - bbox["left"]))
+  mean_lat <- mean(c(bbox[["top"]], bbox[["bottom"]]))
+  lat_range <- unname(abs(bbox[["top"]] - bbox[["bottom"]]))
+  lon_range <- unname(abs(bbox[["right"]] - bbox[["left"]]))
 
   # Rough distance of one degree (m)
-  lat_m <- 111111
+  lat_m <- 111111L
 
   # Distance of bounding box in m
   vert <- lat_range * lat_m
-  horz <- abs(lon_range * cos(mean_lat) * lat_m)
+  horiz <- abs(lon_range * cos(mean_lat) * lat_m)
 
   # Model how many meters each pixel should show
-  met <- unname(stats::predict(suggest_zoom_model, tibble::tibble(vert, horz)))
+  met <- unname(stats::predict(suggest_zoom_model, tibble::tibble(vert, horiz)))
 
   zoom <- round(log2((cos(mean_lat * pi / 180) * pi * 6378137) / (128 * met)))
   # 18 is the max
