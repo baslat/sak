@@ -1,4 +1,5 @@
 # sak 0.2.0
+- fix problem in `suggest_zoom()`
 
 # sak 0.1.0
 - copies many of my functions from work done elsewhere
