@@ -91,14 +91,14 @@
 #'             \item *.pptx}
 #'     }
 #' @inheritParams setup_yaml_megalinter
-#'
+#' @inheritParams lintr::use_lintr
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' sak::setup_project(default_branch = "main") # This will make all your folders
 #' }
-setup_project <- function(default_branch = NULL) {
+setup_project <- function(default_branch = NULL, type = "full") {
 
   rlang::check_installed("lintr")
   default_branch <- default_branch %||% usethis::git_default_branch()
@@ -182,7 +182,7 @@ setup_project <- function(default_branch = NULL) {
   # Use a markdown readme
   usethis::use_readme_md()
   # setup lintr config
-  lintr::use_lintr(type = "full")
+  setup_lintr_config(type = type)
 
   use_renv <- ask_to_proceed("Do you want to track this project with renv?")
   if (use_renv) {
@@ -232,6 +232,8 @@ setup_project <- function(default_branch = NULL) {
 #'   then develop as normal.
 #' }
 #'
+#' @inheritParams lintr::use_lintr
+#'
 #' @return Nothing returned, this is run for side effects (which include
 #'   creating multiple files and folders).
 #' @export
@@ -240,7 +242,7 @@ setup_project <- function(default_branch = NULL) {
 #' \dontrun{
 #' sak::setup_package()
 #' }
-setup_package <- function() {
+setup_package <- function(type = "full") {
   if (!is_package()) {
     create_pack <- ask_to_proceed(
       msg = "This project isn't a package. Do you want to create a package?"
@@ -262,7 +264,7 @@ setup_package <- function() {
   usethis::use_roxygen_md()
   usethis::use_lifecycle()
   usethis::use_readme_md()
-  lintr::use_lintr(type = "full")
+  setup_lintr_config(type = type)
   setup_lintr_testthat()
   usethis::use_tidy_style()
 }
