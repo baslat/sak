@@ -4,34 +4,14 @@
 #' linters are enable by default, except for \code{line_length_linter} and
 #' \code{trailing_whitespace_linter}.
 #'
+#' @inheritParams lintr::use_lintr
+#'
 #' @return Nothing, called for side effects.
 #' @export
-setup_lintr_config <- function() {
-  lintr_config <- file.path("lintr", "lintr_config.txt") |>
-    system.file(package = "sak") |>
-    readLines()
-
-  usethis::write_over(
-    path = ".lintr",
-    lines = lintr_config
-  )
-
-  # If it's a package, edit the build ignore and add .lintr as a dep
-  if (is_package()) {
-    # modify .Rbuildignore to suppress warnings
-    usethis::write_union(
-      path = ".Rbuildignore",
-      lines = "^.lintr"
-    )
-
-    usethis::use_package("lintr", type = "Suggests")
+setup_lintr_config <- function(...) {
+  rlang::check_installed("lintr")
+  lintr::use_lintr(...)
   }
-
-
-
-
-  invisible(NULL)
-}
 
 #' Create `{lintr}` test that file
 #'

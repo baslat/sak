@@ -4,7 +4,7 @@
 \alias{setup_lintr_config}
 \title{Setup the \code{lintr} config file}
 \usage{
-setup_lintr_config()
+setup_lintr_config(...)
 }
 \value{
 Nothing, called for side effects.
