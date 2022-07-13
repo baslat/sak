@@ -4,12 +4,19 @@
 \alias{setup_project}
 \title{Setup folders and .gitignore for projects and repos}
 \usage{
-setup_project(default_branch = NULL)
+setup_project(default_branch = NULL, type = "full")
 }
 \arguments{
 \item{default_branch}{(str, default = \code{NULL}) the default branch of the
 repo, one of 'main' or 'master'. If \code{NULL} it will try to figure it
 out.}
+
+\item{type}{What kind of configuration to create?
+\itemize{
+\item \code{tidyverse} creates a minimal lintr config, based on the default linters (\code{\link[lintr:linters_with_defaults]{linters_with_defaults()}}).
+These are suitable for following \href{https://style.tidyverse.org/}{the tidyverse style guide}.
+\item \code{full} creates a lintr config using all available linters via \code{\link[lintr:linters_with_tags]{linters_with_tags()}}.
+}}
 }
 \description{
 This function:
