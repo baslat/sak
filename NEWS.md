@@ -1,3 +1,5 @@
+# sak 0.3.0
+
 # sak 0.2.0
 - fix problem in `suggest_zoom()`
 
