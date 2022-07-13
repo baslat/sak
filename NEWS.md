@@ -1,4 +1,5 @@
 # sak 0.3.0
+- change `setup_lintr_config()` to use internal `{lintr}` file
 
 # sak 0.2.0
 - fix problem in `suggest_zoom()`
