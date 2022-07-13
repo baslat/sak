@@ -182,7 +182,7 @@ setup_project <- function(default_branch = NULL) {
   # Use a markdown readme
   usethis::use_readme_md()
   # setup lintr config
-  lintr::use_lintr(type = "full")
+  setup_lintr_config(type = "full")
 
   use_renv <- ask_to_proceed("Do you want to track this project with renv?")
   if (use_renv) {
