@@ -6,6 +6,20 @@
 \usage{
 setup_lintr_config(...)
 }
+\arguments{
+\item{...}{
+  Arguments passed on to \code{\link[lintr:use_lintr]{lintr::use_lintr}}
+  \describe{
+    \item{\code{path}}{Path to project root, where a \code{.lintr} file should be created.
+If the \code{.lintr} file already exists, an error will be thrown.}
+    \item{\code{type}}{What kind of configuration to create?
+\itemize{
+\item \code{tidyverse} creates a minimal lintr config, based on the default linters (\code{\link[lintr:linters_with_defaults]{linters_with_defaults()}}).
+These are suitable for following \href{https://style.tidyverse.org/}{the tidyverse style guide}.
+\item \code{full} creates a lintr config using all available linters via \code{\link[lintr:linters_with_tags]{linters_with_tags()}}.
+}}
+  }}
+}
 \value{
 Nothing, called for side effects.
 }

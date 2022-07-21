@@ -4,7 +4,7 @@
 #' linters are enable by default, except for \code{line_length_linter} and
 #' \code{trailing_whitespace_linter}.
 #'
-#' @inheritParams lintr::use_lintr
+#' @inheritDotParams lintr::use_lintr
 #'
 #' @return Nothing, called for side effects.
 #' @export
