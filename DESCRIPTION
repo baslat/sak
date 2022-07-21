@@ -1,8 +1,8 @@
 Package: sak
 Title: The Swiss Army Knife of R
-Version: 0.3.0
+Version: 0.4.0
 Authors@R:
-    person("Bas", "Latcham", , "bas@latcham.com.au", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1733-7350"))
+    person("Bas", "Latcham", , "bas@latcham.au", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1733-7350"))
 Description: This is my personal package of helper functions. Like a Swiss
     Army knife, it's not great at any one particular thing, but it can be
     useful.
@@ -49,7 +49,7 @@ Suggests:
     tflow,
     tidygraph,
     visNetwork
-Remotes: 
+Remotes:
     github::dkahle/ggmap,
     github::lewinfox/foodwebr,
     github::milesmcbain/tflow,
@@ -59,4 +59,4 @@ Encoding: UTF-8
 Language: en-GB
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1

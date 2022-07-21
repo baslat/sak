@@ -1,3 +1,9 @@
+# sak 0.4.0
+- adds `setup_vscode()`
+- `setup_project()` now creates an RStudio .proj file
+- test fix for `suggest_zoom()`
+- documentation fix for `setup_lintr_config()`
+
 # sak 0.3.0
 - change `setup_lintr_config()` to use internal `{lintr}` file
 
