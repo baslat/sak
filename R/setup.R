@@ -158,7 +158,11 @@ setup_project <- function(default_branch = NULL, type = "full") {
     "*.xls",
     "*.xlsx",
     "*.ppt",
-    "*.pptx"
+    "*.pptx",
+    "# VS Code workspace",
+    "*.code-workspace",
+    "# Mac files",
+    "*.ds_store"
   )
   # Does a gitignore file exist?
   if (file.exists(".gitignore")) {
@@ -175,8 +179,9 @@ setup_project <- function(default_branch = NULL, type = "full") {
       setdiff(discard_lines) %>%
       c(lines)
   }
-
-
+  # Create RStudio proj file
+  usethis::use_rstudio()
+  setup_vscode()
   # Write gitignore
   usethis::write_over(".gitignore", lines)
   # Use a markdown readme
@@ -251,6 +256,7 @@ setup_package <- function(type = "full") {
       usethis::create_tidy_package(".")
     }
   }
+  setup_vscode()
   rlang::check_installed("lintr")
   usethis::use_package_doc()
   usethis::use_mit_license()
@@ -267,4 +273,5 @@ setup_package <- function(type = "full") {
   setup_lintr_config(type = type)
   setup_lintr_testthat()
   usethis::use_tidy_style()
+  usethis::use_build_ignore("[.]code-workspace$", escape = FALSE)
 }
