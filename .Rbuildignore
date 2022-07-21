@@ -12,3 +12,4 @@
 ^.lintr
 ^templates$
 ^\.vscode
+^cran-comments\.md$
