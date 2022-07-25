@@ -10,7 +10,7 @@ setup_vscode <- function() {
     repo <- basename(getwd())
 
     usethis::use_template(
-        template = "vscode.code-workspace",
+        template = "vscode.json",
         save_as = paste0(repo, ".code-workspace"),
         package = "sak"
     )
