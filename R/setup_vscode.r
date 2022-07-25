@@ -11,6 +11,7 @@ setup_vscode <- function() {
 
     usethis::use_template(
         template = "vscode.code-workspace",
-        save_as = paste0(repo, ".code-workspace")
+        save_as = paste0(repo, ".code-workspace"),
+        package = "sak"
     )
 }
