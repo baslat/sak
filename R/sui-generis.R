@@ -18,26 +18,28 @@
 #' sg(mtcars) # Returns a message and nothing else
 #' }
 sg <- function(.data) {
-  assertthat::assert_that(is.data.frame(.data),
-    msg = "`.data` must be a `data.frame`"
-  )
+	assertthat::assert_that(
+		is.data.frame(.data),
+		msg = "`.data` must be a `data.frame`"
+	)
 
-  if (inherits(.data, "sf")) {
-     .data <- strip_geometry(.data)
-  }
+	if (inherits(.data, "sf")) {
+		.data <- strip_geometry(.data)
+	}
 
-  .data <- .data %>%
-    dplyr::select(
-      tidyselect::vars_select_helpers$where(is.character),
-      tidyselect::vars_select_helpers$where(is.factor)
-    )
+	.data <- .data %>%
+		dplyr::select(
+			tidyselect::vars_select_helpers$where(is.character),
+			tidyselect::vars_select_helpers$where(is.factor)
+		)
 
-  if (ncol(.data) == 0) {
-    message("`.data` has no factor or character columns.")
-    return(invisible(NULL))
-  }
+	if (ncol(.data) == 0L) {
+		message("`.data` has no factor or character columns.")
+		return(invisible(NULL))
+	}
 
-  .data %>%
-    names() %>%
-    purrr::map(~ unique(.data[.]))
+	.data %>%
+		names() %>%
+		purrr::map(~ unique(.data[.])) %>%
+		setNames(names(.data))
 }
