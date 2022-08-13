@@ -30,7 +30,7 @@ This is a basic example which shows you how to solve a common problem:
 library(sak)
 ## What are the unique values in each non-numeric dataframe column?
 sg(dplyr::storms)
-#> [[1]]
+#> $name
 #> # A tibble: 214 × 1
 #>    name    
 #>    <chr>   
@@ -45,8 +45,9 @@ sg(dplyr::storms)
 #>  9 Amelia  
 #> 10 Bess    
 #> # … with 204 more rows
+#> # ℹ Use `print(n = ...)` to see more rows
 #> 
-#> [[2]]
+#> $status
 #> # A tibble: 3 × 1
 #>   status             
 #>   <chr>              
@@ -54,7 +55,7 @@ sg(dplyr::storms)
 #> 2 tropical storm     
 #> 3 hurricane          
 #> 
-#> [[3]]
+#> $category
 #> # A tibble: 7 × 1
 #>   category
 #>   <ord>   
