@@ -1,3 +1,5 @@
+# sak 0.6.0
+
 # sak 0.5.0
 - `sg()` now returns a named list
 
