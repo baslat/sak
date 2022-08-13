@@ -30,54 +30,54 @@
 #' visualise_dependencies(.f = sak::open_path)
 #' }
 visualise_dependencies <- function(.f = NULL, ...) {
-  rlang::check_installed("foodwebr")
-  rlang::check_installed("tidygraph")
-  rlang::check_installed("visNetwork")
+ rlang::check_installed("foodwebr")
+	rlang::check_installed("tidygraph")
+	rlang::check_installed("visNetwork")
 
-  fw <- foodwebr::foodweb(
-    FUN = .f,
-    filter = FALSE,
-    ...
-  )
+ fw <- foodwebr::foodweb(
+		FUN = .f,
+		filter = FALSE,
+		...
+	)
 
-  tidy_fw <- tidygraph::as_tbl_graph(fw)
+ tidy_fw <- tidygraph::as_tbl_graph(fw)
 
-  # Styling the network
-  main_col <- "lightblue"
-  hover_col <- "darkblue"
-  highlight_col <- "darkblue"
+ # Styling the network
+	main_col <- "lightblue"
+	hover_col <- "darkblue"
+	highlight_col <- "darkblue"
 
-  # Displaying the network
-  visNetwork::visIgraph(tidy_fw) %>%
-    visNetwork::visOptions(
-      highlightNearest = list(
-        enabled = TRUE,
-        hover = TRUE
-      ),
-      nodesIdSelection = list(
-        enabled = TRUE,
-        main = "Select function"
-      )
-    ) %>%
-    visNetwork::visEdges(
-      color = list(
-        color = main_col,
-        hover = hover_col,
-        highlight = highlight_col
-      ),
-      arrows = list(
-        to = list(
-          enabled = TRUE,
-          scaleFactor = 1
-        )
-      )
-    ) %>%
-    visNetwork::visNodes(
-      color = list(
-        background = main_col,
-        border = hover_col,
-        hover = hover_col,
-        highlight = highlight_col
-      )
-    )
+	# Displaying the network
+	visNetwork::visIgraph(tidy_fw) %>%
+		visNetwork::visOptions(
+			highlightNearest = list(
+				enabled = TRUE,
+				hover = TRUE
+			),
+			nodesIdSelection = list(
+				enabled = TRUE,
+				main = "Select function"
+			)
+		) %>%
+		visNetwork::visEdges(
+			color = list(
+				color = main_col,
+				hover = hover_col,
+				highlight = highlight_col
+			),
+			arrows = list(
+				to = list(
+					enabled = TRUE,
+					scaleFactor = 1L
+				)
+			)
+		) %>%
+		visNetwork::visNodes(
+			color = list(
+				background = main_col,
+				border = hover_col,
+				hover = hover_col,
+				highlight = highlight_col
+			)
+		)
 }

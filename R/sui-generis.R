@@ -29,8 +29,8 @@ sg <- function(.data) {
 
 	.data <- .data %>%
 		dplyr::select(
-			tidyselect::vars_select_helpers$where(is.character),
-			tidyselect::vars_select_helpers$where(is.factor)
+			tidyselect::vars_select_helpers$where(is.character), # nolint
+			tidyselect::vars_select_helpers$where(is.factor) # nolint
 		)
 
 	if (ncol(.data) == 0L) {
@@ -41,5 +41,5 @@ sg <- function(.data) {
 	.data %>%
 		names() %>%
 		purrr::map(~ unique(.data[.])) %>%
-		setNames(names(.data))
+  stats::setNames(names(.data))
 }

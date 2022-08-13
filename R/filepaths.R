@@ -4,7 +4,7 @@
 #'
 #' @export
 op <- function(path = ".", browser = getOption("browser")) {
-  fs::file_show(path = path, browser = browser)
+  fs::file_show(path = path, browser = browser) # nolint
 }
 
 #' Load all custom functions in a project
@@ -33,7 +33,7 @@ load_custom_functions <- function(path = "R/",
 
   funcs %>%
     purrr::discard(dir.exists) %>%
-    purrr::walk(source)
+    purrr::walk(source) # nolint
 }
 
 

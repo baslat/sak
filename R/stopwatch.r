@@ -19,6 +19,6 @@
 stopwatch <- function(expr) {
   # Time the expression
   time <- system.time(expr)
-  time <- time[3]
+  time <- time[[3L]]
   lubridate::seconds_to_period(time)
 }

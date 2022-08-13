@@ -12,5 +12,6 @@ full_setdiff(x, y)
 \item{y}{a vector to combine}
 }
 \description{
-Regular \code{setdiff()} is order-specific, but sometimes you just want to know what elements are just not in both lists. This function does that.
+Regular \code{setdiff()} is order-specific, but sometimes you just want to know
+what elements are just not in both lists. This function does that.
 }

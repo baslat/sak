@@ -14,14 +14,18 @@ user, often something like "do you want to proceed and run \verb{function()}?"}
 a logical where \code{TRUE} if the user wants to proceed
 }
 \description{
-A convenience wrapper to prompt the user if they want to proceed.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+A convenience wrapper to prompt the user if they want to proceed. Deprecated
+because it basically already exists as \code{usethis::ui_yeah()}.
 }
 \examples{
 \dontrun{
 use_renv <- ask_to_proceed("Do you want to set up renv?")
 
 if (use_renv) {
-  setup_renv()
+	setup_renv()
 }
 }
 }

@@ -4,7 +4,7 @@
 \alias{expand_bbox}
 \title{Extract and optionally expand a bounding box}
 \usage{
-expand_bbox(.data, exp_factor = 0.1, lon = "lon", lat = "lat", crs = 7844)
+expand_bbox(.data, exp_factor = 0.1, lon = "lon", lat = "lat", crs = 7844L)
 }
 \arguments{
 \item{.data}{(\code{tibble}) a \code{tibble} or \code{sf}}

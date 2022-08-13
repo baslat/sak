@@ -1,6 +1,6 @@
 #' Set up a VS Code workspace
 #'
-#' This function creates a VS Code workspace file tto track project-specific settings.
+#' This function creates a VS Code workspace file to track project-specific settings.
 #'
 #' @return nothing, called for side effects
 #'
