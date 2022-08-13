@@ -7,5 +7,5 @@
 is_package <- function() {
     safe_field <- purrr::safely(desc::desc_has_fields, otherwise = FALSE)
     res <- safe_field("Package")
-    res$result
+    res[["result"]]
 }

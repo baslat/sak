@@ -21,7 +21,7 @@ A convenience wrapper to prompt the user if they want to proceed.
 use_renv <- ask_to_proceed("Do you want to set up renv?")
 
 if (use_renv) {
-  setup_renv()
+	setup_renv()
 }
 }
 }

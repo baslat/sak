@@ -40,16 +40,16 @@ turning the object into a \code{tibble}, rather than a \code{data.frame}.
 \examples{
 \dontrun{
 sf <- tibble::tibble(
-  incident_type = c("fire", "flood", "cyclone"),
-  `Date start` = c("2020-08-13", "2020-09-17", "2020-10-24"),
-  `Responsible officials` = c("Tom", "Bob", "Jenny"),
-  lat = c(38.66, 18.3, 25.33),
-  lon = c(143.3, 132.7, 140.2)
+	incident_type = c("fire", "flood", "cyclone"),
+	`Date start` = c("2020-08-13", "2020-09-17", "2020-10-24"),
+	`Responsible officials` = c("Tom", "Bob", "Jenny"),
+	lat = c(38.66, 18.3, 25.33),
+	lon = c(143.3, 132.7, 140.2)
 ) \%>\%
-  sf::st_as_sf(
-    coords = c("lon", "lat"),
-    crs = "+proj=longlat +datum=WGS84"
-  )
+	sf::st_as_sf(
+		coords = c("lon", "lat"),
+		crs = "+proj=longlat +datum=WGS84"
+	)
 
 strip_geometry(.sf = sf, .name_repair = "universal")
 

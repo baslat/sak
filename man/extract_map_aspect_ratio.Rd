@@ -17,8 +17,8 @@ Take a plotted \code{ggmap} object and extract its aspect ratio.
 }
 \examples{
 \dontrun{
-map_raw <- get_stamenmap()
-map <- ggmap(map_raw)
+map_raw <- ggmap::get_stamenmap()
+map <- ggmap::ggmap(map_raw)
 asp <- extract_map_aspect_ratio(map)
 }
 

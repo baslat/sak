@@ -50,7 +50,7 @@ mutate_pmap <- function(.data,
 
 
   assertthat::assert_that(correct_args,
-    msg = "Note that the column names in `.data` don't full match the expected arguments in `.f`. You might want to rename some columns."
+    msg <- "Note that the column names in `.data` don't full match the expected arguments in `.f`. You might want to rename some columns." # nolint
   )
 
 

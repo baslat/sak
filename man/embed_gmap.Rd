@@ -32,8 +32,8 @@ into a \code{tibble}.
 \examples{
 \dontrun{
 embedded_maps <- base_map_params \%>\%
-  filter(geo_level == "state") \%>\%
-  mutate(gmap = embed_gmap(left, bottom, right, top, zoom, maptype)) \%>\%
-  ungroup()
+	filter(geo_level == "state") \%>\%
+	mutate(gmap = embed_gmap(left, bottom, right, top, zoom, maptype)) \%>\%
+	ungroup()
 }
 }
