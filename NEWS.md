@@ -1,4 +1,6 @@
 # sak 0.6.0
+- add `dollar_to_double_bracket()`
+- fix many `{lintr}` issues
 
 # sak 0.5.0
 - `sg()` now returns a named list
