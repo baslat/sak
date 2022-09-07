@@ -200,19 +200,7 @@ setup_project <- function(default_branch = NULL, type = "full") {
 
   use_targets <- ask_to_proceed("Do you want to use `{targets}`?")
   if (use_targets) {
-  # inspired by `tflow::use_tflow()`
-  usethis::use_directory("R")
-  usethis::use_template(
-    template = "_packages.R",
-    save_as = file.path("R", "_packages.R"),
-    package = "sak"
-  )
-  usethis::use_template("_targets.R", package = "sak")
-  usethis::use_template(
-    template = "dot.env",
-    save_as = ".env",
-    package = "sak"
-  )
+    setup_targets()
 }
 
 }

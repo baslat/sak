@@ -1,3 +1,6 @@
+# sak 0.7.0
+- adds `setup_targets()`
+
 # sak 0.6.0
 - add `dollar_to_double_bracket()`
 - fix many `{lintr}` issues

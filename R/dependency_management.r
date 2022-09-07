@@ -52,16 +52,16 @@ setup_renv <- function(
 	# Find the packs used in the repo
 	deps <- c() # nolint
 	if (search_for_deps) {
-  deps <- sort(unique(renv::dependencies()[["Package"]]))
+		deps <- sort(unique(renv::dependencies()[["Package"]]))
 	}
 
 	# Remove any deps that are in starter_packs with a specified version
 	spec_vers <- starter_packs %>%
-  purrr::keep(
+		purrr::keep(
 			stringr::str_detect,
 			pattern = "@"
 		) %>%
-			stringr::str_remove("@.*") # @ followed by anything
+		stringr::str_remove("@.*") # @ followed by anything
 
 	if (!rlang::is_empty(spec_vers)) {
 		deps <- deps %>%
@@ -71,24 +71,24 @@ setup_renv <- function(
 			)
 	}
 
- # Add them to the starter packs
+	# Add them to the starter packs
 	packs <- sort(unique(c(starter_packs, deps)))
 
- # Show the user,
- packs_nice <- toString(packs)
+	# Show the user,
+	packs_nice <- toString(packs)
 	message("Installing packages:\n", packs_nice)
 	proceed <- ask_to_proceed()
 
- if (!proceed) {
+	if (!proceed) {
 		message("Exiting!")
 		return(NULL)
 	}
 
- # load them into renv
+	# load them into renv
 	renv::install(packs)
 	message("Snapshotting...")
 	renv::snapshot(prompt = FALSE)
- message("Next steps:\n-- Restart your session\n-- Run sak::renv_restore_rspm()\n-- Restart again\n-- Run renv::status()! And ignore any yellow error bars at the top of the screen about packages not being installed!") # nolint
+	message("Next steps:\n-- Restart your session\n-- Run sak::renv_restore_rspm()\n-- Restart again\n-- Run renv::status()! And ignore any yellow error bars at the top of the screen about packages not being installed!") # nolint
 }
 
 
@@ -100,7 +100,14 @@ setup_renv <- function(
 #' @export
 #'
 setup_capsule <- function() {
- rlang::check_installed("capsule")
+	rlang::check_installed("capsule")
+	# Create R/_packages.R
+	usethis::use_directory("R")
+	usethis::use_template(
+		template = "_packages.R",
+		save_as = file.path("R", "_packages.R"),
+		package = "sak"
+	)
 	capsule::create(
 		dep_source_paths = file.path("R", "_packages.R"),
 		lockfile_path = "renv.lock"
