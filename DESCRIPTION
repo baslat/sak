@@ -1,6 +1,6 @@
 Package: sak
 Title: The Swiss Army Knife of R
-Version: 0.8.0
+Version: 0.8.1
 Authors@R:
     person("Bas", "Latcham", , "bas@latcham.au", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1733-7350"))
 Description: This is my personal package of helper functions. Like a Swiss
