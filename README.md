@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/baslat/sak/workflows/R-CMD-check/badge.svg)](https://github.com/baslat/sak/actions)
+[![R-CMD-check](https://github.com/baslat/sak/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/baslat/sak/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `sak` is my Swiss Army knife package, and it’s also where I put things.
@@ -31,48 +31,47 @@ library(sak)
 ## What are the unique values in each non-numeric dataframe column?
 sg(dplyr::storms)
 #> $name
-#> # A tibble: 214 × 1
-#>    name    
-#>    <chr>   
-#>  1 Amy     
-#>  2 Caroline
-#>  3 Doris   
-#>  4 Belle   
-#>  5 Gloria  
-#>  6 Anita   
-#>  7 Clara   
-#>  8 Evelyn  
-#>  9 Amelia  
-#> 10 Bess    
-#> # … with 204 more rows
-#> # ℹ Use `print(n = ...)` to see more rows
+#>   [1] "Amy"       "Caroline"  "Doris"     "Belle"     "Gloria"    "Anita"    
+#>   [7] "Clara"     "Evelyn"    "Amelia"    "Bess"      "Cora"      "Juliet"   
+#>  [13] "Ana"       "Bob"       "Claudette" "David"     "Frederic"  "Henri"    
+#>  [19] "Bonnie"    "Charley"   "Georges"   "Danielle"  "Hermine"   "Ivan"     
+#>  [25] "Jeanne"    "Karl"      "Emily"     "Floyd"     "Gert"      "Harvey"   
+#>  [31] "Katrina"   "Alberto"   "Beryl"     "Chris"     "Debby"     "Ernesto"  
+#>  [37] "Alicia"    "Barry"     "Chantal"   "Dean"      "Arthur"    "Cesar"    
+#>  [43] "Diana"     "Edouard"   "Gustav"    "Hortense"  "Isidore"   "Josephine"
+#>  [49] "Klaus"     "Lili"      "Danny"     "Fabian"    "Isabel"    "Juan"     
+#>  [55] "Kate"      "Andrew"    "AL031987"  "AL061988"  "Gilbert"   "Isaac"    
+#>  [61] "Joan"      "Keith"     "Allison"   "Erin"      "Felix"     "Gabrielle"
+#>  [67] "Hugo"      "Iris"      "Jerry"     "Karen"     "Marco"     "Nana"     
+#>  [73] "AL041991"  "Erika"     "AL101991"  "AL121991"  "AL021992"  "AL031992" 
+#>  [79] "AL081992"  "AL011993"  "AL101993"  "AL021994"  "AL051994"  "AL081994" 
+#>  [85] "AL091994"  "AL101994"  "Gordon"    "AL061995"  "Humberto"  "Luis"     
+#>  [91] "AL141995"  "Marilyn"   "Noel"      "Opal"      "Pablo"     "Roxanne"  
+#>  [97] "Sebastien" "Tanya"     "Kyle"      "Bill"      "AL061997"  "Alex"     
+#> [103] "Lisa"      "Mitch"     "Nicole"    "AL021999"  "AL071999"  "AL111999" 
+#> [109] "AL121999"  "Lenny"     "AL012000"  "AL022000"  "AL042000"  "AL092000" 
+#> [115] "Joyce"     "Leslie"    "Michael"   "Nadine"    "AL022001"  "AL092001" 
+#> [121] "Lorenzo"   "Michelle"  "Olga"      "Cristobal" "Fay"       "AL072002" 
+#> [127] "Hanna"     "AL142002"  "AL022003"  "AL062003"  "AL072003"  "AL092003" 
+#> [133] "AL142003"  "Larry"     "Mindy"     "Nicholas"  "Odette"    "Peter"    
+#> [139] "Gaston"    "AL102004"  "Matthew"   "Otto"      "Franklin"  "Ten"      
+#> [145] "Lee"       "Maria"     "Nate"      "Ophelia"   "Philippe"  "Rita"     
+#> [151] "Nineteen"  "Stan"      "Tammy"     "Vince"     "Wilma"     "Beta"     
+#> [157] "Gamma"     "Epsilon"   "Zeta"      "AL022006"  "Ingrid"    "Melissa"  
+#> [163] "Fifteen"   "Ike"       "Omar"      "Sixteen"   "Paloma"    "One"      
+#> [169] "Fred"      "Eight"     "Ida"       "Two"       "Colin"     "Five"     
+#> [175] "Fiona"     "Igor"      "Julia"     "Paula"     "Richard"   "Shary"    
+#> [181] "Tomas"     "Don"       "Katia"     "Al202011"  "Rina"      "Sean"     
+#> [187] "Kirk"      "Oscar"     "Patty"     "Rafael"    "Sandy"     "Tony"     
+#> [193] "Andrea"    "Dorian"    "Fernand"   "Gonzalo"   "Nine"      "Joaquin"  
+#> [199] "Ian"       "Four"      "Eleven"    "Three"     "Imelda"    "Nestor"   
+#> [205] "Isaias"    "Paulette"  "Rene"      "Sally"     "Teddy"     "Vicky"    
+#> [211] "Wilfred"   "Eta"       "Theta"     "Iota"     
 #> 
 #> $status
-#> # A tibble: 3 × 1
-#>   status             
-#>   <chr>              
-#> 1 tropical depression
-#> 2 tropical storm     
-#> 3 hurricane          
+#> [1] "tropical depression" "tropical storm"      "hurricane"          
 #> 
 #> $category
-#> # A tibble: 7 × 1
-#>   category
-#>   <ord>   
-#> 1 -1      
-#> 2 0       
-#> 3 1       
-#> 4 3       
-#> 5 2       
-#> 6 5       
-#> 7 4
+#> [1] -1 0  1  3  2  5  4 
+#> Levels: -1 < 0 < 1 < 2 < 3 < 4 < 5
 ```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/master/examples>.
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
