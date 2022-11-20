@@ -4,7 +4,7 @@
 \alias{show_linux_deps}
 \title{Show the command needed to install linux dependencies}
 \usage{
-show_linux_deps(deps = readClipboard())
+show_linux_deps(deps = clipr::read_clip())
 }
 \arguments{
 \item{deps}{(default = \code{readClipboard()}) the commands needed to install the

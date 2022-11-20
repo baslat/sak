@@ -36,6 +36,7 @@ Imports:
     vroom
 Suggests:
     capsule (>= 0.4.1),
+    clipr,
     foodwebr,
     ggmap,
     lintr (>= 3.0.0),

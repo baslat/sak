@@ -12,12 +12,13 @@
 #'
 #' @export
 #'
-show_linux_deps <- function(deps = readClipboard()) {
+show_linux_deps <- function(deps = clipr::read_clip()) {
+    rlang::check_installed("clipr")
     packs <- deps |>
         stringr::str_remove(stringr::fixed("apt-get install -y ")) |>
         paste(collapse = " ")
 
     command <- paste("apt-get install -y", packs)
-    writeClipboard(command)
+    clipr::write_clip(command)
     message("Now on the clipboard: ", command)
 }
