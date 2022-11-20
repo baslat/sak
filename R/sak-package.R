@@ -17,5 +17,6 @@
 #' @importFrom utils browseURL
 #' @importFrom utils getFromNamespace
 #' @importFrom utils URLencode
+#' @importFrom utils readClipboard writeClipboard
 ## usethis namespace: end
 NULL
