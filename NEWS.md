@@ -1,5 +1,7 @@
 # sak 0.8.0
 
+- adds `show_linux_deps()`
+
 # sak 0.7.0
 - adds `setup_targets()`
 
