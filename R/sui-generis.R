@@ -40,6 +40,6 @@ sg <- function(.data) {
 
 	.data %>%
 		names() %>%
-		purrr::map(~ unique(.data[.])) %>%
+		purrr::map(~ unique(.data[[.]])) %>%
   stats::setNames(names(.data))
 }
