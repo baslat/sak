@@ -1,13 +1,12 @@
 #' Add stacked labels to the right of a chart
 #'
-#' This function adds \code{\link[ggrepel]{geom_label_repel}} to a chart. It
-#' requires you to specify the label aesthetic in the original ggplot. It also
-#' extends the x-axis by a certain amount (20\% by default) so the labels have
-#' space. Most of the arguments get passed directly to
-#' \code{\link[ggrepel]{geom_label_repel}}. This expansion will combine with any
-#' other expansion present in the plot, such as arguments based to
-#' \code{scale_x_continuous}. It needs to be used with a \code{\%\>\%} and not a
-#' \code{\+}.
+#' This function adds [ggrepel::geom_label_repel()] to a chart. It requires you
+#' to specify the label aesthetic in the original ggplot. It also extends the
+#' x-axis by a certain amount (20\% by default) so the labels have space. Most
+#' of the arguments get passed directly to [ggrepel::geom_label_repel()]. This
+#' expansion will combine with any other expansion present in the plot, such as
+#' arguments based to [ggplot2::scale_x_continuous()]. It needs to be used with a
+#' \code{\%>\%} and not a \code{+}.
 #'
 #' If you get a warning about Aesthetics not being the right length for size,
 #' that's a cryptic message telling you to set the size argument. Setting it to
@@ -17,7 +16,7 @@
 #'   specified.
 #' @param pct_extend (numeric, default = \code{1.2}) how much to expand the
 #'   x-axis. The existing x-axis range will be multiplied by this value, so the
-#'   default expands by 20\%.
+#'   default expands by 20%.
 #' @param segment.colour (character; default = NA) colour of the line segment,
 #'   NA means no line segment
 #' @param segment.alpha (number; default = 0.5) the transparency of the line
@@ -30,6 +29,11 @@
 #'
 #' @return a \code{ggplot2} object
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' some_plot |> ch_add_stacked_labels()
+#' }
 #'
 ch_add_stacked_labels <- function(
 	.plot,

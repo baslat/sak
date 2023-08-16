@@ -25,7 +25,7 @@ specified.}
 
 \item{pct_extend}{(numeric, default = \code{1.2}) how much to expand the
 x-axis. The existing x-axis range will be multiplied by this value, so the
-default expands by 20\\%.}
+default expands by 20\%.}
 
 \item{segment.colour}{(character; default = NA) colour of the line segment,
 NA means no line segment}
@@ -54,17 +54,22 @@ segment}
 a \code{ggplot2} object
 }
 \description{
-This function adds \code{\link[ggrepel]{geom_label_repel}} to a chart. It
-requires you to specify the label aesthetic in the original ggplot. It also
-extends the x-axis by a certain amount (20\\% by default) so the labels have
-space. Most of the arguments get passed directly to
-\code{\link[ggrepel]{geom_label_repel}}. This expansion will combine with any
-other expansion present in the plot, such as arguments based to
-\code{scale_x_continuous}. It needs to be used with a \code{\%\>\%} and not a
-\code{\+}.
+This function adds \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel()}} to a chart. It requires you
+to specify the label aesthetic in the original ggplot. It also extends the
+x-axis by a certain amount (20\\% by default) so the labels have space. Most
+of the arguments get passed directly to \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel()}}. This
+expansion will combine with any other expansion present in the plot, such as
+arguments based to \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}. It needs to be used with a
+\code{\%>\%} and not a \code{+}.
 }
 \details{
 If you get a warning about Aesthetics not being the right length for size,
 that's a cryptic message telling you to set the size argument. Setting it to
 3 usually looks alright.
+}
+\examples{
+\dontrun{
+some_plot |> ch_add_stacked_labels()
+}
+
 }
