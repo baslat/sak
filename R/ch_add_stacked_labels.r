@@ -17,6 +17,8 @@
 #' @param pct_extend (numeric, default = \code{1.2}) how much to expand the
 #'   x-axis. The existing x-axis range will be multiplied by this value, so the
 #'   default expands by 20%.
+#' @param nudge_x (numeric; default = NULL) Horizontal and vertical adjustments
+#' to nudge the starting position of each text label.
 #' @param segment.colour (character; default = NA) colour of the line segment,
 #'   NA means no line segment
 #' @param segment.alpha (number; default = 0.5) the transparency of the line

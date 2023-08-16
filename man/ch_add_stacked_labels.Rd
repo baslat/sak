@@ -27,6 +27,9 @@ specified.}
 x-axis. The existing x-axis range will be multiplied by this value, so the
 default expands by 20\%.}
 
+\item{nudge_x}{(numeric; default = NULL) Horizontal and vertical adjustments
+to nudge the starting position of each text label.}
+
 \item{segment.colour}{(character; default = NA) colour of the line segment,
 NA means no line segment}
 
