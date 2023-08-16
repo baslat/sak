@@ -1,3 +1,7 @@
+# sak 0.9.0
+
+- adds `ch_add_stacked_labels()` by popular demand
+
 # sak 0.8.1
 
 - use {clipr} in `show_linux_deps()`

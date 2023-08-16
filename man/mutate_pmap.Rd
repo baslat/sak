@@ -14,27 +14,28 @@ more details.}
 \item{col_name}{(unquoted character) the name of the new column you want to
 add}
 
-\item{.f}{A function, formula, or vector (not necessarily atomic).
-
-If a \strong{function}, it is used as is.
-
-If a \strong{formula}, e.g. \code{~ .x + 2}, it is converted to a function. There
-are three ways to refer to the arguments:
+\item{.f}{A function, specified in one of the following ways:
 \itemize{
-\item For a single argument function, use \code{.}
-\item For a two argument function, use \code{.x} and \code{.y}
-\item For more arguments, use \code{..1}, \code{..2}, \code{..3} etc
-}
+\item A named function.
+\item An anonymous function, e.g. \verb{\\(x, y, z) x + y / z} or
+\code{function(x, y, z) x + y / z}
+\item A formula, e.g. \code{~ ..1 + ..2 / ..3}. This syntax is not recommended as
+you can only refer to arguments by position.
+}}
 
-This syntax allows you to create very compact anonymous functions.
+\item{...}{Additional arguments passed on to the mapped function.
 
-If \strong{character vector}, \strong{numeric vector}, or \strong{list}, it is
-converted to an extractor function. Character vectors index by
-name and numeric vectors index by position; use a list to index
-by position and name at different levels. If a component is not
-present, the value of \code{.default} will be returned.}
+We now generally recommend against using \code{...} to pass additional
+(constant) arguments to \code{.f}. Instead use a shorthand anonymous function:
 
-\item{...}{Additional arguments passed on to the mapped function.}
+\if{html}{\out{<div class="sourceCode R">}}\preformatted{# Instead of
+x |> map(f, 1, 2, collapse = ",")
+# do:
+x |> map(\\(x) f(x, 1, 2, collapse = ","))
+}\if{html}{\out{</div>}}
+
+This makes it easier to understand which arguments belong to which
+function and will tend to yield better error messages.}
 }
 \value{
 \code{.data} with a new column named after \code{col_name}.
