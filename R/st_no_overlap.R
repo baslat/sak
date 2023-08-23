@@ -6,7 +6,8 @@
 #' Voronoi tesselation around the centroids, and intersecting the Voronoi zones
 #' with the buffer zones of the original polygons. The resulting polygons do not
 #' overlap with each other, ensuring that they can be used for further analysis
-#' or visualization.
+#' or visualization. Inspired by [this
+#' post](https://gis.stackexchange.com/questions/358797/splitting-overlap-between-polygons-and-assign-to-nearest-polygon-using-r)
 #'
 #' @param polygons A set of polygons with attributes.
 #'

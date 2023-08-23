@@ -19,7 +19,7 @@ This is achieved by calculating the centroids of the polygons, creating a
 Voronoi tesselation around the centroids, and intersecting the Voronoi zones
 with the buffer zones of the original polygons. The resulting polygons do not
 overlap with each other, ensuring that they can be used for further analysis
-or visualization.
+or visualization. Inspired by \href{https://gis.stackexchange.com/questions/358797/splitting-overlap-between-polygons-and-assign-to-nearest-polygon-using-r}{this post}
 }
 \details{
 This function uses the \code{sf} package to calculate the centroids of
