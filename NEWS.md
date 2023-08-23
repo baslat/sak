@@ -1,3 +1,7 @@
+# sak 0.10.0
+
+- add `st_no_overlap()` to convert overlapping polygons into voronois
+
 # sak 0.9.0
 
 - adds `ch_add_stacked_labels()` by popular demand
