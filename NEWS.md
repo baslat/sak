@@ -1,3 +1,7 @@
+# sak 0.11.0
+
+- adds `extract_by_name()`
+
 # sak 0.10.0
 
 - add `st_no_overlap()` to convert overlapping polygons into voronois
