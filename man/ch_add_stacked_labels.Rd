@@ -37,7 +37,9 @@ NA means no line segment}
 number. Defaults to 0.5. (Default unit is lines, but other units can be
 specified by passing \code{unit(x, "units")}).}
 
-\item{max.overlaps}{Exclude text labels that overlap too many things.
+\item{max.overlaps}{Exclude text labels when they overlap too many other
+things. For each text label, we count how many other text labels or other
+data points it overlaps, and exclude the text label if it has too many overlaps.
 Defaults to 10.}
 
 \item{segment.alpha}{(number; default = 0.5) the transparency of the line
