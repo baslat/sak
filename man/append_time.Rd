@@ -13,7 +13,7 @@ timestamp}
 \item{time}{(datetime, default = \code{Sys.time()}) the datetime that will be
 appended to \code{path}.}
 
-\item{format}{A character string.  The default for the \code{format}
+\item{format}{a character string.  The default for the \code{format}
     methods is
     \code{"\%Y-\%m-\%d \%H:\%M:\%S"} if any element has a time
     component which is not midnight, and \code{"\%Y-\%m-\%d"}

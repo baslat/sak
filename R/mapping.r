@@ -18,43 +18,41 @@
 #'
 #'
 expand_bbox <- function(
-	.data,
-	exp_factor = 0.1,
-	lon = "lon",
-	lat = "lat",
-	crs = 7844L
+  .data,
+  exp_factor = 0.1,
+  lon = "lon",
+  lat = "lat",
+  crs = 7844L
 ) {
+  # If not sf, turn into sf
+  if (!any(stringr::str_detect(class(.data), stringr::fixed("sf")))) {
+    .data <- .data %>%
+      sf::st_as_sf(coords = c(lon, lat), crs = crs)
+  }
+  # Get the bounding box
+  bb <- .data %>%
+    sf::st_bbox()
 
- # If not sf, turn into sf
- if (!any(stringr::str_detect(class(.data), stringr::fixed("sf")))) {
-		.data <- .data %>%
-			sf::st_as_sf(coords = c(lon, lat), crs = crs)
-	}
- # Get the bounding box
- bb <- .data %>%
-		sf::st_bbox()
+  # Get the range of the data passed
+  xrange <- bb[["xmax"]] - bb[["xmin"]]
+  yrange <- bb[["ymax"]] - bb[["ymin"]]
 
- # Get the range of the data passed
- xrange <- bb[["xmax"]] - bb[["xmin"]]
- yrange <- bb[["ymax"]] - bb[["ymin"]]
+  # Replace values with expanded values
+  bb[[1L]] <- bb[[1L]] - (exp_factor * xrange) # xmin - left
+  bb[[2L]] <- bb[[2L]] - (exp_factor * yrange) # ymin - bottom
+  bb[[3L]] <- bb[[3L]] + (exp_factor * xrange) # xmax - right
+  bb[[4L]] <- bb[[4L]] + (exp_factor * yrange) # ymax - top
 
- # Replace values with expanded values
- bb[[1L]] <- bb[[1L]] - (exp_factor * xrange) # xmin - left
- bb[[2L]] <- bb[[2L]] - (exp_factor * yrange) # ymin - bottom
- bb[[3L]] <- bb[[3L]] + (exp_factor * xrange) # xmax - right
- bb[[4L]] <- bb[[4L]] + (exp_factor * yrange) # ymax - top
+  # Need to add a name switch, but when is it xmin and when is it left?
+  names(bb) <- c(
+    "left",
+    "bottom",
+    "right",
+    "top"
+  )
 
- # Need to add a name switch, but when is it xmin and when is it left?
- names(bb) <- c(
-		"left",
-		"bottom",
-		"right",
-		"top"
-	)
-
- return(bb)
+  return(bb)
 }
-
 
 
 #' Extract the aspect ratio of a ggplot map
@@ -73,19 +71,22 @@ expand_bbox <- function(
 #' }
 #'
 extract_map_aspect_ratio <- function(.ggmap) {
- rlang::check_installed("ggmap")
- # Get the coordinate projection
- coord <- ggplot2::coord_quickmap(.ggmap)
+  rlang::check_installed("ggmap")
+  # Get the coordinate projection
+  coord <- ggplot2::coord_quickmap(.ggmap)
 
- # Get the ranges
- x_range <- ggplot2::ggplot_build(.ggmap)[["layout"]][["panel_scales_x"]][[1L]][["range"]][["range"]]
- y_range <- ggplot2::ggplot_build(.ggmap)[["layout"]][["panel_scales_y"]][[1L]][["range"]][["range"]]
+  # Get the ranges
+  x_range <- ggplot2::ggplot_build(.ggmap)[["layout"]][["panel_scales_x"]][[
+    1L
+  ]][["range"]][["range"]]
+  y_range <- ggplot2::ggplot_build(.ggmap)[["layout"]][["panel_scales_y"]][[
+    1L
+  ]][["range"]][["range"]]
 
+  # Calculate the aspect ratio of height to width
+  asp <- coord[["aspect"]](list(x.range = x_range, y.range = y_range))
 
- # Calculate the aspect ratio of height to width
- asp <- coord[["aspect"]](list(x.range = x_range, y.range = y_range))
-
- return(asp)
+  return(asp)
 }
 
 
@@ -114,42 +115,42 @@ extract_map_aspect_ratio <- function(.ggmap) {
 #' absmapsdata::lga2018 %>% normalise_geo_names()
 #' }
 normalise_geo_names <- function(
-	.data,
-	remove_year = TRUE,
-	make_lower = TRUE
+  .data,
+  remove_year = TRUE,
+  make_lower = TRUE
 ) {
-	rlang::check_installed("tidyselect")
+  rlang::check_installed("tidyselect")
 
-	clean_dat <- .data %>%
-		# Make columns characters, and exclude columns with area in the name
-		dplyr::mutate(
-			dplyr::across(
-				c(
-					tidyselect::matches("(_[0-9]{2,4}|[0-9]{2,4}|code)"),
-					-tidyselect::matches("area")
-				), # Not the area column
-				as.character
-			)
-		)
+  clean_dat <- .data %>%
+    # Make columns characters, and exclude columns with area in the name
+    dplyr::mutate(
+      dplyr::across(
+        c(
+          tidyselect::matches("(_[0-9]{2,4}|[0-9]{2,4}|code)"),
+          -tidyselect::matches("area")
+        ), # Not the area column
+        as.character
+      )
+    )
 
- # Remove "_NN"-"_NNNN" or "NN"-"NNNN" from column names
- if (remove_year) {
-		clean_dat <- clean_dat %>%
-			dplyr::rename_with(
-				.fn = stringr::str_remove_all,
-				pattern = "(_[0-9]{2,4}|[0-9]{2,4})",
-				.cols = tidyselect::matches("(_[0-9]{2,4}|[0-9]{2,4})")
-			)
-	}
+  # Remove "_NN"-"_NNNN" or "NN"-"NNNN" from column names
+  if (remove_year) {
+    clean_dat <- clean_dat %>%
+      dplyr::rename_with(
+        .fn = stringr::str_remove_all,
+        pattern = "(_[0-9]{2,4}|[0-9]{2,4})",
+        .cols = tidyselect::matches("(_[0-9]{2,4}|[0-9]{2,4})")
+      )
+  }
 
- if (make_lower) {
-		clean_dat <- clean_dat %>%
-			dplyr::rename_with(
-				.fn = tolower,
-				.cols = tidyselect::everything()
-			)
-	}
- clean_dat
+  if (make_lower) {
+    clean_dat <- clean_dat %>%
+      dplyr::rename_with(
+        .fn = tolower,
+        .cols = tidyselect::everything()
+      )
+  }
+  clean_dat
 }
 
 
@@ -181,34 +182,34 @@ standardise_geo_names <- normalise_geo_names
 #' }
 #'
 fix_ggmap_bbox <- function(.map) {
- rlang::check_installed("ggmap")
- assertthat::assert_that(
-		inherits(.map, "ggmap"),
-		msg = ".map must be a ggmap object"
-	)
+  rlang::check_installed("ggmap")
+  assertthat::assert_that(
+    inherits(.map, "ggmap"),
+    msg = ".map must be a ggmap object"
+  )
 
- # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector,
-	# and set the names to what sf::st_bbox expects:
- map_bbox <- stats::setNames(
-		unlist(attr(.map, "bb")),
-		c("ymin", "xmin", "ymax", "xmax")
-	)
+  # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector,
+  # and set the names to what sf::st_bbox expects:
+  map_bbox <- stats::setNames(
+    unlist(attr(.map, "bb")),
+    c("ymin", "xmin", "ymax", "xmax")
+  )
 
- # Convert the bbox to an sf polygon, transform it to 3857,
-	# and convert back to a bbox (convoluted, but it works)
- bbox_3857 <- sf::st_bbox(map_bbox, crs = 4326L) %>%
-		sf::st_as_sfc() %>%
-  sf::st_transform(3857L) %>%
-			sf::st_bbox()
+  # Convert the bbox to an sf polygon, transform it to 3857,
+  # and convert back to a bbox (convoluted, but it works)
+  bbox_3857 <- sf::st_bbox(map_bbox, crs = 4326L) %>%
+    sf::st_as_sfc() %>%
+    sf::st_transform(3857L) %>%
+    sf::st_bbox()
 
- # nolint start
-	# Overwrite the bbox of the ggmap object with the transformed coordinates
- attr(.map, "bb")[["ll.lat"]] <- bbox_3857["ymin"]
- attr(.map, "bb")[["ll.lon"]] <- bbox_3857["xmin"]
- attr(.map, "bb")[["ur.lat"]] <- bbox_3857["ymax"]
- attr(.map, "bb")[["ur.lon"]] <- bbox_3857["xmax"]
- # nolint end
- return(.map)
+  # nolint start
+  # Overwrite the bbox of the ggmap object with the transformed coordinates
+  attr(.map, "bb")[["ll.lat"]] <- bbox_3857["ymin"]
+  attr(.map, "bb")[["ll.lon"]] <- bbox_3857["xmin"]
+  attr(.map, "bb")[["ur.lat"]] <- bbox_3857["ymax"]
+  attr(.map, "bb")[["ur.lon"]] <- bbox_3857["xmax"]
+  # nolint end
+  return(.map)
 }
 
 
@@ -249,29 +250,31 @@ fix_ggmap_bbox <- function(.map) {
 #' strip_geometry(.sf = sf, .name_repair = janitor::make_clean_names)
 #' }
 strip_geometry <- function(.sf, .name_repair = "universal") {
- assertthat::assert_that(
-		class(.sf)[[1L]] == "sf",
-		msg = "Object is not of class sf"
-	)
- assertthat::assert_that(
-		is.character(.name_repair) | is.function(.name_repair),
-		msg = ".name_repair is not a character or a function which acts on the column names."
-	)
- assertthat::assert_that(
-		length(.name_repair) == 1L,
-		msg = ".name_repair is not of length 1, please enter a single quoted character or function not a list."
-	)
- assertthat::assert_that(
-		if (is.character(.name_repair)) {
-			.name_repair %in% c("minimal", "unique", "check_unique", "universal")
-			TRUE
-		},
-		msg = glue::glue(".name_repair is not one of 'minimal', 'unique', 'check_unique', 'universal'")
-	)
+  assertthat::assert_that(
+    class(.sf)[[1L]] == "sf",
+    msg = "Object is not of class sf"
+  )
+  assertthat::assert_that(
+    is.character(.name_repair) | is.function(.name_repair),
+    msg = ".name_repair is not a character or a function which acts on the column names."
+  )
+  assertthat::assert_that(
+    length(.name_repair) == 1L,
+    msg = ".name_repair is not of length 1, please enter a single quoted character or function not a list."
+  )
+  assertthat::assert_that(
+    if (is.character(.name_repair)) {
+      .name_repair %in% c("minimal", "unique", "check_unique", "universal")
+      TRUE
+    },
+    msg = glue::glue(
+      ".name_repair is not one of 'minimal', 'unique', 'check_unique', 'universal'"
+    )
+  )
 
- .sf %>%
-		sf::st_set_geometry(NULL) %>%
-		tibble::as_tibble(.name_repair = .name_repair)
+  .sf %>%
+    sf::st_set_geometry(NULL) %>%
+    tibble::as_tibble(.name_repair = .name_repair)
 }
 
 
@@ -294,83 +297,86 @@ strip_geometry <- function(.sf, .name_repair = "universal") {
 #' st_intersection_quicker(burnscar, lga_shapefile)
 #' }
 st_intersection_quicker <- function(.x, .y, verbose = TRUE) {
- old_crs_x <- sf::st_crs(.x)
- old_crs_y <- sf::st_crs(.y)
+  old_crs_x <- sf::st_crs(.x)
+  old_crs_y <- sf::st_crs(.y)
 
- assertthat::assert_that(
-		old_crs_x == old_crs_y,
-		msg = "The CRS of each sf has to be the same"
-	)
+  assertthat::assert_that(
+    old_crs_x == old_crs_y,
+    msg = "The CRS of each sf has to be the same"
+  )
 
- # Silence some warnings about
-	# "attribute variables are assumed to be spatially constant throughout all geometries"
- sf::st_agr(.x) <- "constant"
- sf::st_agr(.y) <- "constant"
+  # Silence some warnings about
+  # "attribute variables are assumed to be spatially constant throughout all geometries"
+  sf::st_agr(.x) <- "constant"
+  sf::st_agr(.y) <- "constant"
 
- # Convert to equirectangular projection to silence planar warnings
- .x <- sf::st_transform(.x, "+proj=eqc")
- .y <- sf::st_transform(.y, "+proj=eqc")
+  # Convert to equirectangular projection to silence planar warnings
+  .x <- sf::st_transform(.x, "+proj=eqc")
+  .y <- sf::st_transform(.y, "+proj=eqc")
 
- # Get just the features that intersect
- common <- sf::st_intersects(.x, .y)
+  # Get just the features that intersect
+  common <- sf::st_intersects(.x, .y)
 
- feat_subset <- .x[lengths(common) > 0L, ]
+  feat_subset <- .x[lengths(common) > 0L, ]
 
-	if (verbose) {
-		# Estimate time and provide some messages so the user can read something while
-		# they wait
-		n_rows <- nrow(feat_subset)
-  per_row <- 1000.0 / 74.0
+  if (verbose) {
+    # Estimate time and provide some messages so the user can read something while
+    # they wait
+    n_rows <- nrow(feat_subset)
+    per_row <- 1000.0 / 74.0
 
-  new_seconds <- per_row * n_rows / 1e3L
-  old_seconds <- per_row * nrow(.x) / 1e3L
+    new_seconds <- per_row * n_rows / 1e3L
+    old_seconds <- per_row * nrow(.x) / 1e3L
 
-  time_new <- lubridate::seconds_to_period(new_seconds)
-  time_new_form <- sprintf(
-			"%02d:%02d:%02d",
-			time_new@hour,
-			lubridate::minute(time_new),
-			round(lubridate::second(time_new))
-		)
+    time_new <- lubridate::seconds_to_period(new_seconds)
+    time_new_form <- sprintf(
+      "%02d:%02d:%02d",
+      time_new@hour,
+      lubridate::minute(time_new),
+      round(lubridate::second(time_new))
+    )
 
-  time_old <- lubridate::seconds_to_period(old_seconds)
-  time_old_form <- sprintf(
-			"%02d:%02d:%02d",
-			time_old@hour,
-			lubridate::minute(time_old),
-			round(lubridate::second(time_old))
-		)
+    time_old <- lubridate::seconds_to_period(old_seconds)
+    time_old_form <- sprintf(
+      "%02d:%02d:%02d",
+      time_old@hour,
+      lubridate::minute(time_old),
+      round(lubridate::second(time_old))
+    )
 
-  time_save <- lubridate::seconds_to_period(old_seconds - new_seconds)
-  time_save_form <- sprintf(
-			"%02d:%02d:%02d",
-			time_save@hour,
-			lubridate::minute(time_save),
-			round(lubridate::second(time_save))
-		)
+    time_save <- lubridate::seconds_to_period(old_seconds - new_seconds)
+    time_save_form <- sprintf(
+      "%02d:%02d:%02d",
+      time_save@hour,
+      lubridate::minute(time_save),
+      round(lubridate::second(time_save))
+    )
 
+    glue::glue(
+      "{scales::label_comma()(n_rows)} intersecting features, this might take around {time_new_form}."
+    ) %>%
+      message()
 
-  glue::glue("{scales::label_comma()(n_rows)} intersecting features, this might take around {time_new_form}.") %>%
-			message()
+    glue::glue(
+      "If you used `sf::st_intersection()`, this would have taken about {time_old_form}."
+    ) %>%
+      message()
 
+    glue::glue(
+      "So, this new function is about {scales::label_percent()(1 - new_seconds/old_seconds)} faster, and saved you about {time_save_form}. What will you do with all your new time?"
+    ) %>% # nolint
+      message()
+  }
+  # Calculate the intersection on the subset and restore the CRS
+  intersected_data <- sf::st_intersection(feat_subset, .y) %>%
+    sf::st_transform(old_crs_x)
 
-  glue::glue("If you used `sf::st_intersection()`, this would have taken about {time_old_form}.") %>%
-			message()
-
-		glue::glue("So, this new function is about {scales::label_percent()(1 - new_seconds/old_seconds)} faster, and saved you about {time_save_form}. What will you do with all your new time?") %>% # nolint
-			message()
-	}
-	# Calculate the intersection on the subset and restore the CRS
-	intersected_data <- sf::st_intersection(feat_subset, .y) %>%
-		sf::st_transform(old_crs_x)
-
- return(intersected_data)
+  return(intersected_data)
 }
 utils::globalVariables(c("time_new_form", "time_old_form", "time_save_form"))
 
 
 # Map data ----
-
 
 #' Parameters for UCL and state base maps
 #'
@@ -421,22 +427,22 @@ utils::globalVariables(c("time_new_form", "time_old_form", "time_save_form"))
 #' 	ungroup()
 #' }
 embed_gmap <- function(
-	left,
-	bottom,
-	right,
-	top,
-	zoom,
-	maptype,
-	...
+  left,
+  bottom,
+  right,
+  top,
+  zoom,
+  maptype,
+  ...
 ) {
-	rlang::check_installed("ggmap")
-	ggmap::get_stamenmap(
-		bbox = c(left, bottom, right, top),
-		zoom = zoom,
-		maptype = maptype,
-		...
-	) %>%
-		list()
+  rlang::check_installed("ggmap")
+  ggmap::get_stamenmap(
+    bbox = c(left, bottom, right, top),
+    zoom = zoom,
+    maptype = maptype,
+    ...
+  ) %>%
+    list()
 }
 
 
@@ -458,25 +464,25 @@ embed_gmap <- function(
 #' list_of_basemaps <- extract_gmaps(embedded_maps) %>% map(fix_ggmap_bbox)
 #' }
 extract_gmaps <- function(
-	.data,
-	col
+  .data,
+  col
 ) {
-	map_names <- .data %>%
-		dplyr::ungroup() %>%
-  dplyr::pull(.data[["geo_name"]])
+  map_names <- .data %>%
+    dplyr::ungroup() %>%
+    dplyr::pull(.data[["geo_name"]])
 
- extracted_maps <- .data %>%
-		dplyr::ungroup() %>%
-		dplyr::pull({{ col }}) %>%
-		purrr::set_names(map_names)
+  extracted_maps <- .data %>%
+    dplyr::ungroup() %>%
+    dplyr::pull({{ col }}) %>%
+    purrr::set_names(map_names)
 
- # If the incoming tibble is one row, I expect the result to be a gmap, not a
-	# list of length one
- if (length(extracted_maps) == 1L) {
-		extracted_maps <- extracted_maps[[1L]]
-	}
+  # If the incoming tibble is one row, I expect the result to be a gmap, not a
+  # list of length one
+  if (length(extracted_maps) == 1L) {
+    extracted_maps <- extracted_maps[[1L]]
+  }
 
- return(extracted_maps)
+  return(extracted_maps)
 }
 
 
@@ -484,41 +490,28 @@ extract_gmaps <- function(
 #'
 #' The curse of Australian geography are the areas span orders of magnitudes.
 #' This means automating maps with basemaps is troublesome because a suitable
-#' zoom for one area is wrong for another. Well, no more! This function uses
-#' some sweet trigonometry and logarithms to suggest an appropriate zoom level.
+#' zoom for one area is wrong for another. Well, no more! This function suggests
+#' an appropriate zoom level for maps.
 #'
-#' @param bbox a word string bounding box (ie with labels 'left', 'top' etc)
+#' @param x (sf object) an sf object
 #'
 #' @return a suggested zoom level as a number
 #' @export
 #'
-#' @examples
-#' \dontrun{
-#' act <- c("left" = 148.936148, "bottom" = -35.547871, "right" = 149.268683, "top" = -35.119909)
-#' attr(act, "class") <- "bbox"
-#' suggest_zoom(bbox)
-#' }
-suggest_zoom <- function(bbox) {
- # Get some averages of the bbox
- mean_lat <- mean(c(bbox[["top"]], bbox[["bottom"]]))
- lat_range <- unname(abs(bbox[["top"]] - bbox[["bottom"]]))
- lon_range <- unname(abs(bbox[["right"]] - bbox[["left"]]))
+suggest_zoom <- function(x) {
+  if (!sf::st_crs(x) == 4326) {
+    x <- sf::st_transform(x, crs = 4326L)
+  }
 
- # Rough distance of one degree (m)
- lat_m <- 111111L
+  bbox <- sf::st_bbox(x)
 
- # Distance of bounding box in m
- vert <- lat_range * lat_m
- horiz <- abs(lon_range * cos(mean_lat) * lat_m)
+  x_len <- bbox["xmax"] - bbox["xmin"]
+  y_len <- bbox["ymax"] - bbox["ymin"]
 
- # Model how many meters each pixel should show
- met <- unname(stats::predict(suggest_zoom_model, tibble::tibble(vert, horiz)))
+  x_zoom <- ceiling(log2(360 * 2 / x_len))
+  y_zoom <- ceiling(log2(180 * 2 / y_len))
 
- zoom <- round(log2((cos(mean_lat * pi / 180.0) * pi * 6378137.0) / (128.0 * met)))
-	# 18 is the max
- zoom <- min(zoom, 18L)
-
- return(zoom)
+  min(x_zoom, y_zoom, 18)
 }
 
 #' Swap the coordinates in an `sf`
@@ -535,10 +528,12 @@ suggest_zoom <- function(bbox) {
 #' my_sf %>% swap_coords()
 #' }
 swap_coords <- function(.data, geometry = geometry) {
- .data %>%
-		dplyr::mutate({{ geometry }} := purrr::modify(
-			{{ geometry }},
-			purrr::modify,
-			~ list(.[[1L]][, c(2L, 1L)])
-		))
+  .data %>%
+    dplyr::mutate(
+      {{ geometry }} := purrr::modify(
+        {{ geometry }},
+        purrr::modify,
+        ~ list(.[[1L]][, c(2L, 1L)])
+      )
+    )
 }
