@@ -1,6 +1,6 @@
-#' Set up {targets}
+#' Set up \{targets\}
 #'
-#' Set up boilerplate for using {targets}.
+#' Set up boilerplate for using \{targets\}.
 #'
 #' @return nothing, used for side effects
 #'

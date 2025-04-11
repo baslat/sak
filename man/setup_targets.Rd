@@ -2,7 +2,7 @@
 % Please edit documentation in R/setup_targets.R
 \name{setup_targets}
 \alias{setup_targets}
-\title{Set up {targets}}
+\title{Set up \{targets\}}
 \usage{
 setup_targets()
 }
@@ -10,5 +10,5 @@ setup_targets()
 nothing, used for side effects
 }
 \description{
-Set up boilerplate for using {targets}.
+Set up boilerplate for using \{targets\}.
 }
