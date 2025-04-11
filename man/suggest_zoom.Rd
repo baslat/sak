@@ -4,10 +4,10 @@
 \alias{suggest_zoom}
 \title{Suggest a zoom level for a basemap}
 \usage{
-suggest_zoom(bbox)
+suggest_zoom(x)
 }
 \arguments{
-\item{bbox}{a word string bounding box (ie with labels 'left', 'top' etc)}
+\item{x}{(sf object) an sf object}
 }
 \value{
 a suggested zoom level as a number
@@ -15,13 +15,6 @@ a suggested zoom level as a number
 \description{
 The curse of Australian geography are the areas span orders of magnitudes.
 This means automating maps with basemaps is troublesome because a suitable
-zoom for one area is wrong for another. Well, no more! This function uses
-some sweet trigonometry and logarithms to suggest an appropriate zoom level.
-}
-\examples{
-\dontrun{
-act <- c("left" = 148.936148, "bottom" = -35.547871, "right" = 149.268683, "top" = -35.119909)
-attr(act, "class") <- "bbox"
-suggest_zoom(bbox)
-}
+zoom for one area is wrong for another. Well, no more! This function suggests
+an appropriate zoom level for maps.
 }

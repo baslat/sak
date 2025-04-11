@@ -1,3 +1,7 @@
+# sak 0.12.0a
+
+- `suggest_zoom()` now accepts an sf object.
+
 # sak 0.11.0
 
 - adds `extract_by_name()`
